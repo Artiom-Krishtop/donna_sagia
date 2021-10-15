@@ -3,21 +3,54 @@
   <div class="inner">
     <div class="footer-phones">
       <div class="footer-phone">
-        <span class="number">+7 985 111-10-16</span><span class="label-phone">розничный отдел<br>(по будням с 10:00 до 19:00)</span>
+        <span class="number"><?$APPLICATION->IncludeComponent(
+          "bitrix:main.include",
+          "",
+          [
+          "AREA_FILE_SHOW" => "file",
+          "PATH" => SITE_DIR."include/telephone_donna_1.php"
+          ],
+          false
+        );?></span><span class="label-phone">розничный отдел<br>(по будням с 10:00 до 19:00)</span>
       </div>
 
       <div class="footer-phone">
-        <span class="number">+7 916 111-11-19</span><span class="label-phone">оптовый отдел<br>(по будням с 9:00 до 18:00)</span>
+        <span class="number"><?$APPLICATION->IncludeComponent(
+          "bitrix:main.include",
+          "",
+          [
+          "AREA_FILE_SHOW" => "file",
+          "PATH" => SITE_DIR."include/telephone_donna_2.php"
+          ],
+          false
+        );?></span><span class="label-phone">оптовый отдел<br>(по будням с 9:00 до 18:00)</span>
       </div>
     </div>
 
     <div class="info-menu">
-      <ul>
-        <li><a href="#">Как сделать заказ</a></li>
-        <li><a href="#">Доставка и полата</a></li>
-        <li><a href="#">Таблица размеров</a></li>
-        <li><a href="#">Оптовикам</a></li>
-      </ul>
+
+      <?$APPLICATION->IncludeComponent(
+	"bitrix:menu", 
+	"donna", 
+	array(
+		"ROOT_MENU_TYPE" => "bottom",
+		"MENU_CACHE_TYPE" => "A",
+		"MENU_CACHE_TIME" => "36000000",
+		"MENU_CACHE_USE_GROUPS" => "Y",
+		"MENU_THEME" => "site",
+		"CACHE_SELECTED_ITEMS" => "N",
+		"MENU_CACHE_GET_VARS" => array(
+		),
+		"MAX_LEVEL" => "2",
+		"CHILD_MENU_TYPE" => "podmenu",
+		"USE_EXT" => "N",
+		"DELAY" => "N",
+		"ALLOW_MULTI_SELECT" => "N",
+		"COMPONENT_TEMPLATE" => "donna"
+	),
+	false
+); ?>
+
     </div>
 
     <div class="company-menu">
@@ -36,15 +69,28 @@
       </ul>
     </div>
 
+      <!-- social -->
+
     <div class="social">
 
       <h3>Социальные сети</h3>
 
-      <div class="icons">
-        <a href="#" class="facebook"></a>
-        <a href="#" class="vk"></a>
-        <a href="#" class="instagram"></a>
-      </div>
+      <?$APPLICATION->IncludeComponent(
+	"bitrix:eshop.socnet.links", 
+	"donna", 
+	array(
+		"COMPONENT_TEMPLATE" => "donna",
+		"FACEBOOK" => "#",
+		"VKONTAKTE" => "#",
+		"TWITTER" => "",
+		"GOOGLE" => "",
+		"INSTAGRAM" => "#"
+	),
+	false
+);  ?>
+
+      <!-- end social -->
+
 
       <div class="subscribe-section">
         <!-- start form -->

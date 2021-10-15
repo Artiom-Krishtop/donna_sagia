@@ -281,7 +281,7 @@ input, select {
   margin: 0 0.5rem;
 
 }
-#navi li.opt {
+#navi li.selected {
   background: url(images/nav-active.jpg) repeat-x 0 0;
   background-color: #d31113;
 }
@@ -1903,23 +1903,6 @@ td .quantity .plus  {
 }
 .social h3 {
   padding-left: 0;
-}
-.icons {
-  margin-bottom: 1.5rem;
-}
-.icons a{
-  width: 25px;
-  height: 25px;
-  display: inline-block;
-  vertical-align: top;
-  background: url(images/social.jpg) no-repeat 0 0;
-  margin-right: 7px;
-}
-.icons a.vk {
-  background-position: -32px 0;
-}
-.icons a.instagram {
-  background-position: -64px 0;
 }
 .subscribe-section {
   width: 270px;
