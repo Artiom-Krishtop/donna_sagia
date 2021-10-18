@@ -47,8 +47,8 @@ $APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
 			<div class="title-section">Новости</div>
 
 			<?$APPLICATION->IncludeComponent(
-	"bitrix:news.list", 
-	"donna", 
+	"bitrix:news.list",
+	"donna",
 	array(
 		"ACTIVE_DATE_FORMAT" => "d.m.Y",
 		"ADD_SECTIONS_CHAIN" => "Y",

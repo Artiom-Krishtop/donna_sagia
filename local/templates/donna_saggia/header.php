@@ -46,14 +46,33 @@ $curPage = $APPLICATION->GetCurPage(true);
 
       <div class="search-section">
         <!-- start form -->
-        <form action="" method="post">
-          <fieldset>
-            <div class="search">
-              <input type="text" name="search-input" placeholder="Поиск по названию и номеру артикула" value="" />
-              <input type="submit" name="submit" value="" />
-            </div>
-          </fieldset>
-        </form>
+        <?$APPLICATION->IncludeComponent(
+	"bitrix:search.title",
+	"donna",
+	array(
+		"COMPONENT_TEMPLATE" => "donna",
+		"NUM_CATEGORIES" => "1",
+		"TOP_COUNT" => "5",
+		"ORDER" => "rank",
+		"USE_LANGUAGE_GUESS" => "Y",
+		"CHECK_DATES" => "N",
+		"SHOW_OTHERS" => "N",
+		"PAGE" => "#SITE_DIR#search/index.php",
+		"SHOW_INPUT" => "Y",
+		"INPUT_ID" => "title-search-input",
+		"CONTAINER_ID" => "title-search",
+		"CATEGORY_0_TITLE" => "",
+		"CATEGORY_0" => array(
+		),
+		"TEMPLATE_THEME" => "blue",
+		"PRICE_CODE" => "",
+		"PRICE_VAT_INCLUDE" => "Y",
+		"PREVIEW_TRUNCATE_LEN" => "",
+		"SHOW_PREVIEW" => "Y",
+		"CONVERT_CURRENCY" => "N"
+	),
+	false
+); ?>
         <!-- end of form -->
       </div>
 
@@ -95,23 +114,28 @@ $curPage = $APPLICATION->GetCurPage(true);
 
         <div class="bag">
 					<?$APPLICATION->IncludeComponent(
-						"bitrix:sale.basket.basket.line",
-						"bootstrap_v4",
-						array(
-							"PATH_TO_BASKET" => SITE_DIR."personal/cart/",
-							"PATH_TO_PERSONAL" => SITE_DIR."personal/",
-							"SHOW_PERSONAL_LINK" => "N",
-							"SHOW_NUM_PRODUCTS" => "Y",
-							"SHOW_TOTAL_PRICE" => "Y",
-							"SHOW_PRODUCTS" => "N",
-							"POSITION_FIXED" =>"N",
-							"SHOW_AUTHOR" => "Y",
-							"PATH_TO_REGISTER" => SITE_DIR."login/",
-							"PATH_TO_PROFILE" => SITE_DIR."personal/"
-						),
-						false,
-						array()
-					);?>
+	"bitrix:sale.basket.basket.line",
+	"bootstrap_v4",
+	array(
+		"PATH_TO_BASKET" => SITE_DIR."personal/cart/",
+		"PATH_TO_PERSONAL" => SITE_DIR."personal/",
+		"SHOW_PERSONAL_LINK" => "N",
+		"SHOW_NUM_PRODUCTS" => "Y",
+		"SHOW_TOTAL_PRICE" => "Y",
+		"SHOW_PRODUCTS" => "N",
+		"POSITION_FIXED" => "N",
+		"SHOW_AUTHOR" => "Y",
+		"PATH_TO_REGISTER" => SITE_DIR."login/",
+		"PATH_TO_PROFILE" => SITE_DIR."personal/",
+		"COMPONENT_TEMPLATE" => "bootstrap_v4",
+		"PATH_TO_ORDER" => SITE_DIR."personal/order/make/",
+		"SHOW_EMPTY_VALUES" => "Y",
+		"PATH_TO_AUTHORIZE" => "",
+		"SHOW_REGISTRATION" => "Y",
+		"HIDE_ON_BASKET_PAGES" => "Y"
+	),
+	false
+);?>
           <!-- В корзине 2 товара<br/>
           на сумму 217 590 руб. -->
         </div>
@@ -128,8 +152,8 @@ $curPage = $APPLICATION->GetCurPage(true);
 	<nav id="navi">
 
 		<?php $APPLICATION->IncludeComponent(
-	"bitrix:menu", 
-	"donna", 
+	"bitrix:menu",
+	"donna",
 	array(
 		"ROOT_MENU_TYPE" => "top",
 		"MENU_CACHE_TYPE" => "A",
@@ -154,11 +178,10 @@ $curPage = $APPLICATION->GetCurPage(true);
 
 	<!--region breadcrumb-->
 	<?if ($curPage != SITE_DIR."index.php"):?>
-	<div class="breadcrumbs">
-
+      <div class="inner">
 				<?$APPLICATION->IncludeComponent(
 					"bitrix:breadcrumb",
-					"universal",
+					"donna",
 					array(
 						"START_FROM" => "0",
 						"PATH" => "",
@@ -167,9 +190,7 @@ $curPage = $APPLICATION->GetCurPage(true);
 					false,
 					Array('HIDE_ICONS' => 'Y')
 				);?>
-
-	</div>
-		<h1 id="pagetitle"><?$APPLICATION->ShowTitle(false);?></h1>
+      </div>
 	<?endif?>
 	<!--endregion-->
 </div>

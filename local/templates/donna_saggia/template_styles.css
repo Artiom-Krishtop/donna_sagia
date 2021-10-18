@@ -137,7 +137,6 @@ input, select {
 .info-menu li a:hover,
 .company-menu li a:hover,
 .goods-description h3 a:hover,
-.breadcrumbs a:hover,
 .product-right-inner a:hover,
 .product-name h3 a:hover,
 .delete:hover {
@@ -930,23 +929,6 @@ input, select {
 .goods-slider .flex-direction-nav a.flex-next {
   right: 15px;
   background-position: right 0;
-}
-.breadcrumbs {
-  padding: 25px 0;
-  color: #353535;
-}
-.breadcrumbs a:first-child {
-  margin-left: 0;
-}
-.breadcrumbs a,
-.breadcrumbs span {
-  color: #353535;
-  font-size: 14px;
-  font-family: 'helveticaneuecyrroman', sans-serif;
-  margin: 0 0.7rem;
-}
-.breadcrumbs a {
-  text-decoration: none;
 }
 .catalog-top-text h1,
 .bag-content h1 {
