@@ -7,8 +7,3 @@
 
 $component = $this->getComponent();
 $arParams = $component->applyTemplateModifications();
-// foreach ($arResult['ITEMS'] as $key=>$item) {
-//
-//   print_r($key);
-//   echo '-------------------------------------------------------------------<br>';
-// }

@@ -211,6 +211,7 @@
 			this.formPosting = false;
 			this.enableButton();
 
+
 			if (result)
 			{
 				this.navParams.NavPageNomer++;
@@ -301,6 +302,7 @@
 				return;
 
 			var pagination = document.querySelectorAll('[data-pagination-num="' + this.navParams.NavNum + '"]');
+
 			for (var k in pagination)
 			{
 				if (pagination.hasOwnProperty(k))

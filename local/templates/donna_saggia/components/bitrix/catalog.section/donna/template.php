@@ -155,17 +155,7 @@ $generalParams = array(
 $obName = 'ob'.preg_replace('/[^a-zA-Z0-9_]/', 'x', $this->GetEditAreaId($navParams['NavNum']));
 $containerName = 'container-'.$navParams['NavNum'];
 
-if ($showTopPager)
-{
 	?>
-	<div data-pagination-num="<?=$navParams['NavNum']?>">
-		<!-- pagination-container -->
-		<?=$arResult['NAV_STRING']?>
-		<!-- pagination-container -->
-	</div>
-	<?
-}?>
-
 	<div class="catalog-top">
 		<div class="catalog-top-text">
 			<?if ($arParams['HIDE_SECTION_DESCRIPTION'] !== 'Y')
@@ -187,6 +177,19 @@ if ($showTopPager)
 		<div class="sort-left">
 			Сортировать:   <a class="active s-top">по цене</a> <a>по новизне</a>
 		</div>
+
+			<?if ($showTopPager)
+			{
+				?>
+				<div class="sort-right" data-pagination-num="<?=$navParams['NavNum']?>">
+					<!-- pagination-container -->
+					<?=$arResult['NAV_STRING']?>
+
+					<!-- pagination-container -->
+				</div>
+				<?
+			}?>
+			
 	</div>
 
 	<div class="catalog-list">
@@ -240,29 +243,22 @@ if ($showTopPager)
 	}
 	?>
 	</div>
+	<div class="sort last">
+	  <div class="sort-left">
+	    <a href="#" class="down">НАверх</a>
+	  </div>
+		<?if ($showBottomPager)
+		{
+			?>
+			<div class="sort-right" data-pagination-num="<?=$navParams['NavNum']?>">
+				<!-- pagination-container -->
+				<?=$arResult['NAV_STRING']?>
+				<!-- pagination-container -->
+			</div>
+			<?
+		}?>
+	</div>
 <?
-if ($showLazyLoad)
-{
-	?>
-	<div class="row bx-<?=$arParams['TEMPLATE_THEME']?>">
-		<div class="btn btn-default btn-lg center-block" style="margin: 15px;"
-			data-use="show-more-<?=$navParams['NavNum']?>">
-			<?=$arParams['MESS_BTN_LAZY_LOAD']?>
-		</div>
-	</div>
-	<?
-}
-
-if ($showBottomPager)
-{
-	?>
-	<div data-pagination-num="<?=$navParams['NavNum']?>">
-		<!-- pagination-container -->
-		<?=$arResult['NAV_STRING']?>
-		<!-- pagination-container -->
-	</div>
-	<?
-}
 
 $signer = new \Bitrix\Main\Security\Sign\Signer;
 $signedTemplate = $signer->sign($templateName, 'catalog.section');

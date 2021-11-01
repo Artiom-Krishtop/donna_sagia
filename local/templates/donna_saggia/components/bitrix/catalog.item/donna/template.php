@@ -45,7 +45,6 @@ if (isset($arResult['ITEM']))
 		'BASKET_PROP_DIV' => $areaId.'_basket_prop',
 	);
 	$obName = 'ob'.preg_replace("/[^a-zA-Z0-9_]/", "x", $areaId);
-	$isBig = isset($arResult['BIG']) && $arResult['BIG'] === 'Y';
 
 	$productTitle = isset($item['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE']) && $item['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE'] != ''
 		? $item['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE']
@@ -97,8 +96,8 @@ if (isset($arResult['ITEM']))
 	<div class="goods" id="<?=$areaId?>" data-entity="item">
     <div class="goods-inner">
 			<div data-entity="image-wrapper">
-    		<div class="goods-slider slide" <?=($showSlider ? '' : 'style="display: none"') ?> id="<?=$itemIds['PICT_SLIDER']?>"
-					data-slider-interval="span" data-slider-wrap="true">
+    		<div class="goods-slider" <?=($showSlider ? '' : 'style="display: none"') ?> id="<?=$itemIds['PICT_SLIDER']?>"
+					data-slider-interval="<?=$arParams['SLIDER_INTERVAL'] ?>" data-slider-wrap="true">
               <?
 							if ($showSlider) {
 								foreach ($morePhoto as $key => $photo)
@@ -121,7 +120,7 @@ if (isset($arResult['ITEM']))
 						foreach ($morePhoto as $key => $photo)
 						{
 							?>
-							<span class="ind" data-go-to="<?=$key?>"></span>
+							<div class="indicator" data-go-to="<?=$key?>"></div>
 							<?
 						}
 					}
@@ -137,28 +136,64 @@ if (isset($arResult['ITEM']))
 							<h3><?=$productTitle?></h3>
           <?php endif; ?>
 
-					<?php if (!empty($price)): ?>
-						<div class="cost" data-entity="price-block" id="<?=$itemIds['PRICE']?>"><?=$price['BASE_PRICE'] ?> руб.</div>
-					<?php endif; ?>
-
+					<div class="cost" id="<?=$itemIds['PRICE']?>"><?= !empty($price)? $price['PRINT_RATIO_PRICE'] : '' ?></div>
 
 					<?
 					if (!$haveOffers) {
 						if (!empty($item['DISPLAY_PROPERTIES'])) {
+							?>
+							<div data-entity="props-block">
+							<?
 							foreach ($item['DISPLAY_PROPERTIES'] as $displayProperty) {
 								?>
 								<div class="art"><?=$displayProperty['NAME']?> : <?=$displayProperty['DISPLAY_VALUE'] ?></div>
 								<?
 							}
+							?>
+							</div>
+							<?
 						}
 					}else {
 						$showProductProps = !empty($item['DISPLAY_PROPERTIES']);
+						$showOfferProps = $item['OFFERS_PROPS_DISPLAY'];
 
-						if ($showProductProps) {
-							foreach ($showProductProps as $displayProperty) {
+						if ($showProductProps || $showOfferProps) {
+							?>
+							<div data-entity="props-block">
+							<?
+							if ($showProductProps) {
+								foreach ($item['DISPLAY_PROPERTIES'] as $displayProperty) {
+									?>
+									<div class="art"><?=$displayProperty['NAME']?> : <?=$displayProperty['DISPLAY_VALUE'] ?></div>
+									<?
+								}
+							}
+
+							if ($showOfferProps) {
 								?>
-								<div class="art"><?=$displayProperty['NAME']?> : <?=$displayProperty['DISPLAY_VALUE'] ?></div>
+								<div id="<?=$itemIds['DISPLAY_PROP_DIV'] ?>" style="display: none;"></div>
 								<?
+							}
+							?>
+							</div>
+							<?
+							if ($item['OFFERS_PROPS_DISPLAY'])
+							{
+								foreach ($item['JS_OFFERS'] as $keyOffer => $jsOffer)
+								{
+									$strProps = '';
+
+									if (!empty($jsOffer['DISPLAY_PROPERTIES']))
+									{
+										foreach ($jsOffer['DISPLAY_PROPERTIES'] as $displayProperty)
+										{
+											$strProps .= '<div class="art">' . $displayProperty['NAME']. ':' . $displayProperty['VALUE']  . '</div>';
+										}
+									}
+
+									$item['JS_OFFERS'][$keyOffer]['DISPLAY_PROPERTIES'] = $strProps;
+								}
+								unset($jsOffer, $strProps);
 							}
 						}
 					}
@@ -203,6 +238,7 @@ if (isset($arResult['ITEM']))
 							}
 							?>
 						</div><?
+
 							foreach ($arParams['SKU_PROPS'] as $skuProperty)
 							{
 								if (!isset($item['OFFERS_PROP'][$skuProperty['CODE']]))
@@ -217,36 +253,11 @@ if (isset($arResult['ITEM']))
 							}
 
 							unset($skuProperty, $value);
-
-							if ($item['OFFERS_PROPS_DISPLAY'])
-							{
-								foreach ($item['JS_OFFERS'] as $keyOffer => $jsOffer)
-								{
-									$strProps = '';
-
-									if (!empty($jsOffer['DISPLAY_PROPERTIES']))
-									{
-										foreach ($jsOffer['DISPLAY_PROPERTIES'] as $displayProperty)
-										{
-											$strProps .= '<dt>'.$displayProperty['NAME'].'</dt><dd>'
-												.(is_array($displayProperty['VALUE'])
-													? implode(' / ', $displayProperty['VALUE'])
-													: $displayProperty['VALUE'])
-												.'</dd>';
-										}
-									}
-
-									$item['JS_OFFERS'][$keyOffer]['DISPLAY_PROPERTIES'] = $strProps;
-								}
-								unset($jsOffer, $strProps);
-							}
 						}
 					?>
     </div>
   </div>
 </div>
-	<?
-	?>
 
     <?
 		if (!$haveOffers)
@@ -426,12 +437,6 @@ if (isset($arResult['ITEM']))
 		?>
 		<script>
 			var <?=$obName?> = new JCCatalogItem(<?=CUtil::PhpToJSObject($jsParams, false, true)?>);
-		</script>
-		<script type="text/javascript">
-		$('.goods-slider').flexslider({
-			controlNav: false,
-			slideshow: false,
-		});
 		</script>
 	<?
 	unset($item, $actualItem, $minOffer, $itemIds, $jsParams);
