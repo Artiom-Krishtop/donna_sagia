@@ -1,0 +1,40 @@
+.color-filter span:hover {
+  opacity: 0.7;
+}
+.color-filter {
+  font-size: 0;
+}
+.color-filter span:nth-child(5n+5){
+  margin-right: 0;
+}
+.color-filter span {
+  vertical-align: top;
+  display: inline-block;
+  margin-right: 10px;
+  margin-bottom: 10px;
+}
+.color-filter span{
+  width: 20px;
+  height: 20px;
+  display: block;
+  border-radius: 3px;
+  cursor: pointer;
+  position: relative;
+}
+.color-filter span:after {
+  border: 3px solid transparent;
+  border-radius: 2px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  content: "";
+
+}
+.color-filter .active span:after{
+  border-color: #fff;
+}
+.color-filter span:nth-child(5n+5) {
+  margin-right: 10px;
+}

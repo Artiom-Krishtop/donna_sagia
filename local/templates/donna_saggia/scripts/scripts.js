@@ -1,17 +1,5 @@
 jQuery(document).ready(function() {
   //menu
-  jQuery(".drop").on("click", function(){
-    if(jQuery(this).hasClass("active")){
-      jQuery(this).removeClass("active");
-      jQuery(this).text("Развернуть опции");
-      jQuery(this).next().slideUp()
-    }else {
-      jQuery(this).addClass("active");
-      jQuery(this).text("Свернуть опции");
-      jQuery(this).next().slideDown()
-    }
-  });
-  //menu
   jQuery(".mobile-menu").on("click", function(){
     if(jQuery(this).hasClass("active")){
       jQuery(this).removeClass("active");
@@ -21,12 +9,12 @@ jQuery(document).ready(function() {
       jQuery("#navi").addClass("active");
     }
   });
-  
+
   //delete product
   jQuery(".delete").click(function(){
     if(jQuery(".delete").length == 1){
       jQuery(".my-orders").html("Ваша корзина пуста");
-    } else{ 
+    } else{
       jQuery(this).parent().parent().remove();
     }
      total();
@@ -37,14 +25,14 @@ jQuery(document).ready(function() {
     var count = jQuery(this).val()*1;
     var sum = cur * count;
     sum = sum.toString();
-    
+
     jQuery(this).parents("tr").find(".sum-bag span").text(sum);
     total();
   });
-  
+
   counter();
   total();
-  
+
   $(".various").fancybox({
 		maxWidth	: 1030,
 		maxHeight	: 850,
@@ -93,7 +81,7 @@ jQuery(document).ready(function() {
         })
         //buttons
         jQuery(".quantity div").on("click", function() {
-          
+
           var button = jQuery(this);
           var oldValue = button.parent().find("input").val();
 
@@ -171,7 +159,7 @@ jQuery(document).ready(function() {
   })
   //buttons
   jQuery(".quantity div").on("click", function() {
-    
+
     var button = jQuery(this);
     var oldValue = button.parent().find("input").val();
 
@@ -189,17 +177,17 @@ jQuery(document).ready(function() {
     button.parent().find("input").val(newVal);
     jQuery(this).parents(".quantity").find("input").trigger("keyup")
   });
-  
+
 	//put your scripts here
   $(".color-filter li").on("click", function(){
     if($(this).hasClass("active")){
       jQuery(this).removeClass("active");
-      
+
     } else {
       jQuery(this).addClass("active");
-      
-    } 
-    jQuery(".result").fadeIn();    
+
+    }
+    jQuery(".result").fadeIn();
   })
   $(".result").on("click", function(){
     jQuery(".result").fadeOut();
@@ -210,14 +198,14 @@ jQuery(document).ready(function() {
   });
 	$('.carousel').flexslider({
     controlNav: false,
-    
+
   });
-  
+
   $('.goods-slider').flexslider({
     controlNav: false,
     slideshow: false,
   });
-  
+
   $( "#slider-range" ).slider({
     range: true,
     min: 1000,
@@ -230,16 +218,16 @@ jQuery(document).ready(function() {
   });
   $( ".range-min" ).text($( "#slider-range" ).slider( "values", 0 ));
   $( ".range-max" ).text($( "#slider-range" ).slider( "values", 1 ));
-  
+
 });
 
 jQuery(window).load(function(){
   setEqualMinHeight(jQuery(".goods"));
-  
+
 })
 jQuery(window).resize(function(){
   setEqualMinHeight(jQuery(".goods"));
-  
+
 })
 
 function total(){
@@ -256,11 +244,11 @@ function counter(){
     var cur = jQuery(this).parents("tr").find(".cost-bag span").text()*1;
     var count = jQuery(this).val()*1;
     var sum = cur * count;
-    
+
     sum = sum.toString();
     jQuery(this).parents("tr").find(".sum-bag span").text(sum);
   });
-  
+
 }
 // EqualHeight
 function setEqualMinHeight(columns){

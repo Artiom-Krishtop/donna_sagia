@@ -8,7 +8,7 @@ $APPLICATION->SetTitle("Детальный просмотр");
 		"ACTION_VARIABLE" => "action",
 		"ADD_DETAIL_TO_SLIDER" => "N",
 		"ADD_ELEMENT_CHAIN" => "N",
-		"ADD_PICT_PROP" => "-",
+		"ADD_PICT_PROP" => "MORE_PHOTO",
 		"ADD_PROPERTIES_TO_BASKET" => "Y",
 		"ADD_SECTIONS_CHAIN" => "Y",
 		"ADD_TO_BASKET_ACTION" => array(
@@ -55,11 +55,12 @@ $APPLICATION->SetTitle("Детальный просмотр");
 		"IBLOCK_TYPE" => "catalog",
 		"IMAGE_RESOLUTION" => "16by9",
 		"LABEL_PROP" => array(
+			0 => "NEW_PRODUCT",
 		),
 		"LINK_ELEMENTS_URL" => "link.php?PARENT_ELEMENT_ID=#ELEMENT_ID#",
-		"LINK_IBLOCK_ID" => "",
-		"LINK_IBLOCK_TYPE" => "",
-		"LINK_PROPERTY_SID" => "",
+		"LINK_IBLOCK_ID" => "3",
+		"LINK_IBLOCK_TYPE" => "offers",
+		"LINK_PROPERTY_SID" => "CML2_LINK",
 		"MESSAGE_404" => "",
 		"MESS_BTN_ADD_TO_BASKET" => "В корзину",
 		"MESS_BTN_BUY" => "Купить",
@@ -74,6 +75,7 @@ $APPLICATION->SetTitle("Детальный просмотр");
 		"OFFERS_LIMIT" => "0",
 		"PARTIAL_PRODUCT_PROPERTIES" => "N",
 		"PRICE_CODE" => array(
+			0 => "BASE",
 		),
 		"PRICE_VAT_INCLUDE" => "Y",
 		"PRICE_VAT_SHOW_VALUE" => "N",
@@ -98,7 +100,7 @@ $APPLICATION->SetTitle("Детальный просмотр");
 		"SET_VIEWED_IN_COMPONENT" => "N",
 		"SHOW_404" => "N",
 		"SHOW_CLOSE_POPUP" => "N",
-		"SHOW_DEACTIVATED" => "N",
+		"SHOW_DEACTIVATED" => "Y",
 		"SHOW_DISCOUNT_PERCENT" => "N",
 		"SHOW_MAX_QUANTITY" => "N",
 		"SHOW_OLD_PRICE" => "N",
@@ -117,7 +119,33 @@ $APPLICATION->SetTitle("Детальный просмотр");
 		"USE_PRODUCT_QUANTITY" => "N",
 		"USE_RATIO_IN_RANGES" => "N",
 		"USE_VOTE_RATING" => "N",
-		"COMPONENT_TEMPLATE" => ".default"
+		"COMPONENT_TEMPLATE" => ".default",
+		"OFFERS_FIELD_CODE" => array(
+			0 => "NAME",
+			1 => "DETAIL_TEXT",
+			2 => "DETAIL_PICTURE",
+			3 => "DATE_ACTIVE_FROM",
+			4 => "",
+		),
+		"OFFERS_SORT_FIELD" => "sort",
+		"OFFERS_SORT_ORDER" => "asc",
+		"OFFERS_SORT_FIELD2" => "id",
+		"OFFERS_SORT_ORDER2" => "desc",
+		"MAIN_BLOCK_PROPERTY_CODE" => array(
+			0 => "ARTNUMBER",
+			1 => "COLOR_REF",
+			2 => "SIZES_CLOTHES",
+			3 => "MORE_PHOTO",
+		),
+		"MAIN_BLOCK_OFFERS_PROPERTY_CODE" => array(
+			0 => "ARTNUMBER",
+			1 => "COLOR_REF",
+			2 => "SIZES_CLOTHES",
+		),
+		"LABEL_PROP_MOBILE" => array(
+		),
+		"LABEL_PROP_POSITION" => "bottom-right",
+		"OFFER_ADD_PICT_PROP" => "MORE_PHOTO"
 	),
 	false
 );?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
