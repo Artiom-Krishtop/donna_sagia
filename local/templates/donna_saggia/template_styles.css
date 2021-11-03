@@ -125,6 +125,10 @@ hr {
 input, select {
 	vertical-align: middle;
 }
+/* input{
+  width: 100%;
+  border-width: 0px;
+} */
 
 /* floating */
 
@@ -733,7 +737,7 @@ input, select {
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
 }
-#slider-range{
+.slider-range{
   background: #e3e3e3;
   border-radius: 4px;
   height: 4px;
@@ -1092,32 +1096,26 @@ input, select {
   display: none;
   cursor: pointer;
 }
-.sale {
+.label{
+  position: absolute;
+  top: 15px;
+  left: -3px;
+  z-index: 9;
+}
+.label .sale {
   width: 46px;
   height: 23px;
   background: url(images/sale.png) no-repeat 0 0;
-  position: absolute;
-  top: 15px;
-  left: -3px;
-  z-index: 9;
 }
-.hit {
+.label .hit {
   width: 46px;
   height: 23px;
   background: url(images/hit.png) no-repeat 0 0;
-  position: absolute;
-  top: 15px;
-  left: -3px;
-  z-index: 9;
 }
-.new {
+.label .new {
   width: 46px;
   height: 23px;
   background: url(images/new.png) no-repeat 0 0;
-  position: absolute;
-  top: 15px;
-  left: -3px;
-  z-index: 9;
 }
 /*product*/
 .product-left {

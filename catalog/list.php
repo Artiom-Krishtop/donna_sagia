@@ -87,7 +87,7 @@ $APPLICATION->SetTitle("Список");
 			3 => "",
 		),
 		"FILTER_HIDE_ON_MOBILE" => "N",
-		"FILTER_NAME" => "",
+		"FILTER_NAME" => "arrFilter",
 		"FILTER_OFFERS_FIELD_CODE" => array(
 			0 => "NAME",
 			1 => "PREVIEW_TEXT",
@@ -105,9 +105,9 @@ $APPLICATION->SetTitle("Список");
 		),
 		"FILTER_PROPERTY_CODE" => array(
 			0 => "ARTNUMBER",
-			1 => "NEW_PRODUCT",
-			2 => "SIZES_CLOTHES",
-			3 => "COLOR_REF",
+			1 => "SIZES_CLOTHES",
+			2 => "COLOR_REF",
+			3 => "NEW_PRODUCT",
 			4 => "",
 		),
 		"FILTER_VIEW_MODE" => "VERTICAL",
@@ -134,11 +134,11 @@ $APPLICATION->SetTitle("Список");
 		"INCLUDE_SUBSECTIONS" => "Y",
 		"INSTANT_RELOAD" => "N",
 		"LABEL_PROP" => array(
-			0 => "NEW_PRODUCT",
+			0 => "NEW",
+			1 => "HIT",
+			2 => "SALE",
 		),
-		"LABEL_PROP_MOBILE" => array(
-			0 => "NEW_PRODUCT",
-		),
+		"LABEL_PROP_MOBILE" => "",
 		"LABEL_PROP_POSITION" => "top-left",
 		"LAZY_LOAD" => "N",
 		"LINE_ELEMENT_COUNT" => "50",
@@ -222,7 +222,8 @@ $APPLICATION->SetTitle("Список");
 		"SECTION_COUNT_ELEMENTS" => "N",
 		"SECTION_ID_VARIABLE" => "SECTION_ID",
 		"SECTION_TOP_DEPTH" => "2",
-		"SEF_MODE" => "N",
+		"SEF_FOLDER" => "/catalog/",
+		"SEF_MODE" => "Y",
 		"SET_LAST_MODIFIED" => "N",
 		"SET_STATUS_404" => "N",
 		"SET_TITLE" => "Y",
@@ -269,7 +270,7 @@ $APPLICATION->SetTitle("Список");
 		"USE_COMPARE" => "N",
 		"USE_ELEMENT_COUNTER" => "Y",
 		"USE_ENHANCED_ECOMMERCE" => "N",
-		"USE_FILTER" => "N",
+		"USE_FILTER" => "Y",
 		"USE_GIFTS_DETAIL" => "Y",
 		"USE_GIFTS_MAIN_PR_SECTION_LIST" => "Y",
 		"USE_GIFTS_SECTION" => "Y",
@@ -280,9 +281,17 @@ $APPLICATION->SetTitle("Список");
 		"USE_SALE_BESTSELLERS" => "Y",
 		"USE_STORE" => "N",
 		"COMPONENT_TEMPLATE" => "donna",
+		"SEF_URL_TEMPLATES" => array(
+			"sections" => "",
+			"section" => "#SECTION_CODE#/",
+			"element" => "#SECTION_CODE#/#ELEMENT_CODE#/",
+			"compare" => "compare.php?action=#ACTION_CODE#",
+			"smart_filter" => "#SECTION_ID#/filter/#SMART_FILTER_PATH#/apply/",
+		),
 		"VARIABLE_ALIASES" => array(
-			"ELEMENT_ID" => "ELEMENT_ID",
-			"SECTION_ID" => "SECTION_ID",
+			"compare" => array(
+				"ACTION_CODE" => "action",
+			),
 		)
 	),
 	false

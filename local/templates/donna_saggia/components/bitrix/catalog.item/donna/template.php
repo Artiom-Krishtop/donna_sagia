@@ -13,6 +13,7 @@ use \Bitrix\Main;
  * @var string $templateFolder
  */
 $this->setFrameMode(true);
+
 if (isset($arResult['ITEM']))
 {
 	$item = $arResult['ITEM'];
@@ -20,30 +21,14 @@ if (isset($arResult['ITEM']))
 	$itemIds = array(
 		'ID' => $areaId,
 		'PICT' => $areaId.'_pict',
-		'SECOND_PICT' => $areaId.'_secondpict',
 		'PICT_SLIDER' => $areaId.'_pict_slider',
 		'STICKER_ID' => $areaId.'_sticker',
-		'SECOND_STICKER_ID' => $areaId.'_secondsticker',
-		'QUANTITY' => $areaId.'_quantity',
-		'QUANTITY_DOWN' => $areaId.'_quant_down',
-		'QUANTITY_UP' => $areaId.'_quant_up',
-		'QUANTITY_MEASURE' => $areaId.'_quant_measure',
-		'QUANTITY_LIMIT' => $areaId.'_quant_limit',
-		'BUY_LINK' => $areaId.'_buy_link',
-		'BASKET_ACTIONS' => $areaId.'_basket_actions',
-		'NOT_AVAILABLE_MESS' => $areaId.'_not_avail',
-		'SUBSCRIBE_LINK' => $areaId.'_subscribe',
-		'COMPARE_LINK' => $areaId.'_compare_link',
 		'PRICE' => $areaId.'_price',
-		'PRICE_OLD' => $areaId.'_price_old',
-		'PRICE_TOTAL' => $areaId.'_price_total',
-		'DSC_PERC' => $areaId.'_dsc_perc',
-		'SECOND_DSC_PERC' => $areaId.'_second_dsc_perc',
 		'PROP_DIV' => $areaId.'_sku_tree',
 		'PROP' => $areaId.'_prop_',
 		'DISPLAY_PROP_DIV' => $areaId.'_sku_prop',
-		'BASKET_PROP_DIV' => $areaId.'_basket_prop',
 	);
+
 	$obName = 'ob'.preg_replace("/[^a-zA-Z0-9_]/", "x", $areaId);
 
 	$productTitle = isset($item['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE']) && $item['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE'] != ''
@@ -57,6 +42,7 @@ if (isset($arResult['ITEM']))
 	$skuProps = array();
 
 	$haveOffers = !empty($item['OFFERS']);
+
 	if ($haveOffers)
 	{
 		$actualItem = isset($item['OFFERS'][$item['OFFERS_SELECTED']])
@@ -69,31 +55,30 @@ if (isset($arResult['ITEM']))
 	}
 
 	$morePhoto = null;
-	if ($arParams['PRODUCT_DISPLAY_MODE'] === 'N' && $haveOffers)
+
+	$price = $actualItem['ITEM_PRICES'][$actualItem['ITEM_PRICE_SELECTED']];
+	if (isset($actualItem['MORE_PHOTO']))
 	{
-		$price = $item['ITEM_START_PRICE'];
-		$minOffer = $item['OFFERS'][$item['ITEM_START_PRICE_SELECTED']];
-		$measureRatio = $minOffer['ITEM_MEASURE_RATIOS'][$minOffer['ITEM_MEASURE_RATIO_SELECTED']]['RATIO'];
-		if (isset($item['MORE_PHOTO']))
-		{
-			$morePhoto = $item['MORE_PHOTO'];
-		}
-	}
-	else
-	{
-		$price = $actualItem['ITEM_PRICES'][$actualItem['ITEM_PRICE_SELECTED']];
-		$measureRatio = $price['MIN_QUANTITY'];
-		if (isset($actualItem['MORE_PHOTO']))
-		{
-			$morePhoto = $actualItem['MORE_PHOTO'];
-		}
+		$morePhoto = $actualItem['MORE_PHOTO'];
 	}
 
 	$showSlider = is_array($morePhoto) && count($morePhoto) > 1;
 
-	$itemHasDetailUrl = isset($item['DETAIL_PAGE_URL']) && $item['DETAIL_PAGE_URL'] != '';;
+	$itemHasDetailUrl = isset($item['DETAIL_PAGE_URL']) && $item['DETAIL_PAGE_URL'] != '';
 	?>
+
 	<div class="goods" id="<?=$areaId?>" data-entity="item">
+<?print_r($item['LABEL_ARRAY_VALUE']); ?>
+	<?if ($item['LABEL']):?>
+		<div class="label" id="<?=$itemIds['STICKER_ID'] ?>">
+			<? if (!empty($item['LABEL_ARRAY_VALUE'])): ?>
+				<? foreach ($item['LABEL_ARRAY_VALUE'] as $key => $value): ?>
+					<div class="<?=strtolower($key); ?>"></div>
+				<? endforeach; ?>
+			<? endif; ?>
+		</div>
+	<? endif ;?>
+
     <div class="goods-inner">
 			<div data-entity="image-wrapper">
     		<div class="goods-slider" <?=($showSlider ? '' : 'style="display: none"') ?> id="<?=$itemIds['PICT_SLIDER']?>"
@@ -204,8 +189,11 @@ if (isset($arResult['ITEM']))
 						<div id="<?=$itemIds['PROP_DIV']?>">
 							<?
 						foreach ($arParams['SKU_PROPS'] as $skuProperty) {
+
 							$propertyId = $skuProperty['ID'];
+
 							$skuProperty['NAME'] = htmlspecialcharsbx($skuProperty['NAME']);
+
 								if (!isset($item['SKU_TREE_VALUES'][$propertyId]))
 									continue;
 								?>
@@ -251,7 +239,6 @@ if (isset($arResult['ITEM']))
 									'VALUES_COUNT' => $skuProperty['VALUES_COUNT']
 								);
 							}
-
 							unset($skuProperty, $value);
 						}
 					?>
@@ -310,18 +297,7 @@ if (isset($arResult['ITEM']))
 					'ID' => $itemIds['ID'],
 					'PICT_ID' => $item['SECOND_PICT'] ? $itemIds['SECOND_PICT'] : $itemIds['PICT'],
 					'PICT_SLIDER_ID' => $itemIds['PICT_SLIDER'],
-					'QUANTITY_ID' => $itemIds['QUANTITY'],
-					'QUANTITY_UP_ID' => $itemIds['QUANTITY_UP'],
-					'QUANTITY_DOWN_ID' => $itemIds['QUANTITY_DOWN'],
 					'PRICE_ID' => $itemIds['PRICE'],
-					'PRICE_OLD_ID' => $itemIds['PRICE_OLD'],
-					'PRICE_TOTAL_ID' => $itemIds['PRICE_TOTAL'],
-					'BUY_ID' => $itemIds['BUY_LINK'],
-					'BASKET_PROP_DIV' => $itemIds['BASKET_PROP_DIV'],
-					'BASKET_ACTIONS_ID' => $itemIds['BASKET_ACTIONS'],
-					'NOT_AVAILABLE_MESS' => $itemIds['NOT_AVAILABLE_MESS'],
-					'COMPARE_LINK_ID' => $itemIds['COMPARE_LINK'],
-					'SUBSCRIBE_ID' => $itemIds['SUBSCRIBE_LINK']
 				)
 			);
 		}

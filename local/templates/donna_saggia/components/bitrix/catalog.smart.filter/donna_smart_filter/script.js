@@ -448,9 +448,6 @@ BX.Iblock.SmartFilter = (function()
 			fltMinPrice: float|int|string|null,
 			fltMaxPrice: float|int|string|null,
 			precision: int|null,
-			colorUnavailableActive: string,
-			colorAvailableActive: string,
-			colorAvailableInactive: string
 		}} arParams
 	 */
 	var SmartFilter = function(arParams)
@@ -464,6 +461,9 @@ BX.Iblock.SmartFilter = (function()
 
 			this.minInput = BX(arParams.minInputId);
 			this.maxInput = BX(arParams.maxInputId);
+
+			this.randgeMin = BX(arParams.randgeMin);
+			this.randgeMax = BX(arParams.randgeMax);
 
 			this.minPrice = parseFloat(arParams.minPrice);
 			this.maxPrice = parseFloat(arParams.maxPrice);
@@ -484,9 +484,7 @@ BX.Iblock.SmartFilter = (function()
 			this.fltMinPercent = 0;
 			this.fltMaxPercent = 0;
 
-			this.colorUnavailableActive = BX(arParams.colorUnavailableActive);//gray
 			this.colorAvailableActive = BX(arParams.colorAvailableActive);//blue
-			this.colorAvailableInactive = BX(arParams.colorAvailableInactive);//light blue
 
 			this.isTouch = false;
 
@@ -535,7 +533,7 @@ BX.Iblock.SmartFilter = (function()
 			this.leftPercent = (priceDiff*100)/this.priceDiff;
 
 			this.leftSlider.style.left = this.leftPercent + "%";
-			this.colorUnavailableActive.style.left = this.leftPercent + "%";
+
 		}
 
 		this.setMinFilteredValue(this.fltMinPrice);
@@ -546,7 +544,7 @@ BX.Iblock.SmartFilter = (function()
 			this.rightPercent = (priceDiff*100)/this.priceDiff;
 
 			this.rightSlider.style.right = this.rightPercent + "%";
-			this.colorUnavailableActive.style.right = this.rightPercent + "%";
+
 		}
 
 		this.setMaxFilteredValue(this.fltMaxPrice);
@@ -565,12 +563,10 @@ BX.Iblock.SmartFilter = (function()
 			else
 				this.colorAvailableActive.style.left = this.fltMinPercent + "%";
 
-			this.colorAvailableInactive.style.left = this.fltMinPercent + "%";
 		}
 		else
 		{
 			this.colorAvailableActive.style.left = "0%";
-			this.colorAvailableInactive.style.left = "0%";
 		}
 	};
 
@@ -587,12 +583,10 @@ BX.Iblock.SmartFilter = (function()
 			else
 				this.colorAvailableActive.style.right = this.fltMaxPercent + "%";
 
-			this.colorAvailableInactive.style.right = this.fltMaxPercent + "%";
 		}
 		else
 		{
 			this.colorAvailableActive.style.right = "0%";
-			this.colorAvailableInactive.style.right = "0%";
 		}
 	};
 
@@ -643,8 +637,11 @@ BX.Iblock.SmartFilter = (function()
 			this.minInput.value = newMinPrice;
 		else
 			this.minInput.value = "";
+
 		/** @global JCSmartFilter smartFilter */
 		smartFilter.keyup(this.minInput);
+		smartFilter.keyup(this.rangeMin);
+
 	};
 
 	SmartFilter.prototype.recountMaxPrice = function()
@@ -699,7 +696,7 @@ BX.Iblock.SmartFilter = (function()
 		recountPrice = (recountPrice !== false);
 
 		this.leftSlider.style.left = this.leftPercent + "%";
-		this.colorUnavailableActive.style.left = this.leftPercent + "%";
+
 
 		var areBothSlidersMoving = false;
 		if (this.leftPercent + this.rightPercent >= 100)
@@ -707,7 +704,7 @@ BX.Iblock.SmartFilter = (function()
 			areBothSlidersMoving = true;
 			this.rightPercent = 100 - this.leftPercent;
 			this.rightSlider.style.right = this.rightPercent + "%";
-			this.colorUnavailableActive.style.right = this.rightPercent + "%";
+
 		}
 
 		if (this.leftPercent >= this.fltMinPercent && this.leftPercent <= (100-this.fltMaxPercent))
@@ -800,7 +797,7 @@ BX.Iblock.SmartFilter = (function()
 		recountPrice = (recountPrice !== false);
 
 		this.rightSlider.style.right = this.rightPercent + "%";
-		this.colorUnavailableActive.style.right = this.rightPercent + "%";
+
 
 		var areBothSlidersMoving = false;
 		if (this.leftPercent + this.rightPercent >= 100)
@@ -808,7 +805,7 @@ BX.Iblock.SmartFilter = (function()
 			areBothSlidersMoving = true;
 			this.leftPercent = 100 - this.rightPercent;
 			this.leftSlider.style.left = this.leftPercent + "%";
-			this.colorUnavailableActive.style.left = this.leftPercent + "%";
+
 		}
 
 		if ((100-this.rightPercent) >= this.fltMinPercent && this.rightPercent >= this.fltMaxPercent)

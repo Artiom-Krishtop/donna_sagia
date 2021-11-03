@@ -189,7 +189,7 @@ $containerName = 'container-'.$navParams['NavNum'];
 				</div>
 				<?
 			}?>
-			
+
 	</div>
 
 	<div class="catalog-list">
@@ -245,7 +245,7 @@ $containerName = 'container-'.$navParams['NavNum'];
 	</div>
 	<div class="sort last">
 	  <div class="sort-left">
-	    <a href="#" class="down">НАверх</a>
+	    <a href="javascript:void(0)" class="down">НАверх</a>
 	  </div>
 		<?if ($showBottomPager)
 		{
