@@ -59,6 +59,7 @@ JCSmartFilter.prototype.reload = function(input)
 
 	this.position = BX.pos(input, true);
 	this.form = BX.findParent(input, {'tag':'form'});
+
 	if (this.form)
 	{
 		var values = [];
@@ -181,16 +182,16 @@ JCSmartFilter.prototype.postHandler = function (result, fromCache)
 				this.updateItem(PID, result.ITEMS[PID]);
 			}
 		}
-
 		if (!!modef && !!modef_num)
 		{
-			modef_num.innerHTML = result.ELEMENT_COUNT;
-			hrefFILTER = BX.findChildren(modef, {tag: 'A'}, true);
-
-			if (result.FILTER_URL && hrefFILTER)
-			{
-				hrefFILTER[0].href = BX.util.htmlspecialcharsback(result.FILTER_URL);
-			}
+			modef_num.innerHTML = 'Найдено: ' + result.ELEMENT_COUNT + ' товаров';
+			// hrefFILTER = BX.findChildren(modef, {tag: 'A'}, true);
+			//
+			//
+			// if (result.FILTER_URL && hrefFILTER)
+			// {
+			// 	hrefFILTER[0].href = BX.util.htmlspecialcharsback(result.FILTER_URL);
+			// }
 
 			if (result.FILTER_AJAX_URL && result.COMPONENT_CONTAINER_ID)
 			{
@@ -215,11 +216,8 @@ JCSmartFilter.prototype.postHandler = function (result, fromCache)
 					modef.style.display = 'inline-block';
 				}
 
-				if (this.viewMode == "VERTICAL")
-				{
-					curProp = BX.findChild(BX.findParent(this.curFilterinput, {'class':'bx-filter-parameters-box'}), {'class':'bx-filter-container-modef'}, true, false);
-					curProp.appendChild(modef);
-				}
+				curProp = BX.findChild(BX.findParent(this.curFilterinput, {'class':'filter-wrap'}), {'class':'filter-container-modef'}, true, false);
+				curProp.appendChild(modef);
 
 				if (result.SEF_SET_FILTER_URL)
 				{
@@ -275,7 +273,7 @@ JCSmartFilter.prototype.gatherInputsValues = function (values, elements)
 			var el = elements[i];
 			if (el.disabled || !el.type)
 				continue;
-
+			console.log(el);
 			switch(el.type.toLowerCase())
 			{
 				case 'text':
@@ -452,6 +450,7 @@ BX.Iblock.SmartFilter = (function()
 	 */
 	var SmartFilter = function(arParams)
 	{
+
 		if (typeof arParams === 'object')
 		{
 			this.leftSlider = BX(arParams.leftSlider);
@@ -462,8 +461,8 @@ BX.Iblock.SmartFilter = (function()
 			this.minInput = BX(arParams.minInputId);
 			this.maxInput = BX(arParams.maxInputId);
 
-			this.randgeMin = BX(arParams.randgeMin);
-			this.randgeMax = BX(arParams.randgeMax);
+			this.rangeMin = BX(arParams.rangeMin);
+			this.rangeMax = BX(arParams.rangeMax);
 
 			this.minPrice = parseFloat(arParams.minPrice);
 			this.maxPrice = parseFloat(arParams.maxPrice);
@@ -633,15 +632,16 @@ BX.Iblock.SmartFilter = (function()
 		var newMinPrice = (this.priceDiff*this.leftPercent)/100;
 		newMinPrice = (this.minPrice + newMinPrice).toFixed(this.precision);
 
-		if (newMinPrice != this.minPrice)
+		if (newMinPrice != this.minPrice){
 			this.minInput.value = newMinPrice;
-		else
+			this.rangeMin.textContent = newMinPrice;
+		}else {
 			this.minInput.value = "";
+			this.rangeMin.textContent = "";
+		}
 
 		/** @global JCSmartFilter smartFilter */
 		smartFilter.keyup(this.minInput);
-		smartFilter.keyup(this.rangeMin);
-
 	};
 
 	SmartFilter.prototype.recountMaxPrice = function()
@@ -649,10 +649,14 @@ BX.Iblock.SmartFilter = (function()
 		var newMaxPrice = (this.priceDiff*this.rightPercent)/100;
 		newMaxPrice = (this.maxPrice - newMaxPrice).toFixed(this.precision);
 
-		if (newMaxPrice != this.maxPrice)
+		if (newMaxPrice != this.maxPrice){
 			this.maxInput.value = newMaxPrice;
-		else
+			this.rangeMax.textContent = newMaxPrice;
+		}else {
 			this.maxInput.value = "";
+			this.rangeMax.textContent = "";
+		}
+
 		/** @global JCSmartFilter smartFilter */
 		smartFilter.keyup(this.maxInput);
 	};

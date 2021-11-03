@@ -125,10 +125,6 @@ hr {
 input, select {
 	vertical-align: middle;
 }
-/* input{
-  width: 100%;
-  border-width: 0px;
-} */
 
 /* floating */
 
@@ -782,6 +778,10 @@ input, select {
   border-radius: 3px;
   -webkit-transition: opacity 0.5s;
   transition: opacity 0.5s;
+}
+input.choose{
+  width: 100%;
+  border-width: 0px;
 }
 /* .goods-slider .slides{
   overflow: hidden;

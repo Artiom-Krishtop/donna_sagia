@@ -283,8 +283,8 @@ $APPLICATION->SetTitle("Список");
 		"COMPONENT_TEMPLATE" => "donna",
 		"SEF_URL_TEMPLATES" => array(
 			"sections" => "",
-			"section" => "#SECTION_CODE#/",
-			"element" => "#SECTION_CODE#/#ELEMENT_CODE#/",
+			"section" => "#SECTION_ID#/",
+			"element" => "#SECTION_ID#/#ELEMENT_ID#/",
 			"compare" => "compare.php?action=#ACTION_CODE#",
 			"smart_filter" => "#SECTION_ID#/filter/#SMART_FILTER_PATH#/apply/",
 		),

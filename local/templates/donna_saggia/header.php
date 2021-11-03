@@ -1,16 +1,22 @@
+<?php
+
+$curPage = $APPLICATION->GetCurPage(true);
+
+?>
+
 <!DOCTYPE html>
 <html>
   <head>
   	<title><?$APPLICATION->ShowTitle()?></title>
 
-  	<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+  	<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.flexslider.js"></script>
     <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <script type="text/javascript" src="scripts/slick.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.fancybox.js"></script>
     <script type="text/javascript" src="scripts/jquery.zoom.min.js"></script>
     <script type="text/javascript" src="scripts/jquery.fancybox-media.js"></script>
-  	<script type="text/javascript" src="scripts/scripts.js"></script>
+  	<script type="text/javascript" src="scripts/scripts.js"></script> -->
   	<!--[if lt IE 9]>
   	<script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 

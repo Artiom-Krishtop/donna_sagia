@@ -39,7 +39,8 @@ $this->setFrameMode(true);
 						continue;
 					?>
 					<div class="filter-wrap">
-							<div class="title-filter"><?=$arItem['NAME'] ?></div>
+						<div class="title-filter"><?=$arItem['NAME'] ?></div>
+							<span class="filter-container-modef"></span>
 							<?
 							switch ($arItem["DISPLAY_TYPE"])
 							{
@@ -130,34 +131,29 @@ $this->setFrameMode(true);
 
 								case "G"://CHECKBOXES_WITH_PICTURES
 									?>
-									<div class="col-xs-12">
-										<div class="bx-filter-param-btn-inline">
+									<ul class="color-filter">
+
 										<?foreach ($arItem["VALUES"] as $val => $ar):?>
-											<input
+											<li class="" onclick="smartFilter.keyup(BX('<?=CUtil::JSEscape($ar["CONTROL_ID"])?>')); BX.toggleClass(this, 'active')">
+												<input
 												style="display: none"
 												type="checkbox"
 												name="<?=$ar["CONTROL_NAME"]?>"
 												id="<?=$ar["CONTROL_ID"]?>"
 												value="<?=$ar["HTML_VALUE"]?>"
 												<? echo $ar["CHECKED"]? 'checked="checked"': '' ?>
-											/>
-											<?
-											$class = "";
-											if ($ar["CHECKED"])
-												$class.= " bx-active";
-											if ($ar["DISABLED"])
-												$class.= " disabled";
-											?>
-											<label for="<?=$ar["CONTROL_ID"]?>" data-role="label_<?=$ar["CONTROL_ID"]?>" class="bx-filter-param-label <?=$class?>" onclick="smartFilter.keyup(BX('<?=CUtil::JSEscape($ar["CONTROL_ID"])?>')); BX.toggleClass(this, 'bx-active');">
-												<span class="bx-filter-param-btn bx-color-sl">
-													<?if (isset($ar["FILE"]) && !empty($ar["FILE"]["SRC"])):?>
-													<span class="bx-filter-btn-color-icon" style="background-image:url('<?=$ar["FILE"]["SRC"]?>');"></span>
-													<?endif?>
-												</span>
-											</label>
+												/>
+
+
+												<? if (isset($ar['FILE']) && !empty($ar['FILE']['SRC'])): ?>
+													<span style="background-image:url('<?=$ar['FILE']['SRC'] ?>');"></span>
+												<? endif; ?>
+
+											</li>
 										<?endforeach?>
-										</div>
-									</div>
+
+									</ul>
+
 									<?
 									break;
 								case "H"://CHECKBOXES_WITH_PICTURES_AND_LABELS
@@ -203,8 +199,15 @@ $this->setFrameMode(true);
 										<?foreach($arItem["VALUES"] as $val => $ar):?>
 
 											<li>
-												<input id="<?=$ar['CONTROL_ID'] ?>"type="checkbox" name="<?=$ar['CONTROL_NAME']?>" value="<?=$ar['HTML_VALUE']?>">
-													<label for="<?=$ar['CONTROL_ID']?>"><?=$ar['VALUE'] ?></label>
+												<input
+												id="<?=$ar['CONTROL_ID'] ?>"
+												type="checkbox"
+												name="<?=$ar['CONTROL_NAME']?>"
+												value="<?=$ar['HTML_VALUE']?>"
+												onclick="smartFilter.click(this)"
+												<? echo $ar["CHECKED"]? 'checked="checked"': '' ?>>
+
+												<label for="<?=$ar['CONTROL_ID']?>" data-role="label_<?=$ar["CONTROL_ID"]?>"><?=$ar['VALUE'] ?></label>
 											</li>
 
 										<?endforeach;?>
@@ -218,6 +221,8 @@ $this->setFrameMode(true);
 				}
 				?>
 			<div class="filter-wrap">
+				<span class="filter-container-modef"></span>
+
 
 				<?
 					foreach ($arResult['ITEMS'] as $key => $arItem) {
@@ -251,7 +256,7 @@ $this->setFrameMode(true);
 							?>
 							<input
 								class="min-price"
-								type="text"
+								type="hidden"
 								name="<?echo $arItem["VALUES"]["MIN"]["CONTROL_NAME"]?>"
 								id="<?echo $arItem["VALUES"]["MIN"]["CONTROL_ID"]?>"
 								value="<?echo $arItem["VALUES"]["MIN"]["HTML_VALUE"]?>"
@@ -260,7 +265,7 @@ $this->setFrameMode(true);
 							/>
 							<input
 								class="max-price"
-								type="text"
+								type="hidden"
 								name="<?echo $arItem["VALUES"]["MAX"]["CONTROL_NAME"]?>"
 								id="<?echo $arItem["VALUES"]["MAX"]["CONTROL_ID"]?>"
 								value="<?echo $arItem["VALUES"]["MAX"]["HTML_VALUE"]?>"
@@ -274,10 +279,10 @@ $this->setFrameMode(true);
 									<div class="ui-widget-header"  style="left: 0;right: 0;" id="colorAvailableActive_<?=$key?>"></div>
 									<a class="ui-slider-handle"  style="left:0;" href="javascript:void(0)" id="left_slider_<?=$key?>"></a>
 									<a class="ui-slider-handle" style="right:0;" href="javascript:void(0)" id="right_slider_<?=$key?>"></a>
-									<div class="range-min" id="randge_Min<?=$key?>" onkeyup="smartFilter.keyup(this)"></div>
-              		<div class="range-max" id="randge_Max<?=$key?>" onkeyup="smartFilter.keyup(this)"></div>
 								</div>
 							</div>
+							<div class="range-min" id="range_Min<?=$key?>"></div>
+							<div class="range-max" id="range_Max<?=$key?>"></div>
 							<?
 							$arJsParams = array(
 								"leftSlider" => 'left_slider_'.$key,
@@ -286,8 +291,8 @@ $this->setFrameMode(true);
 								"trackerWrap" => "drag_track_".$key,
 								"minInputId" => $arItem["VALUES"]["MIN"]["CONTROL_ID"],
 								"maxInputId" => $arItem["VALUES"]["MAX"]["CONTROL_ID"],
-								"rangeMin" =>'randge_Min'.$key,
-								"randgeMax" =>'randge_Max'.$key,
+								"rangeMin" =>'range_Min'.$key,
+								"rangeMax" =>'range_Max'.$key,
 								"minPrice" => $arItem["VALUES"]["MIN"]["VALUE"],
 								"maxPrice" => $arItem["VALUES"]["MAX"]["VALUE"],
 								"curMinPrice" => $arItem["VALUES"]["MIN"]["HTML_VALUE"],
@@ -315,12 +320,12 @@ $this->setFrameMode(true);
 					name="set_filter"
 					value="Подобрать"
 				/>
-				<div class="bx-filter-popup-result <?if ($arParams["FILTER_VIEW_MODE"] == "VERTICAL") echo $arParams["POPUP_POSITION"]?>" id="modef" <?if(!isset($arResult["ELEMENT_COUNT"])) echo 'style="display:none"';?> style="display: inline-block;">
-					<?echo GetMessage("CT_BCSF_FILTER_COUNT", array("#ELEMENT_COUNT#" => '<span id="modef_num">'.intval($arResult["ELEMENT_COUNT"]).'</span>'));?>
-					<span class="arrow"></span>
-					<br/>
-					<a href="<?echo $arResult["FILTER_URL"]?>" target=""><?echo GetMessage("CT_BCSF_FILTER_SHOW")?></a>
+				<div class="result" id="modef" style="display:<?=!isset($arResult["ELEMENT_COUNT"]) ? 'none' : 'inline-block' ?>">
+					<div id="modef_num">
+						Найдено: <?=intval($arResult["ELEMENT_COUNT"]) ?> товаров
+					</div>
 				</div>
+
 			</div>
 			<div class="clb"></div>
 		</form>
