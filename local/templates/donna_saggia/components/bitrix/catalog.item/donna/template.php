@@ -68,7 +68,7 @@ if (isset($arResult['ITEM']))
 	?>
 
 	<div class="goods" id="<?=$areaId?>" data-entity="item">
-<?print_r($item['LABEL_ARRAY_VALUE']); ?>
+
 	<?if ($item['LABEL']):?>
 		<div class="label" id="<?=$itemIds['STICKER_ID'] ?>">
 			<? if (!empty($item['LABEL_ARRAY_VALUE'])): ?>

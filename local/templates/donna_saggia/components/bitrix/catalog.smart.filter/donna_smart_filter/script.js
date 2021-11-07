@@ -185,6 +185,7 @@ JCSmartFilter.prototype.postHandler = function (result, fromCache)
 		if (!!modef && !!modef_num)
 		{
 			modef_num.innerHTML = 'Найдено: ' + result.ELEMENT_COUNT + ' товаров';
+
 			// hrefFILTER = BX.findChildren(modef, {tag: 'A'}, true);
 			//
 			//
@@ -193,16 +194,15 @@ JCSmartFilter.prototype.postHandler = function (result, fromCache)
 			// 	hrefFILTER[0].href = BX.util.htmlspecialcharsback(result.FILTER_URL);
 			// }
 
-			if (result.FILTER_AJAX_URL && result.COMPONENT_CONTAINER_ID)
-			{
-				BX.unbindAll(hrefFILTER[0]);
-				BX.bind(hrefFILTER[0], 'click', function(e)
-				{
-					url = BX.util.htmlspecialcharsback(result.FILTER_AJAX_URL);
-					BX.ajax.insertToNode(url, result.COMPONENT_CONTAINER_ID);
-					return BX.PreventDefault(e);
-				});
-			}
+			// if (result.FILTER_AJAX_URL && result.COMPONENT_CONTAINER_ID)
+			// 	BX.unbindAll(hrefFILTER[0]);
+			// 	BX.bind(hrefFILTER[0], 'click', function(e)
+			// 	{
+			// 		url = BX.util.htmlspecialcharsback(result.FILTER_AJAX_URL);
+			// 		BX.ajax.insertToNode(url, result.COMPONENT_CONTAINER_ID);
+			// 		return BX.PreventDefault(e);
+			// 	});
+			// }
 
 			if (result.INSTANT_RELOAD && result.COMPONENT_CONTAINER_ID)
 			{
@@ -273,7 +273,7 @@ JCSmartFilter.prototype.gatherInputsValues = function (values, elements)
 			var el = elements[i];
 			if (el.disabled || !el.type)
 				continue;
-			console.log(el);
+
 			switch(el.type.toLowerCase())
 			{
 				case 'text':

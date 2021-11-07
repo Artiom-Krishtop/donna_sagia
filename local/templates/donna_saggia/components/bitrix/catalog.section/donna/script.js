@@ -5,6 +5,7 @@
 		return;
 
 	window.JCCatalogSectionComponent = function(params) {
+		this.sort = params.sort || '';
 		this.formPosting = false;
 		this.siteId = params.siteId || '';
 		this.ajaxId = params.ajaxId || '';
@@ -356,6 +357,19 @@
 					}
 				}
 			}
+		},
+
+		showOrder: function(order)
+		{
+			if (BX.hasClass(order, 'active s-top'))
+			{
+				BX.removeClass(order, 'active s-top');
+				BX.addClass(order,'active s-bottom');
+			}else {
+				BX.removeClass(order, 'active s-bottom');
+				BX.addClass(order,'active s-top');
+			}
+			console.log(BX.hasClass(order, 'active s-top'));
 		}
 	};
 })();

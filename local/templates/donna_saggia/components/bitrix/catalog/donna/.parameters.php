@@ -10,6 +10,14 @@ if (!Loader::includeModule('iblock'))
 
 $iblockExists = (!empty($arCurrentValues['IBLOCK_ID']) && (int)$arCurrentValues['IBLOCK_ID'] > 0);
 
+$arTemplateParameters["INSTANT_RELOAD"] = array(
+	"PARENT" => "FILTER_SETTINGS",
+	"NAME" => GetMessage("CPT_BC_INSTANT_RELOAD"),
+	"TYPE" => "CHECKBOX",
+	"DEFAULT" => "N",
+	"HIDDEN" => (!isset($arCurrentValues['USE_FILTER']) || 'N' == $arCurrentValues['USE_FILTER'] ? 'Y' : 'N')
+);
+
 if ($iblockExists)
 {
 	$rsProps = CIBlockProperty::GetList(

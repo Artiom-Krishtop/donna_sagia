@@ -22,6 +22,18 @@ $arParams['USE_FILTER'] = (isset($arParams['USE_FILTER']) && $arParams['USE_FILT
 $isVerticalFilter = ('Y' == $arParams['USE_FILTER'] && $arParams["FILTER_VIEW_MODE"] == "VERTICAL");
 $isFilter = ($arParams['USE_FILTER'] == 'Y');
 
+if ($_GET["sort"] === 'SCALED_PRICE_1' || $_GET['sort'] === 'active_from') {
+	$sortField = $_GET['sort'];
+}else {
+	$sortField = $arParams["ELEMENT_SORT_FIELD"];
+}
+
+if ($_GET['order'] === 'asc' || $_GET['order'] === 'desc') {
+	$order = $_GET['order'];
+}else {
+	$order = $arParams["ELEMENT_SORT_ORDER"];
+}
+
 if ($isFilter)
 {
 	$arFilter = array(
@@ -133,12 +145,10 @@ if ($isFilter)
 	  						"CACHE_TIME" => $arParams["CACHE_TIME"],
 	  						"CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
 	  						"SAVE_IN_SESSION" => "N",
-	  						"FILTER_VIEW_MODE" => $arParams["FILTER_VIEW_MODE"],
 	  						"XML_EXPORT" => "N",
 	  						"SECTION_TITLE" => "NAME",
 	  						"SECTION_DESCRIPTION" => "DESCRIPTION",
 	  						'HIDE_NOT_AVAILABLE' => $arParams["HIDE_NOT_AVAILABLE"],
-	  						"TEMPLATE_THEME" => $arParams["TEMPLATE_THEME"],
 	  						'CONVERT_CURRENCY' => $arParams['CONVERT_CURRENCY'],
 	  						'CURRENCY_ID' => $arParams['CURRENCY_ID'],
 	  						"SEF_MODE" => $arParams["SEF_MODE"],
@@ -157,14 +167,15 @@ if ($isFilter)
 	  <div class="catalog-content">
 
 			<?
+
 			$intSectionID = $APPLICATION->IncludeComponent(
 				"bitrix:catalog.section",
 				"donna",
 				array(
 					"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
 					"IBLOCK_ID" => $arParams["IBLOCK_ID"],
-					"ELEMENT_SORT_FIELD" => $arParams["ELEMENT_SORT_FIELD"],
-					"ELEMENT_SORT_ORDER" => $arParams["ELEMENT_SORT_ORDER"],
+					"ELEMENT_SORT_FIELD" => $sortField,
+					"ELEMENT_SORT_ORDER" => $order,
 					"ELEMENT_SORT_FIELD2" => $arParams["ELEMENT_SORT_FIELD2"],
 					"ELEMENT_SORT_ORDER2" => $arParams["ELEMENT_SORT_ORDER2"],
 					"PROPERTY_CODE" => (isset($arParams["LIST_PROPERTY_CODE"]) ? $arParams["LIST_PROPERTY_CODE"] : []),

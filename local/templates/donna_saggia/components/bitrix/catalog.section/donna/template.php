@@ -172,10 +172,14 @@ $containerName = 'container-'.$navParams['NavNum'];
 			<a href="#"><img src="images/opt.jpg" alt="" /></a>
 		</div>
 	</div>
-
+	
 	<div class="sort">
 		<div class="sort-left">
-			Сортировать:   <a class="active s-top">по цене</a> <a>по новизне</a>
+			Сортировать:<a href="<?=$arResult['SECTION_PAGE_URL']?>?sort=SCALED_PRICE_1">по цене</a>
+									<?php if (isset($_GET['sort']) && !empty($_GET['sort'])): ?>
+									<a class="active s-top" onclick="<?=$obName?>.showOrder(this)" href="<?=$arResult['SECTION_PAGE_URL'] . '?sort=' . $_GET['sort']?>&order=desc"></a>
+									<?php endif; ?>
+									<a href="<?=$arResult['SECTION_PAGE_URL']?>?sort=active_from">по новизне</a>
 		</div>
 
 			<?if ($showTopPager)
@@ -299,7 +303,8 @@ $signedParams = $signer->sign(base64_encode(serialize($arResult['ORIGINAL_PARAME
 		template: '<?=CUtil::JSEscape($signedTemplate)?>',
 		ajaxId: '<?=CUtil::JSEscape($arParams['AJAX_ID'])?>',
 		parameters: '<?=CUtil::JSEscape($signedParams)?>',
-		container: '<?=$containerName?>'
+		container: '<?=$containerName?>',
+		sort:'<?=$_GET['sort']?>'
 	});
 </script>
 <!-- component-end -->

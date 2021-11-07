@@ -646,7 +646,7 @@ input, select {
 .filter-wrap li input[type=checkbox] {
   display: none;
 }
-.filter-wrap li input + label:after {
+.filter-wrap li input + label.checkbox-label:after {
   border-radius: 3px;
   box-sizing: border-box;
   content: "";
@@ -658,10 +658,10 @@ input, select {
   background: url(images/check.png) no-repeat 0 0;
 
 }
-.filter-wrap  li input:checked + label:after {
+.filter-wrap  li input:checked + label.checkbox-label:after {
   background-position: 0 bottom;
 }
-.filter-wrap li label {
+.filter-wrap li label.checkbox-label {
   cursor: pointer;
   font-weight: normal;
   padding-left: 30px;
@@ -672,7 +672,7 @@ input, select {
   display: block;
   font-family: 'helveticaneuecyrroman', sans-serif;
 }
-.filter-wrap  li input:checked + label{
+.filter-wrap  li input:checked + label.checkbox-label{
   color: #353535;
 }
 .title-filter {
@@ -1052,10 +1052,10 @@ input.choose{
   text-decoration: none;
 }
 .sort-left a.active.s-top {
-  background: url(images/sort.png) no-repeat right center;
+  background: url(images/sort.png) no-repeat;
 }
 .sort-left a.active.s-bottom {
-  background: url(images/sort-b.png) no-repeat right center;
+  background: url(images/sort-b.png) no-repeat;
 }
 .sort-left a.down {
   border: 1px solid #dedede;
@@ -1486,6 +1486,10 @@ td .quantity .plus  {
 .slick-next {
   right: 0px;
   background-position: right center;
+}
+.mini-slide a{
+  width: 78px;
+  height: 119px;
 }
 .mini-slide a,
 .images-color span {
