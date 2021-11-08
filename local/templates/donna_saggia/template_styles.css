@@ -1492,15 +1492,15 @@ td .quantity .plus  {
   height: 119px;
 }
 .mini-slide a,
-.images-color span {
+.images-color li {
   border: 1px solid transparent;
   display: inline-block;
 }
-.images-color span  {
+.images-color li  {
   margin-right: 5px;
 }
 .mini-slide a.active,
-.images-color span.active {
+.images-color li.active {
   border-color: #e52b2d;
 }
 .product-description {

@@ -1,3 +1,51 @@
+jQuery(document).ready(function() {
+  //tabs
+	jQuery(".tab-list li a").click(function(){
+	if(!jQuery(this).parent().hasClass("active")){
+		jQuery(this).parents(".tab-list").find("li").removeClass("active");
+		jQuery(this).parent().addClass("active");
+		var tabBox = jQuery(this).attr("href");
+		jQuery(this).parents(".tab-list").next().find(".tab").hide()
+		jQuery(tabBox).show();
+	}
+	return false;
+	});
+	$('.cusrousel-mini').slick({
+	dots: false,
+	infinite: false,
+	speed: 500,
+	slidesToShow: 5,
+	slidesToScroll: 5,
+	responsive: [
+		{
+			breakpoint: 1024,
+			settings: {
+				slidesToShow: 3,
+				slidesToScroll: 3,
+				centerPadding: '5px',
+			}
+		}
+
+
+	]
+	});
+	//event slider
+	jQuery(".cusrousel-mini a").click(function(){
+		if(!jQuery(this).hasClass("active")){
+			jQuery(".cusrousel-mini a").removeClass("active");
+			jQuery(this).addClass("active");
+			var src = jQuery(this).attr("href");
+			jQuery(".big-image img").fadeOut();
+			setTimeout(function(){
+				jQuery(".big-image img").attr("src",src);
+				jQuery(".big-image a").attr("href",src);
+			},300)
+			jQuery(".big-image img").fadeIn();
+		}
+		return false;
+	});
+});
+
 (function(window){
 	'use strict';
 
@@ -338,7 +386,7 @@
 
 			if (!this.obBigSlider || !this.node.imageContainer || !this.node.imageContainer)
 			{
-				this.errorCode = -2;
+				// this.errorCode = -2;
 			}
 
 			if (this.config.showPrice)
@@ -346,7 +394,7 @@
 				this.obPrice.price = BX(this.visual.PRICE_ID);
 				if (!this.obPrice.price && this.config.useCatalog)
 				{
-					// this.errorCode = -16;
+					this.errorCode = -16;
 				}
 				else
 				{
@@ -376,17 +424,9 @@
 				this.obBasketActions = BX(this.visual.BASKET_ACTIONS_ID);
 				if (this.obBasketActions)
 				{
-					if (BX.util.in_array('BUY', this.config.basketAction))
-					{
-						this.obBuyBtn = BX(this.visual.BUY_LINK);
-					}
-
-					if (BX.util.in_array('ADD', this.config.basketAction))
-					{
-						this.obAddToBasketBtn = BX(this.visual.ADD_BASKET_LINK);
-					}
+					this.obBuyBtn = BX(this.visual.BUY_LINK);
+					this.obAddToBasketBtn = BX(this.visual.ADD_BASKET_LINK);
 				}
-				this.obNotAvail = BX(this.visual.NOT_AVAILABLE_MESS);
 			}
 
 			if (this.config.showQuantity)
@@ -411,7 +451,7 @@
 					this.obTree = BX(this.visual.TREE_ID);
 					if (!this.obTree)
 					{
-						// this.errorCode = -256;
+						this.errorCode = -256;
 					}
 				}
 
@@ -575,6 +615,7 @@ console.log(this.errorCode);
 						break;
 					case 3: // sku
 						treeItems = this.obTree.querySelectorAll('li');
+
 						for (i = 0; i < treeItems.length; i++)
 						{
 							BX.bind(treeItems[i], 'click', BX.delegate(this.selectOfferProp, this));
@@ -2129,7 +2170,7 @@ console.log(this.errorCode);
 
 			if (target && target.hasAttribute('data-treevalue'))
 			{
-				if (BX.hasClass(target, 'selected'))
+				if (BX.hasClass(target, 'active'))
 					return;
 
 				if (typeof document.activeElement === 'object')
@@ -2146,11 +2187,11 @@ console.log(this.errorCode);
 				{
 					for (i = 0; i < rowItems.length; i++)
 					{
-						BX.removeClass(rowItems[i], 'selected');
+						BX.removeClass(rowItems[i], 'active');
 					}
 				}
 
-				BX.addClass(target, 'selected');
+				BX.addClass(target, 'active');
 
 				if (this.smallCardNodes.panel)
 				{
@@ -2179,7 +2220,6 @@ console.log(this.errorCode);
 				i, j,
 				arFilter = {},
 				tmpFilter = [];
-
 			for (i = 0; i < this.treeProps.length; i++)
 			{
 				if (this.treeProps[i].ID === strPropID)
@@ -2265,6 +2305,7 @@ console.log(this.errorCode);
 			if (intNumber > -1 && intNumber < lineContainer.length)
 			{
 				rowItems = lineContainer[intNumber].querySelectorAll('li');
+
 				for (i = 0; i < rowItems.length; i++)
 				{
 					value = rowItems[i].getAttribute('data-onevalue');
@@ -2272,11 +2313,11 @@ console.log(this.errorCode);
 
 					if (isCurrent)
 					{
-						BX.addClass(rowItems[i], 'selected');
+						BX.addClass(rowItems[i], 'active');
 					}
 					else
 					{
-						BX.removeClass(rowItems[i], 'selected');
+						BX.removeClass(rowItems[i], 'active');
 					}
 
 					if (BX.util.in_array(value, canBuyId))
@@ -2508,7 +2549,7 @@ console.log(this.errorCode);
 				{
 					this.isGift = false;
 				}
-
+				console.log(this.offers[index].SLIDER);
 				this.drawImages(this.offers[index].SLIDER);
 				this.checkSliderControls(this.offers[index].SLIDER_COUNT);
 
@@ -2647,12 +2688,13 @@ console.log(this.errorCode);
 			}
 			BX.adjust(this.obDescription, {html: currentDescription});
 		},
+
 		drawImages: function(images)
 		{
+			console.log('+');
 			if (!this.node.imageContainer)
 				return;
-
-			var i, img, entities = this.getEntities(this.node.imageContainer, 'image');
+			var i, img, a, entities = this.getEntities(this.node.imageContainer, 'image');
 			for (i in entities)
 			{
 				if (entities.hasOwnProperty(i) && BX.type.isDomNode(entities[i]))
@@ -2663,29 +2705,34 @@ console.log(this.errorCode);
 
 			for (i = 0; i < images.length; i++)
 			{
-				img = BX.create('IMG', {
-					props: {
-						src: images[i].SRC,
-						alt: this.config.alt,
-						title: this.config.title
-					}
-				});
-
-				if (i == 0)
-				{
-					img.setAttribute('itemprop', 'image');
-				}
-
-				this.node.imageContainer.appendChild(
-					BX.create('DIV', {
-						attrs: {
+				a = BX.create('A', {
+					attrs: {
 							'data-entity': 'image',
 							'data-id': images[i].ID
 						},
+					props:{
+						className:(i == 0 ? ' active' : ''),
+						href:images[i].SRC,
+					},
+					children:
+						[BX.create(
+							'IMG', {
+								props: {
+									src: images[i].SRC,
+									alt: this.config.alt,
+									title: this.config.title
+								}
+							})]
+						});
+
+				console.log(a);
+
+				this.node.imageContainer.appendChild(
+					BX.create('DIV', {
 						props: {
-							className: 'product-item-detail-slider-image' + (i == 0 ? ' active' : '')
+							className: 'mini-slide'
 						},
-						children: [img]
+						children: [a]
 					})
 				);
 			}
@@ -2920,7 +2967,6 @@ console.log(this.errorCode);
 				price.DISCOUNT = price.BASE_PRICE;
 				price.PERCENT = 100;
 			}
-
 			if (this.obPrice.price)
 			{
 				if (price)

@@ -15,7 +15,8 @@ use Bitrix\Main\Localization\Loc;
  */
 
 $this->setFrameMode(true);
-$this->addExternalCss('/bitrix/css/main/bootstrap.css');
+
+CUtil::InitJSCore(array('jquery', 'slick.min.js', 'jquery.fancybox.js', 'jquery.zoom.min.js'));
 
 $templateLibrary = array('popup', 'fx');
 $currencyList = '';
@@ -173,13 +174,13 @@ if (!empty($arParams['LABEL_PROP_POSITION']))
 		$labelPositionClass .= isset($positionClassMap[$pos]) ? ' '.$positionClassMap[$pos] : '';
 	}
 }
-foreach ($actualItem['MORE_PHOTO'] as $value) {
-  print_r($value['SRC']);
-  echo "<br>";
-}
+// foreach ($actualItem['MORE_PHOTO'] as $key=>$value) {
+//   echo $key .':'. print_r($value);
+//   echo "<br>";
+// }
 
-// print_r($arResult['OFFERS_PROP']);
-//
+// print_r($arResult['OFFERS_SELECTED']);
+// //
 // echo "<br><br><br><br><br>";
 //
 // print_r($arParams);
@@ -222,12 +223,12 @@ foreach ($actualItem['MORE_PHOTO'] as $value) {
         </div>
       </div>
 
-      <div class="catalog-content">
-        <div class="product">
+      <div class="catalog-content" id="<?=$itemIds['ID']?>">
+        <div class="product" >
           <div class="product-left">
             <div class="big-image">
               <a class="fancy" href="images/big-1-1.jpg">
-                <img src="images/big-1-1.jpg" alt="" >
+                <img src="<?=$actualItem['MORE_PHOTO'][0]['SRC'] ?>">
               </a>
             </div>
 
@@ -252,7 +253,7 @@ foreach ($actualItem['MORE_PHOTO'] as $value) {
                 <?php endif; ?>
                 <div class="price">
                   <?php if ($arParams['SHOW_OLD_PRICE'] === 'Y'): ?>
-                    <span class="price-old" id="<?=$itemIds['OLD_PRICE_ID']?>"><?=$price['PRINT_RATIO_BASE_PRICE']?></span>
+                  <span class="price-old" id="<?=$itemIds['OLD_PRICE_ID']?>"><?=$price['PRINT_RATIO_BASE_PRICE']?></span>
                   <?php endif; ?>
                   <span class="price-new" id="<?=$itemIds['PRICE_ID']?>"><?=$price['PRINT_RATIO_PRICE'] ?></span>
                 </div>
@@ -284,6 +285,9 @@ foreach ($actualItem['MORE_PHOTO'] as $value) {
             <?
             if ($haveOffers && !empty($arResult['OFFERS_PROP'])) {
 
+							?>
+							<div id="<?=$itemIds['TREE_ID'] ?>">
+							<?
               foreach ($arResult['SKU_PROPS'] as $skuProperty)
 							{
 								if (!isset($arResult['OFFERS_PROP'][$skuProperty['CODE']]))
@@ -296,69 +300,78 @@ foreach ($actualItem['MORE_PHOTO'] as $value) {
 									'VALUES' => $skuProperty['VALUES'],
 									'VALUES_COUNT' => $skuProperty['VALUES_COUNT']
 								);
-
+								?>
+								<div data-entity="sku-line-block">
+								<?
                 if ($skuProperty['SHOW_MODE'] === 'PICT') {
                   ?>
                   <div class="product-color">
                     <div class="haracther"><span><?=htmlspecialcharsEx($skuProperty['NAME']) . ':'?></span></div>
 
-                    <div class="images-color">
+                    <ul class="images-color">
                   <?php foreach ($skuProperty['VALUES'] as &$value): ?>
-                    <span><img src="<?=$value['PICT']['SRC']?>" title="<?=htmlspecialcharsbx($value['NAME'])?>"></span>
+                    <li data-treevalue="<?=$propertyId?>_<?=$value['ID']?>" data-onevalue="<?=$value['ID']?>">
+											<img src="<?=$value['PICT']['SRC']?>" title="<?=htmlspecialcharsbx($value['NAME'])?>">
+										</li>
                   <?php endforeach; ?>
-                    </div>
+								</ul>
                   </div>
                   <?
                 }else {
                   ?>
                   <div class="sizes-left">
-                    <div class="haracther"><span>Выберите размер:</span></div>
+                    <div class="haracther"><span><?=htmlspecialcharsEx($skuProperty['NAME']) . ':'?></span></div>
                     <ul>
                       <?php foreach ($skuProperty['VALUES'] as &$value): ?>
-                        <li><?=htmlspecialcharsbx($value['NAME'])?></li>
+                        <li data-treevalue="<?=$propertyId?>_<?=$value['ID']?>" data-onevalue="<?=$value['ID']?>"><?=htmlspecialcharsbx($value['NAME'])?></li>
                       <?php endforeach; ?>
                     </ul>
                     <a href="javascript:void(0)">Определите свой размер</a>
                   </div>
                   <?
                 }
-              }
+								?>
+								</div>
+								<?
+              }?>
+							</div>
+							<?
             }
             ?>
 
-            <div class="sizes-count">
+						<?php if ($arParams['USE_PRODUCT_QUANTITY']): ?>
+            <div class="sizes-count" style="<?=(!$actualItem['CAN_BUY'] ? 'display: none;' : '')?>" data-entity="quantity-block">
               <div class="count">
                 <div class="haracther"><span>Количество:</span></div>
-
-                <div class="quantity"><div class="minus">-</div><input type="text" value="1"><div class="plus">+</div></div>
+                <div class="quantity">
+									<div class="minus" id="<?=$itemIds['QUANTITY_DOWN_ID']?>" >-</div>
+									<input type="text" id="<?=$itemIds['QUANTITY_ID']?>" value="<?=$price['MIN_QUANTITY']?>" >
+									<div class="plus" id="<?=$itemIds['QUANTITY_UP_ID']?>">+</div>
+								</div>
               </div>
             </div>
+						<?php endif; ?>
 
+						<div data-entity="main-button-container">
+							<div id="<?=$itemIds['BASKET_ACTIONS_ID']?>" style="display: <?=($actualItem['CAN_BUY'] ? '' : 'none')?>;">
+								<a class="add-bag" id="<?=$itemIds['ADD_BASKET_LINK']?>" href="javascript:void(0);">Добавить в корзину</a>
+								<span class="add-click" id="<?=$itemIds['BUY_LINK']?>" href="javascript:void(0);">Купить в один клик</span>
+							</div>
+						</div>
 
-            <a class="add-bag" id="<?=$itemIds['ADD_BASKET_LINK']?>" href="javascript:void(0);">Добавить в корзину</a>
-
-            <span class="add-click" id="<?=$itemIds['BUY_LINK']?>" href="javascript:void(0);">Купить в один клик</span>
-
-
-            <div class="cusrousel-mini">
-              <?php if (!empty($actualItem['MORE_PHOTO'])): ?>
-                <?php foreach ($actualItem['MORE_PHOTO'] as $key => $photo): ?>
-                  <div class="mini-slide">
-                    <a class="<?=$key == 0 ? 'active' : ''?>" href="<?=$photo['SRC']?>">
-                      <img src="<?=$photo['SRC'] ?>" alt="<?=$alt?>" title="<?=$title?>" />
-                    </a>
-                  </div>
-                <?php endforeach; ?>
-              <?php endif; ?>
-              <!-- <div class="mini-slide"><a href="images/big-1-1.jpg"><img src="images/mini-2.jpg" alt="" /></a></div>
-              <div class="mini-slide"><a href="images/big-1-1.jpg"><img src="images/mini-3.jpg" alt="" /></a></div>
-              <div class="mini-slide"><a href="images/big-1-1.jpg"><img src="images/mini-4.jpg" alt="" /></a></div>
-              <div class="mini-slide"><a href="images/big-1-1.jpg"><img src="images/mini-5.jpg" alt="" /></a></div>
-              <div class="mini-slide"><a href="images/big-1-1.jpg"><img src="images/mini-1.jpg" alt="" /></a></div>
-              <div class="mini-slide"><a href="images/big-1-1.jpg"><img src="images/mini-2.jpg" alt="" /></a></div>
-              <div class="mini-slide"><a href="images/big-1-1.jpg"><img src="images/mini-3.jpg" alt="" /></a></div>
-              <div class="mini-slide"><a href="images/big-1-1.jpg"><img src="images/mini-4.jpg" alt="" /></a></div> -->
-            </div>
+						<!-- carousel -->
+            <?php if (!empty($actualItem['MORE_PHOTO'])): ?>
+						<div class="cusrousel-mini" data-entity="images-container">
+              <?php foreach ($actualItem['MORE_PHOTO'] as $key => $photo): ?>
+                <div class="mini-slide" >
+                  <a class="<?=$key == 0 ? 'active' : ''?>" href="<?=$photo['SRC']?>" data-entity="image" data-id="<?=$photo['ID']?>">
+                    <img src="<?=$photo['SRC'] ?>" alt="<?=$alt?>" title="<?=$title?>" />
+                  </a>
+                </div>
+              <?php endforeach; ?>
+						</div>
+            <?php endif; ?>
+						<!-- carousel end -->
 
             <?php if ($showDescription && !empty($arResult['DETAIL_TEXT'])): ?>
             <div class="product-description">

@@ -1026,154 +1026,154 @@
 				this.currentQuantityRanges = newOffer.ITEM_QUANTITY_RANGES;
 				this.currentQuantityRangeSelected = newOffer.ITEM_QUANTITY_RANGE_SELECTED;
 
-				if (this.canBuy)
-				{
-					if (this.blockNodes.quantity)
-					{
-						BX.style(this.blockNodes.quantity, 'display', '');
-					}
-
-					if (this.obBasketActions)
-					{
-						BX.style(this.obBasketActions, 'display', '');
-					}
-
-					if (this.obNotAvail)
-					{
-						BX.style(this.obNotAvail, 'display', 'none');
-					}
-
-					if (this.obSubscribe)
-					{
-						BX.style(this.obSubscribe, 'display', 'none');
-					}
-				}
-				else
-				{
-					if (this.blockNodes.quantity)
-					{
-						BX.style(this.blockNodes.quantity, 'display', 'none');
-					}
-
-					if (this.obBasketActions)
-					{
-						BX.style(this.obBasketActions, 'display', 'none');
-					}
-
-					if (this.obNotAvail)
-					{
-						BX.style(this.obNotAvail, 'display', '');
-					}
-
-					if (this.obSubscribe)
-					{
-						if (newOffer.CATALOG_SUBSCRIBE === 'Y')
-						{
-							BX.style(this.obSubscribe, 'display', '');
-							this.obSubscribe.setAttribute('data-item', newOffer.ID);
-							BX(this.visual.SUBSCRIBE_ID + '_hidden').click();
-						}
-						else
-						{
-							BX.style(this.obSubscribe, 'display', 'none');
-						}
-					}
-				}
-
+				// if (this.canBuy)
+				// {
+				// 	if (this.blockNodes.quantity)
+				// 	{
+				// 		BX.style(this.blockNodes.quantity, 'display', '');
+				// 	}
+				//
+				// 	if (this.obBasketActions)
+				// 	{
+				// 		BX.style(this.obBasketActions, 'display', '');
+				// 	}
+				//
+				// 	if (this.obNotAvail)
+				// 	{
+				// 		BX.style(this.obNotAvail, 'display', 'none');
+				// 	}
+				//
+				// 	if (this.obSubscribe)
+				// 	{
+				// 		BX.style(this.obSubscribe, 'display', 'none');
+				// 	}
+				// }
+				// else
+				// {
+				// 	if (this.blockNodes.quantity)
+				// 	{
+				// 		BX.style(this.blockNodes.quantity, 'display', 'none');
+				// 	}
+				//
+				// 	if (this.obBasketActions)
+				// 	{
+				// 		BX.style(this.obBasketActions, 'display', 'none');
+				// 	}
+				//
+				// 	if (this.obNotAvail)
+				// 	{
+				// 		BX.style(this.obNotAvail, 'display', '');
+				// 	}
+				//
+				// 	if (this.obSubscribe)
+				// 	{
+				// 		if (newOffer.CATALOG_SUBSCRIBE === 'YquantitySet')
+				// 		{
+				// 			BX.style(this.obSubscribe, 'display', '');
+				// 			this.obSubscribe.setAttribute('data-item', newOffer.ID);
+				// 			BX(this.visual.SUBSCRIBE_ID + '_hidden').click();
+				// 		}
+				// 		else
+				// 		{
+				// 			BX.style(this.obSubscribe, 'display', 'none');
+				// 		}
+				// 	}
+				// }
+				//
 				this.isDblQuantity = newOffer.QUANTITY_FLOAT;
 				this.checkQuantity = newOffer.CHECK_QUANTITY;
+				//
+				// if (this.isDblQuantity)
+				// {
+				// 	this.stepQuantity = Math.round(parseFloat(newOffer.STEP_QUANTITY) * this.precisionFactor) / this.precisionFactor;
+				// 	this.maxQuantity = parseFloat(newOffer.MAX_QUANTITY);
+				// 	this.minQuantity = this.currentPriceMode === 'Q' ? parseFloat(this.currentPrices[this.currentPriceSelected].MIN_QUANTITY) : this.stepQuantity;
+				// }
+				// else
+				// {
+				// 	this.stepQuantity = parseInt(newOffer.STEP_QUANTITY, 10);
+				// 	this.maxQuantity = parseInt(newOffer.MAX_QUANTITY, 10);
+				// 	this.minQuantity = this.currentPriceMode === 'Q' ? parseInt(this.currentPrices[this.currentPriceSelected].MIN_QUANTITY) : this.stepQuantity;
+				// }
 
-				if (this.isDblQuantity)
-				{
-					this.stepQuantity = Math.round(parseFloat(newOffer.STEP_QUANTITY) * this.precisionFactor) / this.precisionFactor;
-					this.maxQuantity = parseFloat(newOffer.MAX_QUANTITY);
-					this.minQuantity = this.currentPriceMode === 'Q' ? parseFloat(this.currentPrices[this.currentPriceSelected].MIN_QUANTITY) : this.stepQuantity;
-				}
-				else
-				{
-					this.stepQuantity = parseInt(newOffer.STEP_QUANTITY, 10);
-					this.maxQuantity = parseInt(newOffer.MAX_QUANTITY, 10);
-					this.minQuantity = this.currentPriceMode === 'Q' ? parseInt(this.currentPrices[this.currentPriceSelected].MIN_QUANTITY) : this.stepQuantity;
-				}
+				// if (this.showQuantity)
+				// {
+				// 	var isDifferentMinQuantity = oldOffer.ITEM_PRICES.length
+				// 		&& oldOffer.ITEM_PRICES[oldOffer.ITEM_PRICE_SELECTED]
+				// 		&& oldOffer.ITEM_PRICES[oldOffer.ITEM_PRICE_SELECTED].MIN_QUANTITY != this.minQuantity;
+				//
+				// 	if (this.isDblQuantity)
+				// 	{
+				// 		resetQuantity = Math.round(parseFloat(oldOffer.STEP_QUANTITY) * this.precisionFactor) / this.precisionFactor !== this.stepQuantity
+				// 			|| isDifferentMinQuantity
+				// 			|| oldOffer.MEASURE !== newOffer.MEASURE
+				// 			|| (
+				// 				this.checkQuantity
+				// 				&& parseFloat(oldOffer.MAX_QUANTITY) > this.maxQuantity
+				// 				&& parseFloat(this.obQuantity.value) > this.maxQuantity
+				// 			);
+				// 	}
+				// 	else
+				// 	{
+				// 		resetQuantity = parseInt(oldOffer.STEP_QUANTITY, 10) !== this.stepQuantity
+				// 			|| isDifferentMinQuantity
+				// 			|| oldOffer.MEASURE !== newOffer.MEASURE
+				// 			|| (
+				// 				this.checkQuantity
+				// 				&& parseInt(oldOffer.MAX_QUANTITY, 10) > this.maxQuantity
+				// 				&& parseInt(this.obQuantity.value, 10) > this.maxQuantity
+				// 			);
+				// 	}
+				//
+				// 	this.obQuantity.disabled = !this.canBuy;
+				//
+				// 	if (resetQuantity)
+				// 	{
+				// 		this.obQuantity.value = this.minQuantity;
+				// 	}
+				//
+				// 	if (this.obMeasure)
+				// 	{
+				// 		if (newOffer.MEASURE)
+				// 		{
+				// 			BX.adjust(this.obMeasure, {html: newOffer.MEASURE});
+				// 		}
+				// 		else
+				// 		{
+				// 			BX.adjust(this.obMeasure, {html: ''});
+				// 		}
+				// 	}
+				// }
 
-				if (this.showQuantity)
-				{
-					var isDifferentMinQuantity = oldOffer.ITEM_PRICES.length
-						&& oldOffer.ITEM_PRICES[oldOffer.ITEM_PRICE_SELECTED]
-						&& oldOffer.ITEM_PRICES[oldOffer.ITEM_PRICE_SELECTED].MIN_QUANTITY != this.minQuantity;
-
-					if (this.isDblQuantity)
-					{
-						resetQuantity = Math.round(parseFloat(oldOffer.STEP_QUANTITY) * this.precisionFactor) / this.precisionFactor !== this.stepQuantity
-							|| isDifferentMinQuantity
-							|| oldOffer.MEASURE !== newOffer.MEASURE
-							|| (
-								this.checkQuantity
-								&& parseFloat(oldOffer.MAX_QUANTITY) > this.maxQuantity
-								&& parseFloat(this.obQuantity.value) > this.maxQuantity
-							);
-					}
-					else
-					{
-						resetQuantity = parseInt(oldOffer.STEP_QUANTITY, 10) !== this.stepQuantity
-							|| isDifferentMinQuantity
-							|| oldOffer.MEASURE !== newOffer.MEASURE
-							|| (
-								this.checkQuantity
-								&& parseInt(oldOffer.MAX_QUANTITY, 10) > this.maxQuantity
-								&& parseInt(this.obQuantity.value, 10) > this.maxQuantity
-							);
-					}
-
-					this.obQuantity.disabled = !this.canBuy;
-
-					if (resetQuantity)
-					{
-						this.obQuantity.value = this.minQuantity;
-					}
-
-					if (this.obMeasure)
-					{
-						if (newOffer.MEASURE)
-						{
-							BX.adjust(this.obMeasure, {html: newOffer.MEASURE});
-						}
-						else
-						{
-							BX.adjust(this.obMeasure, {html: ''});
-						}
-					}
-				}
-
-				if (this.obQuantityLimit.all)
-				{
-					if (!this.checkQuantity || this.maxQuantity == 0)
-					{
-						BX.adjust(this.obQuantityLimit.value, {html: ''});
-						BX.adjust(this.obQuantityLimit.all, {style: {display: 'none'}});
-					}
-					else
-					{
-						if (this.showMaxQuantity === 'M')
-						{
-							strLimit = (this.maxQuantity / this.stepQuantity >= this.relativeQuantityFactor)
-								? BX.message('RELATIVE_QUANTITY_MANY')
-								: BX.message('RELATIVE_QUANTITY_FEW');
-						}
-						else
-						{
-							strLimit = this.maxQuantity;
-
-							if (newOffer.MEASURE)
-							{
-								strLimit += (' ' + newOffer.MEASURE);
-							}
-						}
-
-						BX.adjust(this.obQuantityLimit.value, {html: strLimit});
-						BX.adjust(this.obQuantityLimit.all, {style: {display: ''}});
-					}
-				}
+				// if (this.obQuantityLimit.all)
+				// {
+				// 	if (!this.checkQuantity || this.maxQuantity == 0)
+				// 	{
+				// 		BX.adjust(this.obQuantityLimit.value, {html: ''});
+				// 		BX.adjust(this.obQuantityLimit.all, {style: {display: 'none'}});
+				// 	}
+				// 	else
+				// 	{
+				// 		if (this.showMaxQuantity === 'M')
+				// 		{
+				// 			strLimit = (this.maxQuantity / this.stepQuantity >= this.relativeQuantityFactor)
+				// 				? BX.message('RELATIVE_QUANTITY_MANY')
+				// 				: BX.message('RELATIVE_QUANTITY_FEW');
+				// 		}
+				// 		else
+				// 		{
+				// 			strLimit = this.maxQuantity;
+				//
+				// 			if (newOffer.MEASURE)
+				// 			{
+				// 				strLimit += (' ' + newOffer.MEASURE);
+				// 			}
+				// 		}
+				//
+				// 		BX.adjust(this.obQuantityLimit.value, {html: strLimit});
+				// 		BX.adjust(this.obQuantityLimit.all, {style: {display: ''}});
+				// 	}
+				// }
 			}
 		},
 
