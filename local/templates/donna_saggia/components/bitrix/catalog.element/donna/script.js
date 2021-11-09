@@ -527,7 +527,7 @@ jQuery(document).ready(function() {
 				this.smallCardNodes.title && BX.bind(this.smallCardNodes.title, 'click', BX.proxy(this.scrollToProduct, this));
 				this.smallCardNodes.sku && BX.bind(this.smallCardNodes.sku, 'click', BX.proxy(this.scrollToProduct, this));
 			}
-console.log(this.errorCode);
+
 			if (this.obTabsPanel || this.smallCardNodes.panel)
 			{
 				this.checkTopPanels();
@@ -2549,7 +2549,7 @@ console.log(this.errorCode);
 				{
 					this.isGift = false;
 				}
-				console.log(this.offers[index].SLIDER);
+
 				this.drawImages(this.offers[index].SLIDER);
 				this.checkSliderControls(this.offers[index].SLIDER_COUNT);
 
@@ -2599,7 +2599,7 @@ console.log(this.errorCode);
 					this.stopSlider();
 				}
 
-				if (this.obDescription && this.config.showSkuDescription === 'Y')
+				if (this.obDescription  && this.config.showSkuDescription === 'Y')
 				{
 					this.changeSkuDescription(index);
 				}
@@ -2656,20 +2656,20 @@ console.log(this.errorCode);
 
 			if (this.offers[index].DETAIL_TEXT !== '')
 			{
-				currentDetailText = this.offers[index].DETAIL_TEXT_TYPE === 'html' ? this.offers[index].DETAIL_TEXT : '<p>' + this.offers[index].DETAIL_TEXT + '</p>';
+				currentDetailText = this.offers[index].DETAIL_TEXT_TYPE === 'html' ? this.offers[index].DETAIL_TEXT :'<h4>Описание товара:</h4><p>' + this.offers[index].DETAIL_TEXT + '</p>';
 			}
 			else if (this.product.detailText !== '')
 			{
-				currentDetailText = this.product.detailTextType === 'html' ? this.product.detailText : '<p>' + this.product.detailText + '</p>';
+				currentDetailText = this.product.detailTextType === 'html' ? this.product.detailText : '<h4>Описание товара:</h4><p>' + this.product.detailText + '</p>';
 			}
 
 			if (this.offers[index].PREVIEW_TEXT !== '')
 			{
-				currentPreviewText = this.offers[index].PREVIEW_TEXT_TYPE === 'html' ? this.offers[index].PREVIEW_TEXT : '<p>' + this.offers[index].PREVIEW_TEXT + '</p>';
+				currentPreviewText = this.offers[index].PREVIEW_TEXT_TYPE === 'html' ? this.offers[index].PREVIEW_TEXT : '<h4>Описание товара:</h4><p>' + this.offers[index].PREVIEW_TEXT + '</p>';
 			}
 			else if (this.product.previewText !== '')
 			{
-				currentPreviewText = this.product.previewTextType === 'html' ? this.product.previewText : '<p>' + this.product.previewText + '</p>';
+				currentPreviewText = this.product.previewTextType === 'html' ? this.product.previewText : '<h4>Описание товара:</h4><p>' + this.product.previewText + '</p>';
 			}
 
 			if (
@@ -2691,7 +2691,6 @@ console.log(this.errorCode);
 
 		drawImages: function(images)
 		{
-			console.log('+');
 			if (!this.node.imageContainer)
 				return;
 			var i, img, a, entities = this.getEntities(this.node.imageContainer, 'image');
@@ -2706,10 +2705,6 @@ console.log(this.errorCode);
 			for (i = 0; i < images.length; i++)
 			{
 				a = BX.create('A', {
-					attrs: {
-							'data-entity': 'image',
-							'data-id': images[i].ID
-						},
 					props:{
 						className:(i == 0 ? ' active' : ''),
 						href:images[i].SRC,
@@ -2725,10 +2720,12 @@ console.log(this.errorCode);
 							})]
 						});
 
-				console.log(a);
-
 				this.node.imageContainer.appendChild(
 					BX.create('DIV', {
+						attrs: {
+								'data-entity': 'image',
+								'data-id': images[i].ID
+							},
 						props: {
 							className: 'mini-slide'
 						},

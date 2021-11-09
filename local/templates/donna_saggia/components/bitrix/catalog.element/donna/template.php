@@ -63,13 +63,10 @@ $itemIds = array(
 	'ADD_BASKET_LINK' => $mainId.'_add_basket_link',
 	'BASKET_ACTIONS_ID' => $mainId.'_basket_actions',
 	'NOT_AVAILABLE_MESS' => $mainId.'_not_avail',
-	'COMPARE_LINK' => $mainId.'_compare_link',
 	'TREE_ID' => $mainId.'_skudiv',
 	'DISPLAY_PROP_DIV' => $mainId.'_sku_prop',
 	'DISPLAY_MAIN_PROP_DIV' => $mainId.'_main_sku_prop',
-	'OFFER_GROUP' => $mainId.'_set_group_',
 	'BASKET_PROP_DIV' => $mainId.'_basket_prop',
-	'SUBSCRIBE_LINK' => $mainId.'_subscribe',
 	'TABS_ID' => $mainId.'_tabs',
 	'TAB_CONTAINERS_ID' => $mainId.'_tab_containers',
 	'SMALL_CARD_PANEL_ID' => $mainId.'_small_card_panel',
@@ -110,7 +107,7 @@ else
 $skuProps = array();
 $price = $actualItem['ITEM_PRICES'][$actualItem['ITEM_PRICE_SELECTED']];
 $measureRatio = $actualItem['ITEM_MEASURE_RATIOS'][$actualItem['ITEM_MEASURE_RATIO_SELECTED']]['RATIO'];
-$showDiscount = $price['PERCENT'] > 0;
+
 
 if ($arParams['SHOW_SKU_DESCRIPTION'] === 'Y')
 {
@@ -130,373 +127,450 @@ else
 	$showDescription = !empty($arResult['PREVIEW_TEXT']) || !empty($arResult['DETAIL_TEXT']);
 }
 
-$showBuyBtn = in_array('BUY', $arParams['ADD_TO_BASKET_ACTION']);
-$buyButtonClassName = in_array('BUY', $arParams['ADD_TO_BASKET_ACTION_PRIMARY']) ? 'btn-default' : 'btn-link';
-$showAddBtn = in_array('ADD', $arParams['ADD_TO_BASKET_ACTION']);
-$showButtonClassName = in_array('ADD', $arParams['ADD_TO_BASKET_ACTION_PRIMARY']) ? 'btn-default' : 'btn-link';
-$showSubscribe = $arParams['PRODUCT_SUBSCRIPTION'] === 'Y' && ($arResult['PRODUCT']['SUBSCRIBE'] === 'Y' || $haveOffers);
-
-$arParams['MESS_BTN_BUY'] = $arParams['MESS_BTN_BUY'] ?: Loc::getMessage('CT_BCE_CATALOG_BUY');
-$arParams['MESS_BTN_ADD_TO_BASKET'] = $arParams['MESS_BTN_ADD_TO_BASKET'] ?: Loc::getMessage('CT_BCE_CATALOG_ADD');
-$arParams['MESS_NOT_AVAILABLE'] = $arParams['MESS_NOT_AVAILABLE'] ?: Loc::getMessage('CT_BCE_CATALOG_NOT_AVAILABLE');
-$arParams['MESS_BTN_COMPARE'] = $arParams['MESS_BTN_COMPARE'] ?: Loc::getMessage('CT_BCE_CATALOG_COMPARE');
-$arParams['MESS_PRICE_RANGES_TITLE'] = $arParams['MESS_PRICE_RANGES_TITLE'] ?: Loc::getMessage('CT_BCE_CATALOG_PRICE_RANGES_TITLE');
-$arParams['MESS_DESCRIPTION_TAB'] = $arParams['MESS_DESCRIPTION_TAB'] ?: Loc::getMessage('CT_BCE_CATALOG_DESCRIPTION_TAB');
-$arParams['MESS_PROPERTIES_TAB'] = $arParams['MESS_PROPERTIES_TAB'] ?: Loc::getMessage('CT_BCE_CATALOG_PROPERTIES_TAB');
-$arParams['MESS_COMMENTS_TAB'] = $arParams['MESS_COMMENTS_TAB'] ?: Loc::getMessage('CT_BCE_CATALOG_COMMENTS_TAB');
-$arParams['MESS_SHOW_MAX_QUANTITY'] = $arParams['MESS_SHOW_MAX_QUANTITY'] ?: Loc::getMessage('CT_BCE_CATALOG_SHOW_MAX_QUANTITY');
-$arParams['MESS_RELATIVE_QUANTITY_MANY'] = $arParams['MESS_RELATIVE_QUANTITY_MANY'] ?: Loc::getMessage('CT_BCE_CATALOG_RELATIVE_QUANTITY_MANY');
-$arParams['MESS_RELATIVE_QUANTITY_FEW'] = $arParams['MESS_RELATIVE_QUANTITY_FEW'] ?: Loc::getMessage('CT_BCE_CATALOG_RELATIVE_QUANTITY_FEW');
-
-$positionClassMap = array(
-	'left' => 'product-item-label-left',
-	'center' => 'product-item-label-center',
-	'right' => 'product-item-label-right',
-	'bottom' => 'product-item-label-bottom',
-	'middle' => 'product-item-label-middle',
-	'top' => 'product-item-label-top'
-);
-
-$discountPositionClass = 'product-item-label-big';
-if ($arParams['SHOW_DISCOUNT_PERCENT'] === 'Y' && !empty($arParams['DISCOUNT_PERCENT_POSITION']))
-{
-	foreach (explode('-', $arParams['DISCOUNT_PERCENT_POSITION']) as $pos)
-	{
-		$discountPositionClass .= isset($positionClassMap[$pos]) ? ' '.$positionClassMap[$pos] : '';
-	}
-}
-
-$labelPositionClass = 'product-item-label-big';
-if (!empty($arParams['LABEL_PROP_POSITION']))
-{
-	foreach (explode('-', $arParams['LABEL_PROP_POSITION']) as $pos)
-	{
-		$labelPositionClass .= isset($positionClassMap[$pos]) ? ' '.$positionClassMap[$pos] : '';
-	}
-}
-// foreach ($actualItem['MORE_PHOTO'] as $key=>$value) {
-//   echo $key .':'. print_r($value);
-//   echo "<br>";
-// }
-
-// print_r($arResult['OFFERS_SELECTED']);
-// //
-// echo "<br><br><br><br><br>";
-//
-// print_r($arParams);
 ?>
-<section id="container">
-  <div class="inner">
+<div class="product" id="<?=$itemIds['ID']?>">
+  <div class="product-left">
+    <div class="big-image">
+      <a class="fancy" href="images/big-1-1.jpg">
+        <img src="<?=$actualItem['MORE_PHOTO'][0]['SRC'] ?>">
+      </a>
+    </div>
 
-    <div class="catalog">
+    <div class="share">
+      <script type="text/javascript" src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js" charset="utf-8"></script>
+      <script type="text/javascript" src="//yastatic.net/share2/share.js" charset="utf-8"></script>
+      <div class="share-fr">Рассказать друзьям:</div>
+      <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,moimir,gplus,twitter,lj" data-size="s"></div>
+    </div>
 
-      <div class="sidebar-left">
-        <div class="drop">Развернуть опции</div>
-
-        <div class="drop-wrap">
-          <div class="side-menu">
-            <ul>
-              <li class="current"><a href="">Платья</a>
-                <ul>
-                  <li><a href="">Нарядные</a></li>
-                  <li><a href="">Длинные</a></li>
-                  <li><a href="">Летние</a></li>
-                </ul>
-              </li>
-              <li><a href="">Блузки и топы</a></li>
-              <li><a href="">Юбки</a></li>
-              <li><a href="">Кардиганы</a></li>
-              <li><a href="">Комбинезоны</a></li>
-            </ul>
-
-            <ul>
-              <li><a href="">Распродажа</a></li>
-              <li><a href="">Ликвидация</a></li>
-            </ul>
-          </div>
-
-          <div class="side-menu">
-            <ul>
-              <li><a href="">Вернуться в каталог</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-
-      <div class="catalog-content" id="<?=$itemIds['ID']?>">
-        <div class="product" >
-          <div class="product-left">
-            <div class="big-image">
-              <a class="fancy" href="images/big-1-1.jpg">
-                <img src="<?=$actualItem['MORE_PHOTO'][0]['SRC'] ?>">
-              </a>
-            </div>
-
-            <div class="share">
-              <script type="text/javascript" src="//yastatic.net/es5-shims/0.0.2/es5-shims.min.js" charset="utf-8"></script>
-              <script type="text/javascript" src="//yastatic.net/share2/share.js" charset="utf-8"></script>
-              <div class="share-fr">Рассказать друзьям:</div>
-              <div class="ya-share2" data-services="vkontakte,facebook,odnoklassniki,moimir,gplus,twitter,lj" data-size="s"></div>
-            </div>
-
-            <div class="your-display">
-              Оттенок и насыщенность изображения зависит
-              от цветовых настроек Вашего монитора.
-            </div>
-          </div>
-
-          <div class="product-right">
-            <div class="product-inner">
-              <div class="product-left-inner">
-                <?php if ($arParams['DISPLAY_NAME'] === 'Y'): ?>
-                  <h1><?=$name?></h1>
-                <?php endif; ?>
-                <div class="price">
-                  <?php if ($arParams['SHOW_OLD_PRICE'] === 'Y'): ?>
-                  <span class="price-old" id="<?=$itemIds['OLD_PRICE_ID']?>"><?=$price['PRINT_RATIO_BASE_PRICE']?></span>
-                  <?php endif; ?>
-                  <span class="price-new" id="<?=$itemIds['PRICE_ID']?>"><?=$price['PRINT_RATIO_PRICE'] ?></span>
-                </div>
-              </div>
-
-              <div class="product-right-inner">
-                <div class="stars">
-                  <span class="active"></span>
-                  <span class="active"></span>
-                  <span class="active"></span>
-                  <span class="active"></span>
-                  <span class=""></span>
-                  (83)
-                </div>
-                <a href="#">Посмотреть или написать <br>отзыв</a>
-              </div>
-            </div>
-
-            <? if (!empty($arResult['DISPLAY_PROPERTIES'])): ?>
-              <? foreach ($arResult['DISPLAY_PROPERTIES'] as $properties): ?>
-                <div class="haracther">
-                  <span><?=$properties['NAME'] . ':' ?></span>
-                   <?=is_array($properties['DISPLAY_VALUE']) ? implode(', ',$properties['DISPLAY_VALUE']) : $properties['DISPLAY_VALUE'] ?>
-                </div>
-              <? endforeach; ?>
-              <? unset($properties) ?>
-            <? endif; ?>
-
-            <?
-            if ($haveOffers && !empty($arResult['OFFERS_PROP'])) {
-
-							?>
-							<div id="<?=$itemIds['TREE_ID'] ?>">
-							<?
-              foreach ($arResult['SKU_PROPS'] as $skuProperty)
-							{
-								if (!isset($arResult['OFFERS_PROP'][$skuProperty['CODE']]))
-									continue;
-
-								$propertyId = $skuProperty['ID'];
-								$skuProps[] = array(
-									'ID' => $propertyId,
-									'SHOW_MODE' => $skuProperty['SHOW_MODE'],
-									'VALUES' => $skuProperty['VALUES'],
-									'VALUES_COUNT' => $skuProperty['VALUES_COUNT']
-								);
-								?>
-								<div data-entity="sku-line-block">
-								<?
-                if ($skuProperty['SHOW_MODE'] === 'PICT') {
-                  ?>
-                  <div class="product-color">
-                    <div class="haracther"><span><?=htmlspecialcharsEx($skuProperty['NAME']) . ':'?></span></div>
-
-                    <ul class="images-color">
-                  <?php foreach ($skuProperty['VALUES'] as &$value): ?>
-                    <li data-treevalue="<?=$propertyId?>_<?=$value['ID']?>" data-onevalue="<?=$value['ID']?>">
-											<img src="<?=$value['PICT']['SRC']?>" title="<?=htmlspecialcharsbx($value['NAME'])?>">
-										</li>
-                  <?php endforeach; ?>
-								</ul>
-                  </div>
-                  <?
-                }else {
-                  ?>
-                  <div class="sizes-left">
-                    <div class="haracther"><span><?=htmlspecialcharsEx($skuProperty['NAME']) . ':'?></span></div>
-                    <ul>
-                      <?php foreach ($skuProperty['VALUES'] as &$value): ?>
-                        <li data-treevalue="<?=$propertyId?>_<?=$value['ID']?>" data-onevalue="<?=$value['ID']?>"><?=htmlspecialcharsbx($value['NAME'])?></li>
-                      <?php endforeach; ?>
-                    </ul>
-                    <a href="javascript:void(0)">Определите свой размер</a>
-                  </div>
-                  <?
-                }
-								?>
-								</div>
-								<?
-              }?>
-							</div>
-							<?
-            }
-            ?>
-
-						<?php if ($arParams['USE_PRODUCT_QUANTITY']): ?>
-            <div class="sizes-count" style="<?=(!$actualItem['CAN_BUY'] ? 'display: none;' : '')?>" data-entity="quantity-block">
-              <div class="count">
-                <div class="haracther"><span>Количество:</span></div>
-                <div class="quantity">
-									<div class="minus" id="<?=$itemIds['QUANTITY_DOWN_ID']?>" >-</div>
-									<input type="text" id="<?=$itemIds['QUANTITY_ID']?>" value="<?=$price['MIN_QUANTITY']?>" >
-									<div class="plus" id="<?=$itemIds['QUANTITY_UP_ID']?>">+</div>
-								</div>
-              </div>
-            </div>
-						<?php endif; ?>
-
-						<div data-entity="main-button-container">
-							<div id="<?=$itemIds['BASKET_ACTIONS_ID']?>" style="display: <?=($actualItem['CAN_BUY'] ? '' : 'none')?>;">
-								<a class="add-bag" id="<?=$itemIds['ADD_BASKET_LINK']?>" href="javascript:void(0);">Добавить в корзину</a>
-								<span class="add-click" id="<?=$itemIds['BUY_LINK']?>" href="javascript:void(0);">Купить в один клик</span>
-							</div>
-						</div>
-
-						<!-- carousel -->
-            <?php if (!empty($actualItem['MORE_PHOTO'])): ?>
-						<div class="cusrousel-mini" data-entity="images-container">
-              <?php foreach ($actualItem['MORE_PHOTO'] as $key => $photo): ?>
-                <div class="mini-slide" >
-                  <a class="<?=$key == 0 ? 'active' : ''?>" href="<?=$photo['SRC']?>" data-entity="image" data-id="<?=$photo['ID']?>">
-                    <img src="<?=$photo['SRC'] ?>" alt="<?=$alt?>" title="<?=$title?>" />
-                  </a>
-                </div>
-              <?php endforeach; ?>
-						</div>
-            <?php endif; ?>
-						<!-- carousel end -->
-
-            <?php if ($showDescription && !empty($arResult['DETAIL_TEXT'])): ?>
-            <div class="product-description">
-              <h4>Описание товара:</h4>
-              <p><?=$arResult['DETAIL_TEXT']?></p>
-            </div>
-            <?php endif; ?>
-          </div>
-        </div>
-
-        <div class="tab-box">
-          <ul class="tab-list">
-            <li class="active"><a href="#tab-1">Похожие товары</a></li>
-            <li><a href="#tab-2">Вы уже смотрели</a></li>
-            <li><a href="#tab-3">Отзывы (83)</a></li>
-          </ul>
-
-          <div class="tab-block">
-            <div class="active tab" id="tab-1">
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-1.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-2.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-3.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-4.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-5.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-6.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-7.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-8.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-            </div>
-            <div class="tab" id="tab-2">
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-1.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-2.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-3.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-4.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-5.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-6.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-7.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-
-              <a href="#">
-                <span class="relative-img"><img src="images/rel-8.jpg" alt="" /></span>
-                <span class="relative-title">Платье-футляр</span>
-                <span class="relative-title">3 390 руб.</span>
-              </a>
-            </div>
-            <div class="tab" id="tab-3">
-              <p style="font-size: 2rem;">Отзывы</p>
-            </div>
-          </div>
-        </div>
-      </div>
+    <div class="your-display">
+      Оттенок и насыщенность изображения зависит
+      от цветовых настроек Вашего монитора.
     </div>
   </div>
-</section>
+
+  <div class="product-right">
+    <div class="product-inner">
+      <div class="product-left-inner">
+        <?php if ($arParams['DISPLAY_NAME'] === 'Y'): ?>
+          <h1><?=$name?></h1>
+        <?php endif; ?>
+        <div class="price">
+          <?php if ($arParams['SHOW_OLD_PRICE'] === 'Y'): ?>
+          <span class="price-old" id="<?=$itemIds['OLD_PRICE_ID']?>"><?=$price['PRINT_RATIO_BASE_PRICE']?></span>
+          <?php endif; ?>
+          <span class="price-new" id="<?=$itemIds['PRICE_ID']?>"><?=$price['PRINT_RATIO_PRICE'] ?></span>
+        </div>
+      </div>
+
+      <div class="product-right-inner">
+        <div class="stars">
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class="active"></span>
+          <span class=""></span>
+          (83)
+        </div>
+        <a href="#">Посмотреть или написать <br>отзыв</a>
+      </div>
+    </div>
+
+		<? if (!empty($arResult['DISPLAY_PROPERTIES']) || $arResult['SHOW_OFFERS_PROPS']): ?>
+      <? if (!empty($arResult['DISPLAY_PROPERTIES'])): ?>
+        <? foreach ($arResult['DISPLAY_PROPERTIES'] as $properties): ?>
+          <div class="haracther">
+            <span><?=$properties['NAME'] . ':' ?></span>
+             <?=is_array($properties['DISPLAY_VALUE']) ? implode(', ',$properties['DISPLAY_VALUE']) : $properties['DISPLAY_VALUE'] ?>
+          </div>
+        <? endforeach; ?>
+        <? unset($properties) ?>
+      <? endif; ?>
+
+			<? if ($arResult['SHOW_OFFERS_PROPS']): ?>
+				<div class="haracther" id="<?=$itemIds['DISPLAY_MAIN_PROP_DIV']?>"></div>
+			<? endif; ?>
+		<? endif; ?>
+
+    <?
+    if ($haveOffers && !empty($arResult['OFFERS_PROP'])) {
+
+			?>
+			<div id="<?=$itemIds['TREE_ID'] ?>">
+			<?
+      foreach ($arResult['SKU_PROPS'] as $skuProperty)
+			{
+				if (!isset($arResult['OFFERS_PROP'][$skuProperty['CODE']]))
+					continue;
+
+				$propertyId = $skuProperty['ID'];
+				$skuProps[] = array(
+					'ID' => $propertyId,
+					'SHOW_MODE' => $skuProperty['SHOW_MODE'],
+					'VALUES' => $skuProperty['VALUES'],
+					'VALUES_COUNT' => $skuProperty['VALUES_COUNT']
+				);
+				?>
+				<div data-entity="sku-line-block">
+				<?
+        if ($skuProperty['SHOW_MODE'] === 'PICT') {
+          ?>
+          <div class="product-color">
+            <div class="haracther"><span><?=htmlspecialcharsEx($skuProperty['NAME']) . ':'?></span></div>
+
+            <ul class="images-color">
+          <?php foreach ($skuProperty['VALUES'] as &$value): ?>
+            <li data-treevalue="<?=$propertyId?>_<?=$value['ID']?>" data-onevalue="<?=$value['ID']?>">
+							<img src="<?=$value['PICT']['SRC']?>" title="<?=htmlspecialcharsbx($value['NAME'])?>">
+						</li>
+          <?php endforeach; ?>
+				</ul>
+          </div>
+          <?
+        }else {
+          ?>
+          <div class="sizes-left">
+            <div class="haracther"><span><?=htmlspecialcharsEx($skuProperty['NAME']) . ':'?></span></div>
+            <ul>
+              <?php foreach ($skuProperty['VALUES'] as &$value): ?>
+                <li data-treevalue="<?=$propertyId?>_<?=$value['ID']?>" data-onevalue="<?=$value['ID']?>"><?=htmlspecialcharsbx($value['NAME'])?></li>
+              <?php endforeach; ?>
+            </ul>
+            <a href="javascript:void(0)">Определите свой размер</a>
+          </div>
+          <?
+        }
+				?>
+				</div>
+				<?
+      }?>
+			</div>
+			<?
+    }
+    ?>
+
+		<?php if ($arParams['USE_PRODUCT_QUANTITY']): ?>
+    <div class="sizes-count" style="<?=(!$actualItem['CAN_BUY'] ? 'display: none;' : '')?>" data-entity="quantity-block">
+      <div class="count">
+        <div class="haracther"><span>Количество:</span></div>
+        <div class="quantity">
+					<div class="minus" id="<?=$itemIds['QUANTITY_DOWN_ID']?>" >-</div>
+					<input type="text" id="<?=$itemIds['QUANTITY_ID']?>" value="<?=$price['MIN_QUANTITY']?>" >
+					<div class="plus" id="<?=$itemIds['QUANTITY_UP_ID']?>">+</div>
+				</div>
+      </div>
+    </div>
+		<?php endif; ?>
+
+		<div data-entity="main-button-container">
+			<div id="<?=$itemIds['BASKET_ACTIONS_ID']?>" style="display: <?=($actualItem['CAN_BUY'] ? '' : 'none')?>;">
+				<a class="add-bag" id="<?=$itemIds['ADD_BASKET_LINK']?>" href="javascript:void(0);">Добавить в корзину</a>
+				<span class="add-click" id="<?=$itemIds['BUY_LINK']?>" href="javascript:void(0);">Купить в один клик</span>
+			</div>
+		</div>
+
+		<!-- carousel -->
+    <?php if (!empty($actualItem['MORE_PHOTO'])): ?>
+		<div class="cusrousel-mini" >
+      <?php foreach ($actualItem['MORE_PHOTO'] as $key => $photo): ?>
+        <div class="mini-slide" data-entity="image" data-id="<?=$photo['ID']?>">
+          <a class="<?=$key == 0 ? 'active' : ''?>" href="<?=$photo['SRC']?>">
+            <img src="<?=$photo['SRC'] ?>" alt="<?=$alt?>" title="<?=$title?>" />
+          </a>
+        </div>
+      <?php endforeach; ?>
+		</div>
+    <?php endif; ?>
+		<!-- carousel end -->
+
+    <?php if ($showDescription && !empty($arResult['DETAIL_TEXT'])): ?>
+    <div class="product-description" data-entity="tab-container" data-value="description"
+				itemprop="description" id="<?=$itemIds['DESCRIPTION_ID']?>">
+      <h4>Описание товара:</h4>
+      <p><?=$arResult['DETAIL_TEXT']?></p>
+    </div>
+    <?php endif; ?>
+  </div>
+</div>
+<div class="tab-box">
+	<ul class="tab-list">
+		<li class="active"><a href="#tab-1">Похожие товары</a></li>
+		<li><a href="#tab-2">Вы уже смотрели</a></li>
+		<li><a href="#tab-3">Отзывы (83)</a></li>
+	</ul>
+
+	<div class="tab-block">
+		<div class="active tab" id="tab-1">
+			<?
+			$APPLICATION->IncludeComponent(
+				'bitrix:catalog.section',
+				'donna_showes',
+				array(
+					'IBLOCK_TYPE' => $arParams['IBLOCK_TYPE'],
+					'IBLOCK_ID' => $arParams['IBLOCK_ID'],
+					'SECTION_ID' => $arResult['VARIABLES']['SECTION_ID'],
+					'SECTION_CODE' => $arResult['VARIABLES']['SECTION_CODE'],
+					'ELEMENT_SORT_FIELD' => 'shows',
+					'ELEMENT_SORT_ORDER' => 'desc',
+					'ELEMENT_SORT_FIELD2' => 'sort',
+					'ELEMENT_SORT_ORDER2' => 'asc',
+					'PROPERTY_CODE' => (isset($arParams['LIST_PROPERTY_CODE']) ? $arParams['LIST_PROPERTY_CODE'] : []),
+					'PROPERTY_CODE_MOBILE' => $arParams['LIST_PROPERTY_CODE_MOBILE'],
+					'INCLUDE_SUBSECTIONS' => $arParams['INCLUDE_SUBSECTIONS'],
+					'BASKET_URL' => $arParams['BASKET_URL'],
+					'ACTION_VARIABLE' => $arParams['ACTION_VARIABLE'],
+					'PRODUCT_ID_VARIABLE' => $arParams['PRODUCT_ID_VARIABLE'],
+					'SECTION_ID_VARIABLE' => $arParams['SECTION_ID_VARIABLE'],
+					'PRODUCT_QUANTITY_VARIABLE' => $arParams['PRODUCT_QUANTITY_VARIABLE'],
+					'PRODUCT_PROPS_VARIABLE' => $arParams['PRODUCT_PROPS_VARIABLE'],
+					'CACHE_TYPE' => $arParams['CACHE_TYPE'],
+					'CACHE_TIME' => $arParams['CACHE_TIME'],
+					'CACHE_FILTER' => $arParams['CACHE_FILTER'],
+					'CACHE_GROUPS' => $arParams['CACHE_GROUPS'],
+					'DISPLAY_COMPARE' => $arParams['USE_COMPARE'],
+					'PRICE_CODE' => $arParams['~PRICE_CODE'],
+					'USE_PRICE_COUNT' => $arParams['USE_PRICE_COUNT'],
+					'SHOW_PRICE_COUNT' => $arParams['SHOW_PRICE_COUNT'],
+					'PAGE_ELEMENT_COUNT' => 6,
+					'FILTER_IDS' => array($elementId),
+
+					"SET_TITLE" => "N",
+					"SET_BROWSER_TITLE" => "N",
+					"SET_META_KEYWORDS" => "N",
+					"SET_META_DESCRIPTION" => "N",
+					"SET_LAST_MODIFIED" => "N",
+					"ADD_SECTIONS_CHAIN" => "N",
+
+					'PRICE_VAT_INCLUDE' => $arParams['PRICE_VAT_INCLUDE'],
+					'USE_PRODUCT_QUANTITY' => $arParams['USE_PRODUCT_QUANTITY'],
+					'ADD_PROPERTIES_TO_BASKET' => (isset($arParams['ADD_PROPERTIES_TO_BASKET']) ? $arParams['ADD_PROPERTIES_TO_BASKET'] : ''),
+					'PARTIAL_PRODUCT_PROPERTIES' => (isset($arParams['PARTIAL_PRODUCT_PROPERTIES']) ? $arParams['PARTIAL_PRODUCT_PROPERTIES'] : ''),
+					'PRODUCT_PROPERTIES' => (isset($arParams['PRODUCT_PROPERTIES']) ? $arParams['PRODUCT_PROPERTIES'] : []),
+
+					'OFFERS_CART_PROPERTIES' => (isset($arParams['OFFERS_CART_PROPERTIES']) ? $arParams['OFFERS_CART_PROPERTIES'] : []),
+					'OFFERS_FIELD_CODE' => $arParams['LIST_OFFERS_FIELD_CODE'],
+					'OFFERS_PROPERTY_CODE' => (isset($arParams['LIST_OFFERS_PROPERTY_CODE']) ? $arParams['LIST_OFFERS_PROPERTY_CODE'] : []),
+					'OFFERS_SORT_FIELD' => $arParams['OFFERS_SORT_FIELD'],
+					'OFFERS_SORT_ORDER' => $arParams['OFFERS_SORT_ORDER'],
+					'OFFERS_SORT_FIELD2' => $arParams['OFFERS_SORT_FIELD2'],
+					'OFFERS_SORT_ORDER2' => $arParams['OFFERS_SORT_ORDER2'],
+					'OFFERS_LIMIT' => (isset($arParams['LIST_OFFERS_LIMIT']) ? $arParams['LIST_OFFERS_LIMIT'] : 0),
+
+					'SECTION_URL' => $arResult['FOLDER'].$arResult['URL_TEMPLATES']['section'],
+					'DETAIL_URL' => $arResult['FOLDER'].$arResult['URL_TEMPLATES']['element'],
+					'USE_MAIN_ELEMENT_SECTION' => $arParams['USE_MAIN_ELEMENT_SECTION'],
+					'CONVERT_CURRENCY' => $arParams['CONVERT_CURRENCY'],
+					'CURRENCY_ID' => $arParams['CURRENCY_ID'],
+					'HIDE_NOT_AVAILABLE' => $arParams['HIDE_NOT_AVAILABLE'],
+					'HIDE_NOT_AVAILABLE_OFFERS' => $arParams['HIDE_NOT_AVAILABLE_OFFERS'],
+
+					'LABEL_PROP' => $arParams['LABEL_PROP'],
+					'LABEL_PROP_MOBILE' => $arParams['LABEL_PROP_MOBILE'],
+					'LABEL_PROP_POSITION' => $arParams['LABEL_PROP_POSITION'],
+					'ADD_PICT_PROP' => $arParams['ADD_PICT_PROP'],
+					'PRODUCT_DISPLAY_MODE' => $arParams['PRODUCT_DISPLAY_MODE'],
+					'PRODUCT_BLOCKS_ORDER' => $arParams['LIST_PRODUCT_BLOCKS_ORDER'],
+					'PRODUCT_ROW_VARIANTS' => "[{'VARIANT':'3','BIG_DATA':false}]",
+					'ENLARGE_PRODUCT' => $arParams['LIST_ENLARGE_PRODUCT'],
+					'ENLARGE_PROP' => isset($arParams['LIST_ENLARGE_PROP']) ? $arParams['LIST_ENLARGE_PROP'] : '',
+					'SHOW_SLIDER' => $arParams['LIST_SHOW_SLIDER'],
+					'SLIDER_INTERVAL' => isset($arParams['LIST_SLIDER_INTERVAL']) ? $arParams['LIST_SLIDER_INTERVAL'] : '',
+					'SLIDER_PROGRESS' => isset($arParams['LIST_SLIDER_PROGRESS']) ? $arParams['LIST_SLIDER_PROGRESS'] : '',
+
+					'DISPLAY_TOP_PAGER' => 'N',
+					'DISPLAY_BOTTOM_PAGER' => 'N',
+					'HIDE_SECTION_DESCRIPTION' => 'Y',
+
+					'RCM_TYPE' => isset($arParams['BIG_DATA_RCM_TYPE']) ? $arParams['BIG_DATA_RCM_TYPE'] : '',
+					'RCM_PROD_ID' => $elementId,
+					'SHOW_FROM_SECTION' => 'Y',
+
+					'OFFER_ADD_PICT_PROP' => $arParams['OFFER_ADD_PICT_PROP'],
+					'OFFER_TREE_PROPS' => (isset($arParams['OFFER_TREE_PROPS']) ? $arParams['OFFER_TREE_PROPS'] : []),
+					'PRODUCT_SUBSCRIPTION' => $arParams['PRODUCT_SUBSCRIPTION'],
+					'SHOW_DISCOUNT_PERCENT' => $arParams['SHOW_DISCOUNT_PERCENT'],
+					'DISCOUNT_PERCENT_POSITION' => $arParams['DISCOUNT_PERCENT_POSITION'],
+					'SHOW_OLD_PRICE' => $arParams['SHOW_OLD_PRICE'],
+					'SHOW_MAX_QUANTITY' => $arParams['SHOW_MAX_QUANTITY'],
+					'MESS_SHOW_MAX_QUANTITY' => (isset($arParams['~MESS_SHOW_MAX_QUANTITY']) ? $arParams['~MESS_SHOW_MAX_QUANTITY'] : ''),
+					'RELATIVE_QUANTITY_FACTOR' => (isset($arParams['RELATIVE_QUANTITY_FACTOR']) ? $arParams['RELATIVE_QUANTITY_FACTOR'] : ''),
+					'MESS_RELATIVE_QUANTITY_MANY' => (isset($arParams['~MESS_RELATIVE_QUANTITY_MANY']) ? $arParams['~MESS_RELATIVE_QUANTITY_MANY'] : ''),
+					'MESS_RELATIVE_QUANTITY_FEW' => (isset($arParams['~MESS_RELATIVE_QUANTITY_FEW']) ? $arParams['~MESS_RELATIVE_QUANTITY_FEW'] : ''),
+					'MESS_BTN_BUY' => (isset($arParams['~MESS_BTN_BUY']) ? $arParams['~MESS_BTN_BUY'] : ''),
+					'MESS_BTN_ADD_TO_BASKET' => (isset($arParams['~MESS_BTN_ADD_TO_BASKET']) ? $arParams['~MESS_BTN_ADD_TO_BASKET'] : ''),
+					'MESS_BTN_SUBSCRIBE' => (isset($arParams['~MESS_BTN_SUBSCRIBE']) ? $arParams['~MESS_BTN_SUBSCRIBE'] : ''),
+					'MESS_BTN_DETAIL' => (isset($arParams['~MESS_BTN_DETAIL']) ? $arParams['~MESS_BTN_DETAIL'] : ''),
+					'MESS_NOT_AVAILABLE' => (isset($arParams['~MESS_NOT_AVAILABLE']) ? $arParams['~MESS_NOT_AVAILABLE'] : ''),
+					'MESS_BTN_COMPARE' => (isset($arParams['~MESS_BTN_COMPARE']) ? $arParams['~MESS_BTN_COMPARE'] : ''),
+
+					'USE_ENHANCED_ECOMMERCE' => (isset($arParams['USE_ENHANCED_ECOMMERCE']) ? $arParams['USE_ENHANCED_ECOMMERCE'] : ''),
+					'DATA_LAYER_NAME' => (isset($arParams['DATA_LAYER_NAME']) ? $arParams['DATA_LAYER_NAME'] : ''),
+					'BRAND_PROPERTY' => (isset($arParams['BRAND_PROPERTY']) ? $arParams['BRAND_PROPERTY'] : ''),
+
+					'TEMPLATE_THEME' => (isset($arParams['TEMPLATE_THEME']) ? $arParams['TEMPLATE_THEME'] : ''),
+					'ADD_TO_BASKET_ACTION' => $basketAction,
+					'SHOW_CLOSE_POPUP' => isset($arParams['COMMON_SHOW_CLOSE_POPUP']) ? $arParams['COMMON_SHOW_CLOSE_POPUP'] : '',
+					'COMPARE_PATH' => $arResult['FOLDER'].$arResult['URL_TEMPLATES']['compare'],
+					'COMPARE_NAME' => $arParams['COMPARE_NAME'],
+					'USE_COMPARE_LIST' => 'Y',
+					'BACKGROUND_IMAGE' => '',
+					'DISABLE_INIT_JS_IN_COMPONENT' => (isset($arParams['DISABLE_INIT_JS_IN_COMPONENT']) ? $arParams['DISABLE_INIT_JS_IN_COMPONENT'] : '')
+				),
+				$component
+			);
+			?>
+		</div>
+		<div class="tab" id="tab-2">
+			<?
+			$APPLICATION->IncludeComponent(
+				'bitrix:catalog.products.viewed',
+				'donna',
+				array(
+					'IBLOCK_MODE' => 'single',
+					'IBLOCK_TYPE' => $arParams['IBLOCK_TYPE'],
+					'IBLOCK_ID' => $arParams['IBLOCK_ID'],
+					'ELEMENT_SORT_FIELD' => $arParams['ELEMENT_SORT_FIELD'],
+					'ELEMENT_SORT_ORDER' => $arParams['ELEMENT_SORT_ORDER'],
+					'ELEMENT_SORT_FIELD2' => $arParams['ELEMENT_SORT_FIELD2'],
+					'ELEMENT_SORT_ORDER2' => $arParams['ELEMENT_SORT_ORDER2'],
+					'PROPERTY_CODE_'.$arParams['IBLOCK_ID'] => (isset($arParams['LIST_PROPERTY_CODE']) ? $arParams['LIST_PROPERTY_CODE'] : []),
+					'PROPERTY_CODE_'.$recommendedData['OFFER_IBLOCK_ID'] => (isset($arParams['LIST_OFFERS_PROPERTY_CODE']) ? $arParams['LIST_OFFERS_PROPERTY_CODE'] : []),
+					'PROPERTY_CODE_MOBILE'.$arParams['IBLOCK_ID'] => $arParams['LIST_PROPERTY_CODE_MOBILE'],
+					'BASKET_URL' => $arParams['BASKET_URL'],
+					'ACTION_VARIABLE' => $arParams['ACTION_VARIABLE'],
+					'PRODUCT_ID_VARIABLE' => $arParams['PRODUCT_ID_VARIABLE'],
+					'PRODUCT_QUANTITY_VARIABLE' => $arParams['PRODUCT_QUANTITY_VARIABLE'],
+					'PRODUCT_PROPS_VARIABLE' => $arParams['PRODUCT_PROPS_VARIABLE'],
+					'CACHE_TYPE' => $arParams['CACHE_TYPE'],
+					'CACHE_TIME' => $arParams['CACHE_TIME'],
+					'CACHE_FILTER' => $arParams['CACHE_FILTER'],
+					'CACHE_GROUPS' => $arParams['CACHE_GROUPS'],
+					'DISPLAY_COMPARE' => $arParams['USE_COMPARE'],
+					'PRICE_CODE' => $arParams['~PRICE_CODE'],
+					'USE_PRICE_COUNT' => $arParams['USE_PRICE_COUNT'],
+					'SHOW_PRICE_COUNT' => $arParams['SHOW_PRICE_COUNT'],
+					'PAGE_ELEMENT_COUNT' => 6,
+					'SECTION_ELEMENT_ID' => $elementId,
+
+					"SET_TITLE" => "N",
+					"SET_BROWSER_TITLE" => "N",
+					"SET_META_KEYWORDS" => "N",
+					"SET_META_DESCRIPTION" => "N",
+					"SET_LAST_MODIFIED" => "N",
+					"ADD_SECTIONS_CHAIN" => "N",
+
+					'PRICE_VAT_INCLUDE' => $arParams['PRICE_VAT_INCLUDE'],
+					'USE_PRODUCT_QUANTITY' => $arParams['USE_PRODUCT_QUANTITY'],
+					'ADD_PROPERTIES_TO_BASKET' => (isset($arParams['ADD_PROPERTIES_TO_BASKET']) ? $arParams['ADD_PROPERTIES_TO_BASKET'] : ''),
+					'PARTIAL_PRODUCT_PROPERTIES' => (isset($arParams['PARTIAL_PRODUCT_PROPERTIES']) ? $arParams['PARTIAL_PRODUCT_PROPERTIES'] : ''),
+					'CART_PROPERTIES_'.$arParams['IBLOCK_ID'] => (isset($arParams['PRODUCT_PROPERTIES']) ? $arParams['PRODUCT_PROPERTIES'] : []),
+					'CART_PROPERTIES_'.$recommendedData['OFFER_IBLOCK_ID'] => (isset($arParams['OFFERS_CART_PROPERTIES']) ? $arParams['OFFERS_CART_PROPERTIES'] : []),
+					'ADDITIONAL_PICT_PROP_'.$arParams['IBLOCK_ID'] => $arParams['ADD_PICT_PROP'],
+					'ADDITIONAL_PICT_PROP_'.$recommendedData['OFFER_IBLOCK_ID'] => $arParams['OFFER_ADD_PICT_PROP'],
+
+					'SHOW_FROM_SECTION' => 'N',
+					'DETAIL_URL' => $arResult['FOLDER'].$arResult['URL_TEMPLATES']['element'],
+					'CONVERT_CURRENCY' => $arParams['CONVERT_CURRENCY'],
+					'CURRENCY_ID' => $arParams['CURRENCY_ID'],
+					'HIDE_NOT_AVAILABLE' => $arParams['HIDE_NOT_AVAILABLE'],
+					'HIDE_NOT_AVAILABLE_OFFERS' => $arParams['HIDE_NOT_AVAILABLE_OFFERS'],
+
+					'LABEL_PROP_'.$arParams['IBLOCK_ID'] => $arParams['LABEL_PROP'],
+					'LABEL_PROP_MOBILE_'.$arParams['IBLOCK_ID'] => $arParams['LABEL_PROP_MOBILE'],
+					'LABEL_PROP_POSITION' => $arParams['LABEL_PROP_POSITION'],
+					'PRODUCT_BLOCKS_ORDER' => $arParams['LIST_PRODUCT_BLOCKS_ORDER'],
+					'PRODUCT_ROW_VARIANTS' => "[{'VARIANT':'3','BIG_DATA':false}]",
+					'ENLARGE_PRODUCT' => $arParams['LIST_ENLARGE_PRODUCT'],
+					'ENLARGE_PROP_'.$arParams['IBLOCK_ID'] => isset($arParams['LIST_ENLARGE_PROP']) ? $arParams['LIST_ENLARGE_PROP'] : '',
+					'SHOW_SLIDER' => $arParams['LIST_SHOW_SLIDER'],
+					'SLIDER_INTERVAL' => isset($arParams['LIST_SLIDER_INTERVAL']) ? $arParams['LIST_SLIDER_INTERVAL'] : '',
+					'SLIDER_PROGRESS' => isset($arParams['LIST_SLIDER_PROGRESS']) ? $arParams['LIST_SLIDER_PROGRESS'] : '',
+
+					'OFFER_TREE_PROPS_'.$recommendedData['OFFER_IBLOCK_ID'] => (isset($arParams['OFFER_TREE_PROPS']) ? $arParams['OFFER_TREE_PROPS'] : []),
+					'PRODUCT_SUBSCRIPTION' => $arParams['PRODUCT_SUBSCRIPTION'],
+					'SHOW_DISCOUNT_PERCENT' => $arParams['SHOW_DISCOUNT_PERCENT'],
+					'DISCOUNT_PERCENT_POSITION' => $arParams['DISCOUNT_PERCENT_POSITION'],
+					'SHOW_OLD_PRICE' => $arParams['SHOW_OLD_PRICE'],
+					'SHOW_MAX_QUANTITY' => $arParams['SHOW_MAX_QUANTITY'],
+					'MESS_SHOW_MAX_QUANTITY' => (isset($arParams['~MESS_SHOW_MAX_QUANTITY']) ? $arParams['~MESS_SHOW_MAX_QUANTITY'] : ''),
+					'RELATIVE_QUANTITY_FACTOR' => (isset($arParams['RELATIVE_QUANTITY_FACTOR']) ? $arParams['RELATIVE_QUANTITY_FACTOR'] : ''),
+					'MESS_RELATIVE_QUANTITY_MANY' => (isset($arParams['~MESS_RELATIVE_QUANTITY_MANY']) ? $arParams['~MESS_RELATIVE_QUANTITY_MANY'] : ''),
+					'MESS_RELATIVE_QUANTITY_FEW' => (isset($arParams['~MESS_RELATIVE_QUANTITY_FEW']) ? $arParams['~MESS_RELATIVE_QUANTITY_FEW'] : ''),
+					'MESS_BTN_BUY' => (isset($arParams['~MESS_BTN_BUY']) ? $arParams['~MESS_BTN_BUY'] : ''),
+					'MESS_BTN_ADD_TO_BASKET' => (isset($arParams['~MESS_BTN_ADD_TO_BASKET']) ? $arParams['~MESS_BTN_ADD_TO_BASKET'] : ''),
+					'MESS_BTN_SUBSCRIBE' => (isset($arParams['~MESS_BTN_SUBSCRIBE']) ? $arParams['~MESS_BTN_SUBSCRIBE'] : ''),
+					'MESS_BTN_DETAIL' => (isset($arParams['~MESS_BTN_DETAIL']) ? $arParams['~MESS_BTN_DETAIL'] : ''),
+					'MESS_NOT_AVAILABLE' => (isset($arParams['~MESS_NOT_AVAILABLE']) ? $arParams['~MESS_NOT_AVAILABLE'] : ''),
+					'MESS_BTN_COMPARE' => (isset($arParams['~MESS_BTN_COMPARE']) ? $arParams['~MESS_BTN_COMPARE'] : ''),
+
+					'USE_ENHANCED_ECOMMERCE' => (isset($arParams['USE_ENHANCED_ECOMMERCE']) ? $arParams['USE_ENHANCED_ECOMMERCE'] : ''),
+					'DATA_LAYER_NAME' => (isset($arParams['DATA_LAYER_NAME']) ? $arParams['DATA_LAYER_NAME'] : ''),
+					'BRAND_PROPERTY' => (isset($arParams['BRAND_PROPERTY']) ? $arParams['BRAND_PROPERTY'] : ''),
+
+					'TEMPLATE_THEME' => (isset($arParams['TEMPLATE_THEME']) ? $arParams['TEMPLATE_THEME'] : ''),
+					'ADD_TO_BASKET_ACTION' => $basketAction,
+					'SHOW_CLOSE_POPUP' => isset($arParams['COMMON_SHOW_CLOSE_POPUP']) ? $arParams['COMMON_SHOW_CLOSE_POPUP'] : '',
+					'COMPARE_PATH' => $arResult['FOLDER'].$arResult['URL_TEMPLATES']['compare'],
+					'COMPARE_NAME' => $arParams['COMPARE_NAME'],
+					'USE_COMPARE_LIST' => 'Y'
+				),
+				$component
+			);
+			?>
+
+		</div>
+		<div class="tab" id="tab-3">
+			<p style="font-size: 2rem;">Отзывы</p>
+			<?php
+			$componentCommentsParams = array(
+				'ELEMENT_ID' => $arResult['ID'],
+				'ELEMENT_CODE' => '',
+				'IBLOCK_ID' => $arParams['IBLOCK_ID'],
+				'SHOW_DEACTIVATED' => $arParams['SHOW_DEACTIVATED'],
+				'URL_TO_COMMENT' => '',
+				'WIDTH' => '',
+				'COMMENTS_COUNT' => '5',
+				'BLOG_USE' => $arParams['BLOG_USE'],
+				'FB_USE' => $arParams['FB_USE'],
+				'FB_APP_ID' => $arParams['FB_APP_ID'],
+				'VK_USE' => $arParams['VK_USE'],
+				'VK_API_ID' => $arParams['VK_API_ID'],
+				'CACHE_TYPE' => $arParams['CACHE_TYPE'],
+				'CACHE_TIME' => $arParams['CACHE_TIME'],
+				'CACHE_GROUPS' => $arParams['CACHE_GROUPS'],
+				'BLOG_TITLE' => 'отзывы',
+				'BLOG_URL' => $arParams['BLOG_URL'],
+				'PATH_TO_SMILE' => '',
+				'EMAIL_NOTIFY' => $arParams['BLOG_EMAIL_NOTIFY'],
+				'AJAX_POST' => 'Y',
+				'SHOW_SPAM' => 'Y',
+				'SHOW_RATING' => 'N',
+				'FB_TITLE' => '',
+				'FB_USER_ADMIN_ID' => '',
+				'FB_COLORSCHEME' => 'light',
+				'FB_ORDER_BY' => 'reverse_time',
+				'VK_TITLE' => '',
+				'TEMPLATE_THEME' => $arParams['~TEMPLATE_THEME']
+			);
+			if(isset($arParams["USER_CONSENT"]))
+				$componentCommentsParams["USER_CONSENT"] = $arParams["USER_CONSENT"];
+			if(isset($arParams["USER_CONSENT_ID"]))
+				$componentCommentsParams["USER_CONSENT_ID"] = $arParams["USER_CONSENT_ID"];
+			if(isset($arParams["USER_CONSENT_IS_CHECKED"]))
+				$componentCommentsParams["USER_CONSENT_IS_CHECKED"] = $arParams["USER_CONSENT_IS_CHECKED"];
+			if(isset($arParams["USER_CONSENT_IS_LOADED"]))
+				$componentCommentsParams["USER_CONSENT_IS_LOADED"] = $arParams["USER_CONSENT_IS_LOADED"];
+			$APPLICATION->IncludeComponent(
+				'bitrix:catalog.comments',
+				'',
+				$componentCommentsParams,
+				$component,
+				array('HIDE_ICONS' => 'Y')
+			);
+			?>
+		</div>
+	</div>
+</div>
 <?
 if ($haveOffers)
 {
@@ -524,11 +598,8 @@ if ($haveOffers)
 			{
 				foreach ($jsOffer['DISPLAY_PROPERTIES'] as $property)
 				{
-					$current = '<dt>'.$property['NAME'].'</dt><dd>'.(
-						is_array($property['VALUE'])
-							? implode(' / ', $property['VALUE'])
-							: $property['VALUE']
-						).'</dd>';
+					$current = '<span>'.$property['NAME'].': '.'</span>' .
+					(is_array($property['VALUE'])	? implode(' / ', $property['VALUE'])	: $property['VALUE']);
 					$strAllProps .= $current;
 
 					if (isset($arParams['MAIN_BLOCK_OFFERS_PROPERTY_CODE'][$property['CODE']]))
@@ -817,27 +888,6 @@ if ($arParams['DISPLAY_COMPARE'])
 }
 ?>
 <script>
-	BX.message({
-		ECONOMY_INFO_MESSAGE: '<?=GetMessageJS('CT_BCE_CATALOG_ECONOMY_INFO2')?>',
-		TITLE_ERROR: '<?=GetMessageJS('CT_BCE_CATALOG_TITLE_ERROR')?>',
-		TITLE_BASKET_PROPS: '<?=GetMessageJS('CT_BCE_CATALOG_TITLE_BASKET_PROPS')?>',
-		BASKET_UNKNOWN_ERROR: '<?=GetMessageJS('CT_BCE_CATALOG_BASKET_UNKNOWN_ERROR')?>',
-		BTN_SEND_PROPS: '<?=GetMessageJS('CT_BCE_CATALOG_BTN_SEND_PROPS')?>',
-		BTN_MESSAGE_BASKET_REDIRECT: '<?=GetMessageJS('CT_BCE_CATALOG_BTN_MESSAGE_BASKET_REDIRECT')?>',
-		BTN_MESSAGE_CLOSE: '<?=GetMessageJS('CT_BCE_CATALOG_BTN_MESSAGE_CLOSE')?>',
-		BTN_MESSAGE_CLOSE_POPUP: '<?=GetMessageJS('CT_BCE_CATALOG_BTN_MESSAGE_CLOSE_POPUP')?>',
-		TITLE_SUCCESSFUL: '<?=GetMessageJS('CT_BCE_CATALOG_ADD_TO_BASKET_OK')?>',
-		COMPARE_MESSAGE_OK: '<?=GetMessageJS('CT_BCE_CATALOG_MESS_COMPARE_OK')?>',
-		COMPARE_UNKNOWN_ERROR: '<?=GetMessageJS('CT_BCE_CATALOG_MESS_COMPARE_UNKNOWN_ERROR')?>',
-		COMPARE_TITLE: '<?=GetMessageJS('CT_BCE_CATALOG_MESS_COMPARE_TITLE')?>',
-		BTN_MESSAGE_COMPARE_REDIRECT: '<?=GetMessageJS('CT_BCE_CATALOG_BTN_MESSAGE_COMPARE_REDIRECT')?>',
-		PRODUCT_GIFT_LABEL: '<?=GetMessageJS('CT_BCE_CATALOG_PRODUCT_GIFT_LABEL')?>',
-		PRICE_TOTAL_PREFIX: '<?=GetMessageJS('CT_BCE_CATALOG_MESS_PRICE_TOTAL_PREFIX')?>',
-		RELATIVE_QUANTITY_MANY: '<?=CUtil::JSEscape($arParams['MESS_RELATIVE_QUANTITY_MANY'])?>',
-		RELATIVE_QUANTITY_FEW: '<?=CUtil::JSEscape($arParams['MESS_RELATIVE_QUANTITY_FEW'])?>',
-		SITE_ID: '<?=CUtil::JSEscape($component->getSiteId())?>'
-	});
-
 	var <?=$obName?> = new JCCatalogElement(<?=CUtil::PhpToJSObject($jsParams, false, true)?>);
 </script>
 <?php
