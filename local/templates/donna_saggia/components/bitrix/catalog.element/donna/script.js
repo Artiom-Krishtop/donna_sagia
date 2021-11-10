@@ -1,46 +1,12 @@
 jQuery(document).ready(function() {
-  //tabs
+	//tabs
 	jQuery(".tab-list li a").click(function(){
-	if(!jQuery(this).parent().hasClass("active")){
-		jQuery(this).parents(".tab-list").find("li").removeClass("active");
-		jQuery(this).parent().addClass("active");
-		var tabBox = jQuery(this).attr("href");
-		jQuery(this).parents(".tab-list").next().find(".tab").hide()
-		jQuery(tabBox).show();
-	}
-	return false;
-	});
-	$('.cusrousel-mini').slick({
-	dots: false,
-	infinite: false,
-	speed: 500,
-	slidesToShow: 5,
-	slidesToScroll: 5,
-	responsive: [
-		{
-			breakpoint: 1024,
-			settings: {
-				slidesToShow: 3,
-				slidesToScroll: 3,
-				centerPadding: '5px',
-			}
-		}
-
-
-	]
-	});
-	//event slider
-	jQuery(".cusrousel-mini a").click(function(){
-		if(!jQuery(this).hasClass("active")){
-			jQuery(".cusrousel-mini a").removeClass("active");
-			jQuery(this).addClass("active");
-			var src = jQuery(this).attr("href");
-			jQuery(".big-image img").fadeOut();
-			setTimeout(function(){
-				jQuery(".big-image img").attr("src",src);
-				jQuery(".big-image a").attr("href",src);
-			},300)
-			jQuery(".big-image img").fadeIn();
+		if(!jQuery(this).parent().hasClass("active")){
+			jQuery(this).parents(".tab-list").find("li").removeClass("active");
+			jQuery(this).parent().addClass("active");
+			var tabBox = jQuery(this).attr("href");
+			jQuery(this).parents(".tab-list").next().find(".tab").hide()
+			jQuery(tabBox).show();
 		}
 		return false;
 	});
@@ -280,6 +246,9 @@ jQuery(document).ready(function() {
 			BX.ready(BX.delegate(this.init, this));
 		}
 
+		this.createSlider();
+		this.clickSlider();
+
 		this.params = {};
 
 		BX.addCustomEvent('onSaleProductIsGift', BX.delegate(this.onSaleProductIsGift, this));
@@ -287,6 +256,48 @@ jQuery(document).ready(function() {
 	};
 
 	window.JCCatalogElement.prototype = {
+
+		createSlider: function()
+		{
+			$('.cusrousel-mini').slick({
+				dots: false,
+				infinite: false,
+				speed: 500,
+				slidesToShow: 5,
+				slidesToScroll: 5,
+				responsive: [
+					{
+						breakpoint: 1024,
+						settings: {
+							slidesToShow: 3,
+							slidesToScroll: 3,
+							centerPadding: '5px',
+						}
+					}
+
+
+				]
+			});
+		},
+
+		clickSlider: function()
+		{
+			jQuery(".cusrousel-mini a").click(function(){
+			if(!jQuery(this).hasClass("active")){
+				jQuery(".cusrousel-mini a").removeClass("active");
+				jQuery(this).addClass("active");
+				var src = jQuery(this).attr("href");
+				jQuery(".big-image img").fadeOut();
+				setTimeout(function(){
+					jQuery(".big-image img").attr("src",src);
+					jQuery(".big-image a").attr("href",src);
+				},300)
+				jQuery(".big-image img").fadeIn();
+			}
+			return false;
+		});
+		},
+
 		getEntity: function(parent, entity, additionalFilter)
 		{
 			if (!parent || !entity)
@@ -377,12 +388,13 @@ jQuery(document).ready(function() {
 				this.errorCode = -1;
 			}
 
-			this.obBigSlider = BX(this.visual.BIG_SLIDER_ID);
+			// this.obBigSlider = BX(this.visual.BIG_SLIDER_ID);
 			this.node.imageContainer = this.getEntity(this.obProduct, 'images-container');
-			this.node.imageSliderBlock = this.getEntity(this.obProduct, 'images-slider-block');
-			this.node.sliderProgressBar = this.getEntity(this.obProduct, 'slider-progress-bar');
-			this.node.sliderControlLeft = this.getEntity(this.obBigSlider, 'slider-control-left');
-			this.node.sliderControlRight = this.getEntity(this.obBigSlider, 'slider-control-right');
+			this.node.curouselMini = this.getEntity(this.obProduct, 'curousel-mini');
+			// this.node.imageSliderBlock = this.getEntity(this.obProduct, 'images-slider-block');
+			// this.node.sliderProgressBar = this.getEntity(this.obProduct, 'slider-progress-bar');
+			// this.node.sliderControlLeft = this.getEntity(this.obBigSlider, 'slider-control-left');
+			// this.node.sliderControlRight = this.getEntity(this.obBigSlider, 'slider-control-right');
 
 			if (!this.obBigSlider || !this.node.imageContainer || !this.node.imageContainer)
 			{
@@ -705,7 +717,7 @@ jQuery(document).ready(function() {
 
 			if (this.params.CONFIG.MAIN_PICTURE_MODE)
 			{
-				this.config.usePopup = BX.util.in_array('POPUP', this.params.CONFIG.MAIN_PICTURE_MODE);
+				// this.config.usePopup = BX.util.in_array('POPUP', this.params.CONFIG.MAIN_PICTURE_MODE);
 				this.config.useMagnifier = BX.util.in_array('MAGNIFIER', this.params.CONFIG.MAIN_PICTURE_MODE);
 			}
 
@@ -1406,6 +1418,7 @@ jQuery(document).ready(function() {
 
 		setCurrentImg: function(img, showImage, showPanelImage)
 		{
+			return;
 			var images, l;
 
 			this.currentImg.id = img.ID;
@@ -1456,6 +1469,7 @@ jQuery(document).ready(function() {
 			var images = this.getEntities(this.node.imageContainer, 'image'),
 				l = images.length,
 				current;
+
 
 			while (l--)
 			{
@@ -1540,7 +1554,7 @@ jQuery(document).ready(function() {
 					this.currentImg.node.style.width = (this.magnify.width = this.currentImg.node.offsetWidth) + 'px';
 
 					resolution = this.currentImg.width / this.currentImg.height;
-					sliderWidth = this.obBigSlider.offsetWidth;
+					// sliderWidth = this.obBigSlider.offsetWidth;
 
 					if (sliderWidth > this.currentImg.width && !BX.hasClass(this.obBigSlider, 'popup'))
 					{
@@ -1676,6 +1690,7 @@ jQuery(document).ready(function() {
 
 		selectSliderImg: function(target)
 		{
+			console.log('+');
 			var strValue = '',
 				arItem = [];
 
@@ -2691,16 +2706,12 @@ jQuery(document).ready(function() {
 
 		drawImages: function(images)
 		{
-			if (!this.node.imageContainer)
+			if (!this.node.curouselMini)
 				return;
-			var i, img, a, entities = this.getEntities(this.node.imageContainer, 'image');
-			for (i in entities)
-			{
-				if (entities.hasOwnProperty(i) && BX.type.isDomNode(entities[i]))
-				{
-					BX.remove(entities[i]);
-				}
-			}
+			var i, img, a;
+
+			BX.cleanNode(this.node.curouselMini);
+			BX.removeClass(this.node.curouselMini, ' slick-initialized slick-slider');
 
 			for (i = 0; i < images.length; i++)
 			{
@@ -2720,7 +2731,15 @@ jQuery(document).ready(function() {
 							})]
 						});
 
-				this.node.imageContainer.appendChild(
+					if (i == 0)
+					{
+						var b = this.getEntity(this.node.imageContainer, 'image');
+						b.href =  images[i].SRC;
+						var c = this.getEntity(this.node.imageContainer, 'photo');
+						c.src = images[i].SRC;
+					}
+
+				this.node.curouselMini.appendChild(
 					BX.create('DIV', {
 						attrs: {
 								'data-entity': 'image',
@@ -2733,6 +2752,8 @@ jQuery(document).ready(function() {
 					})
 				);
 			}
+			this.clickSlider();
+			this.createSlider();
 		},
 
 		restoreSticker: function()

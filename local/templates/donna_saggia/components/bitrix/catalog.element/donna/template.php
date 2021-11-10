@@ -126,13 +126,14 @@ else
 {
 	$showDescription = !empty($arResult['PREVIEW_TEXT']) || !empty($arResult['DETAIL_TEXT']);
 }
+// echo '<pre>' . print_r($actualItem['MORE_PHOTO']) . '</pre>';
 
 ?>
 <div class="product" id="<?=$itemIds['ID']?>">
   <div class="product-left">
-    <div class="big-image">
-      <a class="fancy" href="images/big-1-1.jpg">
-        <img src="<?=$actualItem['MORE_PHOTO'][0]['SRC'] ?>">
+    <div class="big-image" data-entity="images-container" >
+      <a class="fancy" href="<?=$actualItem['MORE_PHOTO'][0]['SRC'] ?>" data-entity="image" data-id="<?=$actualItem['MORE_PHOTO'][0]['ID']?>">
+        <img src="<?=$actualItem['MORE_PHOTO'][0]['SRC'] ?>" data-entity="photo">
       </a>
     </div>
 
@@ -270,17 +271,19 @@ else
 		</div>
 
 		<!-- carousel -->
-    <?php if (!empty($actualItem['MORE_PHOTO'])): ?>
-		<div class="cusrousel-mini" >
-      <?php foreach ($actualItem['MORE_PHOTO'] as $key => $photo): ?>
-        <div class="mini-slide" data-entity="image" data-id="<?=$photo['ID']?>">
-          <a class="<?=$key == 0 ? 'active' : ''?>" href="<?=$photo['SRC']?>">
-            <img src="<?=$photo['SRC'] ?>" alt="<?=$alt?>" title="<?=$title?>" />
-          </a>
-        </div>
-      <?php endforeach; ?>
-		</div>
-    <?php endif; ?>
+		<?php if ($showSliderControls): ?>
+			<?php if (!empty($actualItem['MORE_PHOTO'])): ?>
+				<div class="cusrousel-mini" data-entity="curousel-mini">
+		      <?php foreach ($actualItem['MORE_PHOTO'] as $key => $photo): ?>
+		        <div class="mini-slide" data-entity="image" data-id="<?=$photo['ID']?>">
+		          <a class="<?=$key == 0 ? 'active' : ''?>" href="<?=$photo['SRC']?>">
+		            <img src="<?=$photo['SRC'] ?>" alt="<?=$alt?>" title="<?=$title?>" />
+		          </a>
+		        </div>
+		      <?php endforeach; ?>
+				</div>
+    	<?php endif; ?>
+		<?php endif; ?>
 		<!-- carousel end -->
 
     <?php if ($showDescription && !empty($arResult['DETAIL_TEXT'])): ?>

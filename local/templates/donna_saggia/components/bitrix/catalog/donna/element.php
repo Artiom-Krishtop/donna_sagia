@@ -26,32 +26,24 @@ $this->setFrameMode(true);
 				<div class="drop">Развернуть опции</div>
 
 				<div class="drop-wrap">
-					<div class="side-menu">
-						<ul>
-							<li class="current"><a href="">Платья</a>
-								<ul>
-									<li><a href="">Нарядные</a></li>
-									<li><a href="">Длинные</a></li>
-									<li><a href="">Летние</a></li>
-								</ul>
-							</li>
-							<li><a href="">Блузки и топы</a></li>
-							<li><a href="">Юбки</a></li>
-							<li><a href="">Кардиганы</a></li>
-							<li><a href="">Комбинезоны</a></li>
-						</ul>
-
-						<ul>
-							<li><a href="">Распродажа</a></li>
-							<li><a href="">Ликвидация</a></li>
-						</ul>
-					</div>
-
-					<div class="side-menu">
-						<ul>
-							<li><a href="">Вернуться в каталог</a></li>
-						</ul>
-					</div>
+					<?
+					$APPLICATION->IncludeComponent(
+						"bitrix:menu",
+						"donna_sidebar_menu",
+						array(
+			        "ROOT_MENU_TYPE" => "left",
+			        "MAX_LEVEL" => $arParams["SECTION_TOP_DEPTH"],
+			        "CHILD_MENU_TYPE" => "top",
+			        "USE_EXT" => "Y",
+			        "DELAY" => "N",
+			        "ALLOW_MULTI_SELECT" => "N",
+			        "MENU_CACHE_TYPE" => $arParams["CACHE_TYPE"],
+			        "MENU_CACHE_TIME" => $arParams["CACHE_TIME"],
+			        "MENU_CACHE_USE_GROUPS" => $arParams["CACHE_GROUPS"],
+			        "MENU_CACHE_GET_VARS" => ""
+					    )
+						);
+					?>
 				</div>
 			</div>
 

@@ -17,7 +17,7 @@
 * |	<!-- pagination-container -->
 * |	<!-- component-end -->
 */
-
+ print_r($arParams['DETAIL_URL']);
 $this->setFrameMode(true);
 
 if (!empty($arResult['ITEMS']))

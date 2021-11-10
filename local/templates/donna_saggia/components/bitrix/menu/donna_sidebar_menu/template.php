@@ -5,6 +5,7 @@
     <ul>
     <?
     $previousLevel = 0;
+
     foreach($arResult as $arItem):
     ?>
     	<?if ($previousLevel && $arItem["DEPTH_LEVEL"] < $previousLevel):?>
@@ -17,7 +18,7 @@
     	<?else:?>
 
     		<?if ($arItem["PERMISSION"] > "D"):?>
-    				<li><a href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
+    				<li class="<?=$arItem['SELECTED'] ? 'current' : ''  ?>"><a href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a></li>
     		<?endif?>
 
     	<?endif?>

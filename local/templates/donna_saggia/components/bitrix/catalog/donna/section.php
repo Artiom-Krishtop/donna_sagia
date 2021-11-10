@@ -97,38 +97,51 @@ if ($isFilter)
 
 	      <div class="drop-wrap">
 	        <?
-	  			$sectionListParams = array(
-	  				"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
-	  				"IBLOCK_ID" => $arParams["IBLOCK_ID"],
-	  				"SECTION_ID" => $arResult["VARIABLES"]["SECTION_ID"],
-	  				"SECTION_CODE" => $arResult["VARIABLES"]["SECTION_CODE"],
-	  				"CACHE_TYPE" => $arParams["CACHE_TYPE"],
-	  				"CACHE_TIME" => $arParams["CACHE_TIME"],
-	  				"CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
-	  				"COUNT_ELEMENTS" => $arParams["SECTION_COUNT_ELEMENTS"],
-	  				"TOP_DEPTH" => $arParams["SECTION_TOP_DEPTH"],
-	  				"SECTION_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["section"],
-	  				"VIEW_MODE" => $arParams["SECTIONS_VIEW_MODE"],
-	  				"SHOW_PARENT_NAME" => $arParams["SECTIONS_SHOW_PARENT_NAME"],
-	  				"HIDE_SECTION_NAME" => (isset($arParams["SECTIONS_HIDE_SECTION_NAME"]) ? $arParams["SECTIONS_HIDE_SECTION_NAME"] : "N"),
-	  				"ADD_SECTIONS_CHAIN" => (isset($arParams["ADD_SECTIONS_CHAIN"]) ? $arParams["ADD_SECTIONS_CHAIN"] : '')
-	  			);
-	  			if ($sectionListParams["COUNT_ELEMENTS"] === "Y")
-	  			{
-	  				$sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_ACTIVE";
-	  				if ($arParams["HIDE_NOT_AVAILABLE"] == "Y")
-	  				{
-	  					$sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_AVAILABLE";
-	  				}
-	  			}
-	  			$APPLICATION->IncludeComponent(
-	  				"bitrix:catalog.section.list",
-	  				"donna",
-	  				$sectionListParams,
-	  				$component,
-	  				array("HIDE_ICONS" => "Y")
-	  			);
-	  			unset($sectionListParams);
+	  			// $sectionListParams = array(
+	  			// 	"IBLOCK_TYPE" => $arParams["IBLOCK_TYPE"],
+	  			// 	"IBLOCK_ID" => $arParams["IBLOCK_ID"],
+	  			// 	"SECTION_ID" => $arResult["VARIABLES"]["SECTION_ID"],
+	  			// 	"SECTION_CODE" => $arResult["VARIABLES"]["SECTION_CODE"],
+	  			// 	"CACHE_TYPE" => $arParams["CACHE_TYPE"],
+	  			// 	"CACHE_TIME" => $arParams["CACHE_TIME"],
+	  			// 	"CACHE_GROUPS" => $arParams["CACHE_GROUPS"],
+	  			// 	"COUNT_ELEMENTS" => $arParams["SECTION_COUNT_ELEMENTS"],
+	  			// 	"TOP_DEPTH" => $arParams["SECTION_TOP_DEPTH"],
+	  			// 	"SECTION_URL" => $arResult["FOLDER"].$arResult["URL_TEMPLATES"]["section"],
+	  			// 	"VIEW_MODE" => $arParams["SECTIONS_VIEW_MODE"],
+	  			// 	"SHOW_PARENT_NAME" => $arParams["SECTIONS_SHOW_PARENT_NAME"],
+	  			// 	"HIDE_SECTION_NAME" => (isset($arParams["SECTIONS_HIDE_SECTION_NAME"]) ? $arParams["SECTIONS_HIDE_SECTION_NAME"] : "N"),
+	  			// 	"ADD_SECTIONS_CHAIN" => (isset($arParams["ADD_SECTIONS_CHAIN"]) ? $arParams["ADD_SECTIONS_CHAIN"] : '')
+	  			// );
+	  			// if ($sectionListParams["COUNT_ELEMENTS"] === "Y")
+	  			// {
+	  			// 	$sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_ACTIVE";
+	  			// 	if ($arParams["HIDE_NOT_AVAILABLE"] == "Y")
+	  			// 	{
+	  			// 		$sectionListParams["COUNT_ELEMENTS_FILTER"] = "CNT_AVAILABLE";
+	  			// 	}
+	  			// }
+	  			// $APPLICATION->IncludeComponent(
+	  			// 	"bitrix:catalog.section.list",
+	  			// 	"donna",
+	  			// 	$sectionListParams,
+	  			// 	$component,
+	  			// 	array("HIDE_ICONS" => "Y")
+	  			// );
+	  			// unset($sectionListParams);
+					$APPLICATION->IncludeComponent("bitrix:menu","donna_sidebar_menu",Array(
+					        "ROOT_MENU_TYPE" => "left",
+					        "MAX_LEVEL" => $arParams["SECTION_TOP_DEPTH"],
+					        "CHILD_MENU_TYPE" => "top",
+					        "USE_EXT" => "Y",
+					        "DELAY" => "N",
+					        "ALLOW_MULTI_SELECT" => "N",
+					        "MENU_CACHE_TYPE" => $arParams["CACHE_TYPE"],
+					        "MENU_CACHE_TIME" => $arParams["CACHE_TIME"],
+					        "MENU_CACHE_USE_GROUPS" => $arParams["CACHE_GROUPS"],
+					        "MENU_CACHE_GET_VARS" => ""
+					    )
+					);
 
 	        if ($isFilter){
 
@@ -284,7 +297,7 @@ if ($isFilter)
 					'BRAND_PROPERTY' => (isset($arParams['BRAND_PROPERTY']) ? $arParams['BRAND_PROPERTY'] : ''),
 
 					'TEMPLATE_THEME' => (isset($arParams['TEMPLATE_THEME']) ? $arParams['TEMPLATE_THEME'] : ''),
-					"ADD_SECTIONS_CHAIN" => "N",
+					"ADD_SECTIONS_CHAIN" => (isset($arParams["ADD_SECTIONS_CHAIN"]) ? $arParams["ADD_SECTIONS_CHAIN"] : ''),
 					'ADD_TO_BASKET_ACTION' => $basketAction,
 					'SHOW_CLOSE_POPUP' => isset($arParams['COMMON_SHOW_CLOSE_POPUP']) ? $arParams['COMMON_SHOW_CLOSE_POPUP'] : '',
 					'COMPARE_PATH' => $arResult['FOLDER'].$arResult['URL_TEMPLATES']['compare'],
