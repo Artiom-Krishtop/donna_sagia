@@ -2671,20 +2671,20 @@ jQuery(document).ready(function() {
 
 			if (this.offers[index].DETAIL_TEXT !== '')
 			{
-				currentDetailText = this.offers[index].DETAIL_TEXT_TYPE === 'html' ? this.offers[index].DETAIL_TEXT :'<h4>Описание товара:</h4><p>' + this.offers[index].DETAIL_TEXT + '</p>';
+				currentDetailText = this.offers[index].DETAIL_TEXT_TYPE === 'html' ? '<h4>Описание товара:</h4>' + this.offers[index].DETAIL_TEXT :'<h4>Описание товара:</h4><p>' + this.offers[index].DETAIL_TEXT + '</p>';
 			}
 			else if (this.product.detailText !== '')
 			{
-				currentDetailText = this.product.detailTextType === 'html' ? this.product.detailText : '<h4>Описание товара:</h4><p>' + this.product.detailText + '</p>';
+				currentDetailText = this.product.detailTextType === 'html' ? '<h4>Описание товара:</h4>' + this.product.detailText : '<h4>Описание товара:</h4><p>' + this.product.detailText + '</p>';
 			}
 
 			if (this.offers[index].PREVIEW_TEXT !== '')
 			{
-				currentPreviewText = this.offers[index].PREVIEW_TEXT_TYPE === 'html' ? this.offers[index].PREVIEW_TEXT : '<h4>Описание товара:</h4><p>' + this.offers[index].PREVIEW_TEXT + '</p>';
+				currentPreviewText = this.offers[index].PREVIEW_TEXT_TYPE === 'html' ? '<h4>Описание товара:</h4>' + this.offers[index].PREVIEW_TEXT : '<h4>Описание товара:</h4><p>' + this.offers[index].PREVIEW_TEXT + '</p>';
 			}
 			else if (this.product.previewText !== '')
 			{
-				currentPreviewText = this.product.previewTextType === 'html' ? this.product.previewText : '<h4>Описание товара:</h4><p>' + this.product.previewText + '</p>';
+				currentPreviewText = this.product.previewTextType === 'html' ? '<h4>Описание товара:</h4>' + this.product.previewText : '<h4>Описание товара:</h4><p>' + this.product.previewText + '</p>';
 			}
 
 			if (
@@ -2701,6 +2701,7 @@ jQuery(document).ready(function() {
 			{
 				currentDescription += currentDetailText;
 			}
+
 			BX.adjust(this.obDescription, {html: currentDescription});
 		},
 

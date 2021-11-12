@@ -1763,7 +1763,8 @@
 			var i, j,
 				index = -1,
 				boolOneSearch = true,
-				quantityChanged;
+				quantityChanged,
+				a = [];
 
 			for (i = 0; i < this.offers.length; i++)
 			{
@@ -1798,42 +1799,51 @@
 					// fill slider container with slides
 					for (i in this.offers[index].MORE_PHOTO)
 					{
-						if (this.offers[index].MORE_PHOTO.hasOwnProperty(i))
-						{
-							this.obPictSlider.appendChild(
-								BX.create('SPAN', {
-									props: {className:'item' + (i == 0 ? ' active' : '')},
-									children:[BX.create('IMG', {props: {src: this.offers[index].MORE_PHOTO[i].SRC }})]
-								})
-							);
-						}
+							a[i] = BX.create('LI', {
+								// props: {className:'item' + (i == 0 ? ' active' : '')},
+								children:[BX.create('IMG', {props: {src: this.offers[index].MORE_PHOTO[i].SRC }})]
+							})
 					}
+					console.log(a);
+					if (this.offers[index].MORE_PHOTO.hasOwnProperty(i))
+					{
+						this.obPictSlider.appendChild(BX.create('UL', {
+							props:{className: 'slides'},
+							children:a
+							})
+						);
+					}
+
+					$(this.obPictSlider).flexslider({
+						controlNav: false,
+						slideshow: false,
+						});
 
 					// fill slider indicator if exists
-					if (this.obPictSliderIndicator)
-					{
-						BX.cleanNode(this.obPictSliderIndicator);
-
-						for (i in this.offers[index].MORE_PHOTO)
-						{
-							if (this.offers[index].MORE_PHOTO.hasOwnProperty(i))
-							{
-								this.obPictSliderIndicator.appendChild(
-									BX.create('DIV', {
-										attrs: {'data-go-to': i},
-										props: {className:'indicator' + (i == 0 ? ' active' : '')}
-									})
-								);
-								this.obPictSliderIndicator.appendChild(document.createTextNode(' '));
-							}
-						}
-
-						this.obPictSliderIndicator.style.display = '';
-					}
+					// if (this.obPictSliderIndicator)
+					// {
+					// 	BX.cleanNode(this.obPictSliderIndicator);
+					//
+					// 	for (i in this.offers[index].MORE_PHOTO)
+					// 	{
+					// 		if (this.offers[index].MORE_PHOTO.hasOwnProperty(i))
+					// 		{
+					// 			this.obPictSliderIndicator.appendChild(
+					// 				BX.create('DIV', {
+					// 					attrs: {'data-go-to': i},
+					// 					props: {className:'indicator' + (i == 0 ? ' active' : '')}
+					// 				})
+					// 			);
+					// 			this.obPictSliderIndicator.appendChild(document.createTextNode(' '));
+					// 		}
+					// 	}
+					//
+					// 	this.obPictSliderIndicator.style.display = '';
+					// }
 
 					// show slider container
 					this.obPictSlider.style.display = '';
-					this.initializeSlider();
+					// this.initializeSlider();
 				}
 				else
 				{

@@ -14,6 +14,8 @@ use \Bitrix\Main;
  */
 $this->setFrameMode(true);
 
+CUtil::InitJSCore(array('jquery', 'jquery.flexslider.js'));
+
 if (isset($arResult['ITEM']))
 {
 	$item = $arResult['ITEM'];
@@ -68,7 +70,6 @@ if (isset($arResult['ITEM']))
 	?>
 
 	<div class="goods" id="<?=$areaId?>" data-entity="item">
-
 	<?if ($item['LABEL']):?>
 		<div class="label" id="<?=$itemIds['STICKER_ID'] ?>">
 			<? if (!empty($item['LABEL_ARRAY_VALUE'])): ?>
@@ -81,36 +82,30 @@ if (isset($arResult['ITEM']))
 
     <div class="goods-inner">
 			<div data-entity="image-wrapper">
-    		<div class="goods-slider" <?=($showSlider ? '' : 'style="display: none"') ?> id="<?=$itemIds['PICT_SLIDER']?>"
-					data-slider-interval="<?=$arParams['SLIDER_INTERVAL'] ?>" data-slider-wrap="true">
+    		<div class="goods-slider" <?=($showSlider ? '' : 'style="display: none"') ?> id="<?=$itemIds['PICT_SLIDER']?>">
+					<ul class="slides" >
               <?
 							if ($showSlider) {
 								foreach ($morePhoto as $key => $photo)
 								{
 									?>
-									<span class="item <?=($key == 0 ? 'active' : '')?>"><img src="<?=$photo['SRC'] ?>"></span>
+									<li class="item <?=($key == 0 ? 'active' : '')?>"><img src="<?=$photo['SRC'] ?>"></li>
 									<?
 								}
 							}
         			?>
+					</ul>
+					<!-- <script type="text/javascript">
+					$('.goods-slider').flexslider({
+						controlNav: false,
+						slideshow: false,
+						});
+					</script> -->
     		</div>
 				<div class="goods-slider" <?=($showSlider ? 'style="display: none"' : '') ?> id="<?=$itemIds['PICT'] ?>">
 					<img src="<?=$item['PREVIEW_PICTURE']['SRC']?>">
 				</div>
-				<div style="text-align:center;" id="<?=$itemIds['PICT_SLIDER']?>_indicator"
-					<?=($showSlider ? '' : 'style="display: none;"')?>>
-					<?
-					if ($showSlider)
-					{
-						foreach ($morePhoto as $key => $photo)
-						{
-							?>
-							<div class="indicator" data-go-to="<?=$key?>"></div>
-							<?
-						}
-					}
-					?>
-				</div>
+
 			</div>
 
 				<div class="goods-description">

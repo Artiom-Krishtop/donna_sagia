@@ -41,13 +41,11 @@ else
 
 $showTopPager = false;
 $showBottomPager = false;
-$showLazyLoad = false;
 
 if ($arParams['PAGE_ELEMENT_COUNT'] > 0 && $navParams['NavPageCount'] > 1)
 {
 	$showTopPager = $arParams['DISPLAY_TOP_PAGER'];
 	$showBottomPager = $arParams['DISPLAY_BOTTOM_PAGER'];
-	$showLazyLoad = $arParams['LAZY_LOAD'] === 'Y' && $navParams['NavPageNomer'] != $navParams['NavPageCount'];
 }
 
 $templateLibrary = array('popup', 'ajax', 'fx');
@@ -69,33 +67,6 @@ unset($currencyList, $templateLibrary);
 $elementEdit = CIBlock::GetArrayByID($arParams['IBLOCK_ID'], 'ELEMENT_EDIT');
 $elementDelete = CIBlock::GetArrayByID($arParams['IBLOCK_ID'], 'ELEMENT_DELETE');
 $elementDeleteParams = array('CONFIRM' => GetMessage('CT_BCS_TPL_ELEMENT_DELETE_CONFIRM'));
-
-$positionClassMap = array(
-	'left' => 'product-item-label-left',
-	'center' => 'product-item-label-center',
-	'right' => 'product-item-label-right',
-	'bottom' => 'product-item-label-bottom',
-	'middle' => 'product-item-label-middle',
-	'top' => 'product-item-label-top'
-);
-
-$discountPositionClass = '';
-if ($arParams['SHOW_DISCOUNT_PERCENT'] === 'Y' && !empty($arParams['DISCOUNT_PERCENT_POSITION']))
-{
-	foreach (explode('-', $arParams['DISCOUNT_PERCENT_POSITION']) as $pos)
-	{
-		$discountPositionClass .= isset($positionClassMap[$pos]) ? ' '.$positionClassMap[$pos] : '';
-	}
-}
-
-$labelPositionClass = '';
-if (!empty($arParams['LABEL_PROP_POSITION']))
-{
-	foreach (explode('-', $arParams['LABEL_PROP_POSITION']) as $pos)
-	{
-		$labelPositionClass .= isset($positionClassMap[$pos]) ? ' '.$positionClassMap[$pos] : '';
-	}
-}
 
 $arParams['~MESS_BTN_BUY'] = $arParams['~MESS_BTN_BUY'] ?: Loc::getMessage('CT_BCS_TPL_MESS_BTN_BUY');
 $arParams['~MESS_BTN_DETAIL'] = $arParams['~MESS_BTN_DETAIL'] ?: Loc::getMessage('CT_BCS_TPL_MESS_BTN_DETAIL');
@@ -158,6 +129,9 @@ $containerName = 'container-'.$navParams['NavNum'];
 	?>
 	<div class="catalog-top">
 		<div class="catalog-top-text">
+			<?php if ($arParams['SET_TITLE']): ?>
+				<h1><?=$arResult['NAME']?></h1>
+			<?php endif; ?>
 			<?if ($arParams['HIDE_SECTION_DESCRIPTION'] !== 'Y')
 			{
 				?>
@@ -168,11 +142,20 @@ $containerName = 'container-'.$navParams['NavNum'];
 			?>
 		</div>
 
-		<div class="offer">
-			<a href="#"><img src="images/opt.jpg" alt="" /></a>
-		</div>
+		<?$APPLICATION->IncludeComponent(
+	"bitrix:main.include",
+	".default",
+	array(
+		"AREA_FILE_SHOW" => "file",
+		"AREA_FILE_RECURSIVE" => "Y",
+		"EDIT_TEMPLATE" => "standard.php",
+		"PATH" => SITE_DIR . "include/optovikam.php",
+		"COMPONENT_TEMPLATE" => ".default"
+	),
+	false
+);?>
 	</div>
-	
+
 	<div class="sort">
 		<div class="sort-left">
 			Сортировать:<a href="<?=$arResult['SECTION_PAGE_URL']?>?sort=SCALED_PRICE_1">по цене</a>

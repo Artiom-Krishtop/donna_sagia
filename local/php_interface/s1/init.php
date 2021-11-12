@@ -14,6 +14,10 @@ $arJsConfig = array(
         'js' => '/local/templates/donna_saggia/scripts/jquery.fancybox.js',
         'rel' => array(),
     ),
+    'jquery.flexslider.js' => array(
+        'js' => '/local/templates/donna_saggia/scripts/jquery.flexslider.js',
+        'rel' => array(),
+    ),
 
 );
 

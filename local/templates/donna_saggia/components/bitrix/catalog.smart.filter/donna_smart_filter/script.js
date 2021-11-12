@@ -557,10 +557,14 @@ BX.Iblock.SmartFilter = (function()
 			var priceDiff = this.fltMinPrice - this.minPrice;
 			this.fltMinPercent = (priceDiff*100)/this.priceDiff;
 
-			if (this.leftPercent > this.fltMinPercent)
+			if (this.leftPercent > this.fltMinPercent){
 				this.colorAvailableActive.style.left = this.leftPercent + "%";
-			else
+				this.leftSlider.style.left = this.leftPercent + "%";
+			}
+			else{
 				this.colorAvailableActive.style.left = this.fltMinPercent + "%";
+				this.leftSlider.style.left = this.fltMinPercent + "%";
+			}
 
 		}
 		else
@@ -577,11 +581,14 @@ BX.Iblock.SmartFilter = (function()
 			var priceDiff = this.maxPrice - this.fltMaxPrice;
 			this.fltMaxPercent = (priceDiff*100)/this.priceDiff;
 
-			if (this.rightPercent > this.fltMaxPercent)
+			if (this.rightPercent > this.fltMaxPercent){
 				this.colorAvailableActive.style.right = this.rightPercent + "%";
-			else
+				this.rightSlider.style.right = this.rightPercent + "%";
+			}
+			else {
 				this.colorAvailableActive.style.right = this.fltMaxPercent + "%";
-
+				this.rightSlider.style.right = this.fltMaxPercent + "%";				
+			}
 		}
 		else
 		{
@@ -629,6 +636,7 @@ BX.Iblock.SmartFilter = (function()
 
 	SmartFilter.prototype.recountMinPrice = function()
 	{
+
 		var newMinPrice = (this.priceDiff*this.leftPercent)/100;
 		newMinPrice = (this.minPrice + newMinPrice).toFixed(this.precision);
 

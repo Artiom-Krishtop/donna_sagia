@@ -1,22 +1,21 @@
 <?
 require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
+
 $APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
-?><section>
-<div class="carousel">
-	<ul class="slides">
-		<li style="background-image: url(images/slide.jpg);"></li>
-		<li style="background-image: url(images/slide.jpg);"></li>
-	</ul>
-</div>
-<div class="right-side">
- <a href="#" class="image" style="background-image: url(images/image.jpg);"> <span class="image-title">
-	Платья Выберите ваш образ </span> </a> <a class="sale-home" href="#" style="background-image: url(images/sale.jpg);"></a>
-</div>
- </section>
-<!-- start container -->
-<section id="container">
-<!-- start categories -->
-<section class="categories">
+
+$APPLICATION->IncludeComponent(
+	"bitrix:main.include",
+	".default",
+	array(
+		"AREA_FILE_RECURSIVE" => "Y",
+		"AREA_FILE_SHOW" => "file",
+		"EDIT_TEMPLATE" => "standard.php",
+		"PATH" => "include/banner.php",
+		"COMPONENT_TEMPLATE" => ".default"
+	),
+	false
+);?><!-- start container --><section id="container">
+<!-- start categories --> <section class="categories">
 <div class="inner">
 	<div class="cat-item">
  <a class="first" href="#"> <img src="images/cat-1.jpg" alt=""> <span class="cat-title">Платья</span> </a> <a class="last" href="#"> <img src="images/cat-1.jpg" alt=""> <span class="cat-title">Платья</span> </a>
@@ -35,23 +34,18 @@ $APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
 	</div>
 </div>
  </section>
-<!-- end of categories -->
-
-
- </section>
-
- <!-- start news -->
-
-<section class="news">
-		<div class="inner">
-			<div class="title-section">Новости</div>
-
-			<?$APPLICATION->IncludeComponent(
+<!-- end of categories --> </section>
+<!-- start news --> <section class="news">
+<div class="inner">
+	<div class="title-section">
+		 Новости
+	</div>
+	 <?$APPLICATION->IncludeComponent(
 	"bitrix:news.list",
 	"donna",
-	array(
+	Array(
 		"ACTIVE_DATE_FORMAT" => "d.m.Y",
-		"ADD_SECTIONS_CHAIN" => "Y",
+		"ADD_SECTIONS_CHAIN" => "N",
 		"AJAX_MODE" => "N",
 		"AJAX_OPTION_ADDITIONAL" => "",
 		"AJAX_OPTION_HISTORY" => "N",
@@ -69,16 +63,13 @@ $APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
 		"DISPLAY_PICTURE" => "Y",
 		"DISPLAY_PREVIEW_TEXT" => "Y",
 		"DISPLAY_TOP_PAGER" => "N",
-		"FIELD_CODE" => array(
-			0 => "",
-			1 => "",
-		),
+		"FIELD_CODE" => array("",""),
 		"FILTER_NAME" => "",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
 		"IBLOCK_ID" => "1",
 		"IBLOCK_TYPE" => "news",
-		"INCLUDE_IBLOCK_INTO_CHAIN" => "Y",
-		"INCLUDE_SUBSECTIONS" => "Y",
+		"INCLUDE_IBLOCK_INTO_CHAIN" => "N",
+		"INCLUDE_SUBSECTIONS" => "N",
 		"MESSAGE_404" => "",
 		"NEWS_COUNT" => "2",
 		"PAGER_BASE_LINK_ENABLE" => "N",
@@ -90,36 +81,27 @@ $APPLICATION->SetTitle("Интернет-магазин \"Одежда\"");
 		"PAGER_TITLE" => "Новости",
 		"PARENT_SECTION" => "",
 		"PARENT_SECTION_CODE" => "",
-		"PREVIEW_TRUNCATE_LEN" => "",
-		"PROPERTY_CODE" => array(
-			0 => "",
-			1 => "",
-		),
-		"SET_BROWSER_TITLE" => "Y",
+		"PREVIEW_TRUNCATE_LEN" => "150",
+		"PROPERTY_CODE" => array("",""),
+		"SET_BROWSER_TITLE" => "N",
 		"SET_LAST_MODIFIED" => "N",
-		"SET_META_DESCRIPTION" => "Y",
-		"SET_META_KEYWORDS" => "Y",
+		"SET_META_DESCRIPTION" => "N",
+		"SET_META_KEYWORDS" => "N",
 		"SET_STATUS_404" => "N",
-		"SET_TITLE" => "Y",
+		"SET_TITLE" => "N",
 		"SHOW_404" => "N",
 		"SORT_BY1" => "ACTIVE_FROM",
 		"SORT_BY2" => "SORT",
 		"SORT_ORDER1" => "DESC",
 		"SORT_ORDER2" => "ASC",
-		"STRICT_SECTION_CHECK" => "N",
-		"COMPONENT_TEMPLATE" => "donna"
-	),
-	false
+		"STRICT_SECTION_CHECK" => "N"
+	)
 );?>
-
-			<div class="button-section">
-				<a class="see-all" href="/company/news/">Все новости</a>
-			</div>
-		</div>
-	</section>
-
-	<section id="container">
-
+	<div class="button-section">
+ <a class="see-all" href="/company/news/">Все новости</a>
+	</div>
+</div>
+ </section> <section id="container">
 <!-- end of news --> <section class="description">
 <div class="inner">
 	<div class="title-section">
