@@ -16,24 +16,38 @@ $APPLICATION->IncludeComponent(
 	false
 );?><!-- start container --><section id="container">
 <!-- start categories --> <section class="categories">
-<div class="inner">
-	<div class="cat-item">
- <a class="first" href="#"> <img src="images/cat-1.jpg" alt=""> <span class="cat-title">Платья</span> </a> <a class="last" href="#"> <img src="images/cat-1.jpg" alt=""> <span class="cat-title">Платья</span> </a>
-	</div>
-	<div class="cat-item">
- <a class="first" href="#"> <img src="images/cat-2.jpg" alt=""> <span class="cat-title">Нарядные платья</span> </a> <a class="last" href="#"> <img src="images/cat-2.jpg" alt=""> <span class="cat-title">Нарядные платья</span> </a>
-	</div>
-	<div class="cat-item">
- <a class="first" href="#"> <img src="images/cat-3.jpg" alt=""> <span class="cat-title">Блузки и топы</span> </a> <a class="last" href="#"> <img src="images/cat-3.jpg" alt=""> <span class="cat-title">Блузки и топы</span> </a>
-	</div>
-	<div class="cat-item">
- <a class="first" href="#"> <img src="images/cat-4.jpg" alt=""> <span class="cat-title">Юбки</span> </a> <a class="last" href="#"> <img src="images/cat-4.jpg" alt=""> <span class="cat-title">Юбки</span> </a>
-	</div>
-	<div class="cat-item">
- <a class="first" href="#"> <img src="images/cat-5.jpg" alt=""> <span class="cat-title">Кардиганы</span> </a> <a class="last" href="#"> <img src="images/cat-5.jpg" alt=""> <span class="cat-title">Кардиганы</span> </a>
-	</div>
-</div>
- </section>
+<?$APPLICATION->IncludeComponent(
+	"custom:title.section.list",
+	"",
+	Array(
+		"CACHE_GROUPS" => "Y",
+		"CACHE_TIME" => "36000000",
+		"CACHE_TYPE" => "A",
+		"COUNT_ELEMENT_PAGE" => "5",
+		"IBLOCK_ID" => "2",
+		"IBLOCK_TYPE" => "catalog",
+		"PROPERTY_TO_DISPLAY_ELEMENTS" => "UF_PEVIEW_PAGE",
+		"SECTION_URL" => "#SITE_DIR#/catalog/#SECTION_CODE#/",
+		"SEF_FOLDER" => "/",
+		"SEF_MODE" => "Y"
+	)
+);?> <!-- <div class="inner">
+		<div class="cat-item">
+	 <a class="first" href="#"> <img src="images/cat-1.jpg" alt=""> <span class="cat-title">Платья</span> </a> <a class="last" href="#"> <img src="images/cat-1.jpg" alt=""> <span class="cat-title">Платья</span> </a>
+		</div>
+		<div class="cat-item">
+	 <a class="first" href="#"> <img src="images/cat-2.jpg" alt=""> <span class="cat-title">Нарядные платья</span> </a> <a class="last" href="#"> <img src="images/cat-2.jpg" alt=""> <span class="cat-title">Нарядные платья</span> </a>
+		</div>
+		<div class="cat-item">
+	 <a class="first" href="#"> <img src="images/cat-3.jpg" alt=""> <span class="cat-title">Блузки и топы</span> </a> <a class="last" href="#"> <img src="images/cat-3.jpg" alt=""> <span class="cat-title">Блузки и топы</span> </a>
+		</div>
+		<div class="cat-item">
+	 <a class="first" href="#"> <img src="images/cat-4.jpg" alt=""> <span class="cat-title">Юбки</span> </a> <a class="last" href="#"> <img src="images/cat-4.jpg" alt=""> <span class="cat-title">Юбки</span> </a>
+		</div>
+		<div class="cat-item">
+	 <a class="first" href="#"> <img src="images/cat-5.jpg" alt=""> <span class="cat-title">Кардиганы</span> </a> <a class="last" href="#"> <img src="images/cat-5.jpg" alt=""> <span class="cat-title">Кардиганы</span> </a>
+		</div>
+	</div> --> </section>
 <!-- end of categories --> </section>
 <!-- start news --> <section class="news">
 <div class="inner">
