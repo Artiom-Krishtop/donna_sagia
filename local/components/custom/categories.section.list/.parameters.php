@@ -31,6 +31,7 @@ while ($arr = $rsIBlock->Fetch())
 unset($id, $arr, $rsIBlock, $iblockFilter);
 unset($offersIblock);
 
+
 if ($iblockExists) {
   $arProperty_UF = array();
 
@@ -38,63 +39,19 @@ if ($iblockExists) {
 
   foreach($arUserFields as $FIELD_NAME=>$arUserField)
   {
-    print_r($arUserField);
-
   	$arUserField['LIST_COLUMN_LABEL'] = (string)$arUserField['LIST_COLUMN_LABEL'];
 
     if ($arUserField['USER_TYPE_ID'] === 'boolean') {
       $arProperty_UF[$FIELD_NAME] = $arUserField['LIST_COLUMN_LABEL'] ? '['.$FIELD_NAME.']'.$arUserField['LIST_COLUMN_LABEL'] : $FIELD_NAME;
     }
   }
+
+  $arSort = CIBlockParameters::GetSectionSortFields(array('SORT', 'NAME', 'TIMESTAMP_X'));
+  $arOrder = array("asc" => GetMessage("TSL_ASC"),"desc" => GetMessage("TSL_DESC"));
 }
 
 $arComponentParameters = array(
 	"PARAMETERS" => array(
-		// "VARIABLE_ALIASES" => array(
-		// 	"ELEMENT_ID" => array(
-		// 		"NAME" => GetMessage("TSL_VARIABLE_ALIASES_ELEMENT_ID"),
-		// 	),
-		// 	"SECTION_ID" => array(
-		// 		"NAME" => GetMessage("TSL_VARIABLE_ALIASES_SECTION_ID"),
-		// 	),
-    //
-		// ),
-		// "SEF_MODE" => array(
-		// 	"sections" => array(
-		// 		"NAME" => GetMessage("SECTIONS_TOP_PAGE"),
-		// 		"DEFAULT" => "",
-		// 		"VARIABLES" => array(
-		// 		),
-		// 	),
-		// 	"section" => array(
-		// 		"NAME" => GetMessage("SECTION_PAGE"),
-		// 		"DEFAULT" => "#SECTION_ID#/",
-		// 		"VARIABLES" => array(
-		// 			"SECTION_ID",
-		// 			"SECTION_CODE",
-		// 			"SECTION_CODE_PATH",
-		// 		),
-		// 	),
-		// 	"element" => array(
-		// 		"NAME" => GetMessage("DETAIL_PAGE"),
-		// 		"DEFAULT" => "#SECTION_ID#/#ELEMENT_ID#/",
-		// 		"VARIABLES" => array(
-		// 			"ELEMENT_ID",
-		// 			"ELEMENT_CODE",
-		// 			"SECTION_ID",
-		// 			"SECTION_CODE",
-		// 			"SECTION_CODE_PATH",
-		// 		),
-		// 	),
-		// ),
-
-    // "SECTION_URL" => CIBlockParameters::GetPathTemplateParam(
-		// 	"SECTION",
-		// 	"SECTION_URL",
-		// 	GetMessage("TSL_SECTION_URL"),
-		// 	"",
-		// 	"URL_TEMPLATES"
-		// ),
 		"IBLOCK_TYPE" => array(
 			"PARENT" => "BASE",
 			"NAME" => GetMessage("IBLOCK_TYPE"),
@@ -117,12 +74,6 @@ $arComponentParameters = array(
       "ADDITIONAL_VALUES" => "Y",
       "VALUES" => $arProperty_UF
     ),
-    "COUNT_ELEMENT_PAGE" => array(
-      "PARENT" => "VISUAL",
-      "NAME" => GetMessage("TSL_COUNT_SECTION_PAGE"),
-      "TYPE" => "STRING",
-      "DEFAULT" => "5"
-    ),
     "CACHE_TIME"  =>  array("DEFAULT"=>36000000),
 		"CACHE_GROUPS" => array(
 			"PARENT" => "CACHE_SETTINGS",
@@ -130,5 +81,19 @@ $arComponentParameters = array(
 			"TYPE" => "CHECKBOX",
 			"DEFAULT" => "Y",
 		),
+    "SECTION_SORT_FIELDS" => array(
+      "PARENT" => "VISUAL",
+      "NAME" => GetMessage("TSL_SECTION_SORT_FIELDS"),
+      "TYPE" => "LIST",
+      "VALUES" => $arSort,
+      "DEFAULT" => "SORT"
+    ),
+    "SECTION_SORT_ORDER" => array(
+      "PARENT" => "VISUAL",
+      "NAME" => GetMessage("TSL_SORT_ORDER"),
+      "TYPE" => "LIST",
+      "VALUES" => $arOrder,
+      "DEFAULT" => "asc",
+    ),
   )
 );

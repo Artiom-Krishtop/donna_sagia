@@ -3,9 +3,6 @@
 /** @var CBitrixComponent $this */
 /** @var array $arParams */
 /** @var array $arResult */
-/** @var string $componentPath */
-/** @var string $componentName */
-/** @var string $componentTemplate */
 /** @global CDatabase $DB */
 /** @global CUser $USER */
 /** @global CMain $APPLICATION */
@@ -14,16 +11,14 @@ use Bitrix\Main\Loader,
 	Bitrix\Main\Localization\Loc,
 	Bitrix\Iblock;
 
+define(MAX_COUNT_SECTIONS, 5);
+
 if (!isset($arParams['CACHE_TIME'])) {
   $arParams['CACHE_TIME'] = 36000000;
 }
 
 $arParams["IBLOCK_TYPE"] = trim($arParams["IBLOCK_TYPE"]);
 $arParams["IBLOCK_ID"] = intval($arParams["IBLOCK_ID"]);
-$arParams["COUNT_ELEMENT_PAGE"] = intval($arParams["COUNT_ELEMENT_PAGE"]);
-
-
-// $arParams["SECTION_URL"]=trim($arParams["SECTION_URL"]);
 
 $arResult['SECTIONS'] = array();
 
@@ -46,6 +41,10 @@ if ($this->startResultCache(false, array(($arParams["CACHE_GROUPS"]==="N"? false
 		$this->abortResultCache();
 		return;
 	}
+	$sort = isset($arParams["SECTION_SORT_FIELDS"])? $arParams["SECTION_SORT_FIELDS"] : "ID";
+	$order = isset($arParams["SECTION_SORT_ORDER"])? $arParams["SECTION_SORT_ORDER"] : "asc";
+
+	$arOrder = array($sort => $order);
 
   $arSelect = array(
     'ID',
@@ -59,15 +58,22 @@ if ($this->startResultCache(false, array(($arParams["CACHE_GROUPS"]==="N"? false
   $arFilter = array(
     'IBLOCK_ID' => $arParams['IBLOCK_ID'],
     'ACTIVE' => 'Y',
-    $arParams['PROPERTY_TO_DISPLAY_ELEMENTS'] => true
+    $arParams['PROPERTY_TO_DISPLAY_ELEMENTS'] => true,
   );
 
-  $rsSections = CIBlockSection::GetList(array('ID' => 'ASC'), $arFilter, false, $arSelect);
+  $rsSections = CIBlockSection::GetList($arOrder, $arFilter, false, $arSelect);
 
-  while ($arSection = $rsSections->fetch()) {
+	$counter = 0;
+
+  while ($arSection = $rsSections->GetNext()) {
     $arResult['SECTIONS'][] = $arSection;
+		$counter++;
+
+		if ($counter === MAX_COUNT_SECTIONS) {
+			break;
+		}
   }
-  unset($arSection, $arSelect, $arFilter);
+  unset($arSection, $arSelect, $arFilter, $arOrder, $order, $sort);
 
   foreach ($arResult['SECTIONS'] as &$arSection) {
     if (!empty($arSection['PICTURE'])) {
@@ -75,14 +81,7 @@ if ($this->startResultCache(false, array(($arParams["CACHE_GROUPS"]==="N"? false
       $arSection['PICTURE'] = $imageData;
     }
   }
-  // print_r($arResult['SECTIONS']);
   unset($arSection, $imageData);
-  $this->setResultCacheKeys(array('SECTIONS'));
+
   $this->includeComponentTemplate();
 }
-
-// $print = CIBlockSection::GetList(array('ID' => 'ASC'), array('IBLOCK_ID' => $arParams['IBLOCK_ID']),false,array($arParams['PROPERTY_TO_DISPLAY_ELEMENTS']));
-// while ($rprint = $print->fetch()) {
-// print_r($rprint);
-//   // echo '<pre>' . print_r($print) . '</pre>';
-// }

@@ -407,63 +407,6 @@ input, select {
   right: 20px;
 }
 /* categories */
-.categories {
-  font-size: 0;
-  padding: 2rem 0;
-}
-.cat-item:first-child {
-  margin-left: 0;
-}
-.cat-item:last-child {
-  margin-right: 0;
-}
-.cat-item {
-  width: 19%;
-  display: inline-block;
-  text-decoration: none;
-  position: relative;
-  margin: 0 0.6%;
-}
-.cat-item img {
-  max-width: 100%;
-  height: auto;
-}
-.cat-item a {
-  display: block;
-  position: relative;
-}
-.cat-title{
-  color: #fff;
-  position: absolute;
-  font-family: 'proxima_nova_rgregular';
-  font-size: 1.4rem;
-  text-transform: uppercase;
-  background: rgba(0,0,0, 0.5);
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 1rem;
-  text-align: center;
-}
-.cat-item a.last {
-  position: absolute;
-  top: 28%;
-  width: 100%;
-  left: -2px;
-  border: 2px solid #e3e3e3;
-  opacity: 0;
-  background: #fff;
-  -webkit-transform: translate(0,-70px);
-  transform: translate(0,-70px);
-  -webkit-transition: -webkit-transform 0.5s, opacity 0.5s;
-  transition: transform 0.5s, opacity 0.5s;
-  z-index: 10;
-}
-.cat-item:hover a.last  {
-  opacity: 1;
-  transform: translate(0,0);
-}
-
 .news {
   background: #f6f6f6;
   padding: 3.5rem 0;
@@ -2325,7 +2268,6 @@ td .quantity .plus  {
   .contact-form fieldset {
     display: block;
   }
-
   .form-line {
     margin-bottom: 1rem;
   }
@@ -2374,12 +2316,6 @@ td .quantity .plus  {
   }
   .right-side {
     height: 250px;
-  }
-  .categories {
-    text-align: center;
-  }
-  .cat-item {
-    width: 47%;
   }
   .drop {
     display: block;

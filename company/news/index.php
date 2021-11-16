@@ -3,9 +3,9 @@ require($_SERVER["DOCUMENT_ROOT"]."/bitrix/header.php");
 $APPLICATION->SetTitle("Новости");
 ?><div class="inner">
 <?$APPLICATION->IncludeComponent(
-	"bitrix:news.list",
-	"donna",
-	Array(
+	"bitrix:news.list", 
+	"donna", 
+	array(
 		"ACTIVE_DATE_FORMAT" => "d.m.Y",
 		"ADD_SECTIONS_CHAIN" => "Y",
 		"AJAX_MODE" => "N",
@@ -26,7 +26,10 @@ $APPLICATION->SetTitle("Новости");
 		"DISPLAY_PICTURE" => "Y",
 		"DISPLAY_PREVIEW_TEXT" => "Y",
 		"DISPLAY_TOP_PAGER" => "N",
-		"FIELD_CODE" => array(0=>"",1=>"",),
+		"FIELD_CODE" => array(
+			0 => "",
+			1 => "",
+		),
 		"FILTER_NAME" => "",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
 		"IBLOCK_ID" => "1",
@@ -45,7 +48,10 @@ $APPLICATION->SetTitle("Новости");
 		"PARENT_SECTION" => "",
 		"PARENT_SECTION_CODE" => "",
 		"PREVIEW_TRUNCATE_LEN" => "",
-		"PROPERTY_CODE" => array(0=>"",1=>"",),
+		"PROPERTY_CODE" => array(
+			0 => "",
+			1 => "",
+		),
 		"SET_BROWSER_TITLE" => "Y",
 		"SET_LAST_MODIFIED" => "N",
 		"SET_META_DESCRIPTION" => "Y",
@@ -57,7 +63,9 @@ $APPLICATION->SetTitle("Новости");
 		"SORT_BY2" => "SORT",
 		"SORT_ORDER1" => "DESC",
 		"SORT_ORDER2" => "ASC",
-		"STRICT_SECTION_CHECK" => "N"
-	)
+		"STRICT_SECTION_CHECK" => "N",
+		"URL_LIST_NEWS" => ""
+	),
+	false
 );?>
 </div><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
