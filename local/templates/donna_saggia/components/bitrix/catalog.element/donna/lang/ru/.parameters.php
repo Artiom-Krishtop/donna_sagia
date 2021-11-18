@@ -107,7 +107,7 @@ $MESS["MESS_NOT_AVAILABLE_TIP"] = "Сообщение об отсутствии 
 $MESS["USE_VOTE_RATING_TIP"] = "Включить рейтингование товара";
 $MESS["USE_COMMENTS_TIP"] = "Включить функционал отзывов о товаре";
 $MESS["CP_BCE_TPL_USE_ENHANCED_ECOMMERCE"] = "Включить отправку данных в электронную торговлю";
-$MESS["USE_ENHANCED_ECOMMERCE_TIP"] = "Требуется дополнительная настройка в Google Analytics Enhanced 
+$MESS["USE_ENHANCED_ECOMMERCE_TIP"] = "Требуется дополнительная настройка в Google Analytics Enhanced
 Ecommerce и/или Яндекс.Метрике";
 $MESS["CP_BCE_TPL_DATA_LAYER_NAME"] = "Имя контейнера данных";
 $MESS["CP_BCE_TPL_BRAND_PROPERTY"] = "Свойство брендов";
@@ -122,4 +122,5 @@ $MESS["CP_BCE_TPL_PRODUCT_BLOCK_QUANTITY"] = "Количество";
 $MESS["CP_BCE_TPL_PRODUCT_BLOCK_BUTTONS"] = "Действия";
 $MESS["CP_BCE_TPL_PRODUCT_BLOCK_COMPARE"] = "Сравнение";
 $MESS["CP_BCE_TPL_PRODUCT_BLOCK_QUANTITY_LIMIT"] = "Остаток";
+$MESS["CP_BCE_TPL_PROPS_OF_COLOR"] = "Свойство по которому группируются товары";
 ?>

@@ -13,3 +13,4 @@ $MESS["CP_BC_TPL_FB_APP_ID"] = "Идентификатор приложения 
 $MESS["CP_BC_TPL_ADD_PICT_PROP"] = "Дополнительная картинка основного товара";
 $MESS["CP_BC_TPL_OFFER_ADD_PICT_PROP"] = "Дополнительные картинки предложения";
 $MESS["CP_BC_TPL_PROP_EMPTY"] = "не выбрано";
+$MESS["CP_BCE_TPL_PROPS_OF_COLOR"] = "Свойство по которому группируются товары";

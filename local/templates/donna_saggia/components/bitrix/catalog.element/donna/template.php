@@ -16,6 +16,8 @@ use Bitrix\Main\Localization\Loc;
 
 $this->setFrameMode(true);
 
+$APPLICATION->SetAdditionalCSS('/local/templates/donna_saggia/css/jquery.fancybox.css');
+
 CUtil::InitJSCore(array('jquery', 'slick.min.js', 'jquery.fancybox.js', 'jquery.zoom.min.js'));
 
 $templateLibrary = array('popup', 'fx');
@@ -73,6 +75,7 @@ $itemIds = array(
 	'TABS_PANEL_ID' => $mainId.'_tabs_panel'
 );
 $obName = $templateData['JS_OBJ'] = 'ob'.preg_replace('/[^a-zA-Z0-9_]/', 'x', $mainId);
+
 $name = !empty($arResult['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE'])
 	? $arResult['IPROPERTY_VALUES']['ELEMENT_PAGE_TITLE']
 	: $arResult['NAME'];
@@ -84,24 +87,16 @@ $alt = !empty($arResult['IPROPERTY_VALUES']['ELEMENT_DETAIL_PICTURE_FILE_ALT'])
 	: $arResult['NAME'];
 
 $haveOffers = !empty($arResult['OFFERS']);
+
+$showSlider = $arResult['MORE_PHOTO_COUNT'] > 1;
+
 if ($haveOffers)
 {
 	$actualItem = $arResult['OFFERS'][$arResult['OFFERS_SELECTED']] ?? reset($arResult['OFFERS']);
-	$showSliderControls = false;
-
-	foreach ($arResult['OFFERS'] as $offer)
-	{
-		if ($offer['MORE_PHOTO_COUNT'] > 1)
-		{
-			$showSliderControls = true;
-			break;
-		}
-	}
 }
 else
 {
 	$actualItem = $arResult;
-	$showSliderControls = $arResult['MORE_PHOTO_COUNT'] > 1;
 }
 
 $skuProps = array();
@@ -130,9 +125,9 @@ else
 ?>
 <div class="product" id="<?=$itemIds['ID']?>">
   <div class="product-left">
-    <div class="big-image" data-entity="images-container" >
-      <a class="fancy" href="<?=$actualItem['MORE_PHOTO'][0]['SRC'] ?>" data-entity="image" data-id="<?=$actualItem['MORE_PHOTO'][0]['ID']?>">
-        <img src="<?=$actualItem['MORE_PHOTO'][0]['SRC'] ?>" data-entity="photo">
+    <div class="big-image">
+      <a class="fancy" href="<?=$arResult['DETAIL_PICTURE']['SRC']?>">
+        <img src="<?=$arResult['DETAIL_PICTURE']['SRC']?>" alt="<?$alt?>" title="<?=$title ?>">
       </a>
     </div>
 
@@ -192,6 +187,21 @@ else
 			<? endif; ?>
 		<? endif; ?>
 
+		<?php if (isset($arResult['PROPS_OF_COLOR']) && count($arResult['PROPS_OF_COLOR']) > 1): ?>
+			<div class="product-color">
+        <div class="haracther"><span><?=GetMessage('CE_TMPL_SELECT_COLOR')?>:</span></div>
+        <div class="images-color">
+				<?php foreach ($arResult['PROPS_OF_COLOR'] as $item): ?>
+          <a href="<?=$item['DETAIL_PAGE_URL']?>">
+						<span class="<?=isset($item['SELECTED'])&&$item['SELECTED']===true?'active':''?>">
+							<img src="<?=$item['DETAIL_PICTURE_SRC'] ?>">
+						</span>
+					</a>
+				<?php endforeach; ?>
+        </div>
+      </div>
+		<?php endif; ?>
+
     <?
     if ($haveOffers && !empty($arResult['OFFERS_PROP'])) {
 
@@ -213,21 +223,7 @@ else
 				?>
 				<div data-entity="sku-line-block">
 				<?
-        if ($skuProperty['SHOW_MODE'] === 'PICT') {
-          ?>
-          <div class="product-color">
-            <div class="haracther"><span><?=htmlspecialcharsEx($skuProperty['NAME']) . ':'?></span></div>
-
-            <ul class="images-color">
-          <?php foreach ($skuProperty['VALUES'] as &$value): ?>
-            <li data-treevalue="<?=$propertyId?>_<?=$value['ID']?>" data-onevalue="<?=$value['ID']?>">
-							<img src="<?=$value['PICT']['SRC']?>" title="<?=htmlspecialcharsbx($value['NAME'])?>">
-						</li>
-          <?php endforeach; ?>
-				</ul>
-          </div>
-          <?
-        }else {
+        if ($skuProperty['SHOW_MODE'] !== 'PICT') {
           ?>
           <div class="sizes-left">
             <div class="haracther"><span><?=htmlspecialcharsEx($skuProperty['NAME']) . ':'?></span></div>
@@ -270,19 +266,19 @@ else
 		</div>
 
 		<!-- carousel -->
-		<?php if ($showSliderControls): ?>
-			<?php if (!empty($actualItem['MORE_PHOTO'])): ?>
-				<div class="cusrousel-mini" data-entity="curousel-mini">
-		      <?php foreach ($actualItem['MORE_PHOTO'] as $key => $photo): ?>
-		        <div class="mini-slide" data-entity="image" data-id="<?=$photo['ID']?>">
-		          <a class="<?=$key == 0 ? 'active' : ''?>" href="<?=$photo['SRC']?>">
+		<?php// if ($showSlider): ?>
+			<?php if (!empty($arResult['MORE_PHOTO'])): ?>
+				<div class="cusrousel-mini">
+		      <?php foreach ($arResult['MORE_PHOTO'] as $key => $photo): ?>
+		        <div class="mini-slide">
+		          <a href="<?=$photo['SRC']?>">
 		            <img src="<?=$photo['SRC'] ?>" alt="<?=$alt?>" title="<?=$title?>" />
 		          </a>
 		        </div>
 		      <?php endforeach; ?>
 				</div>
     	<?php endif; ?>
-		<?php endif; ?>
+		<?php //endif; ?>
 		<!-- carousel end -->
 
     <?php if ($showDescription && !empty($arResult['DETAIL_TEXT'])): ?>

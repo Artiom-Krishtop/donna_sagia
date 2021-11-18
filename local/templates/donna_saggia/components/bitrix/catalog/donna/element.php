@@ -75,6 +75,7 @@ $this->setFrameMode(true);
 				'MAIN_BLOCK_OFFERS_PROPERTY_CODE' => (isset($arParams['DETAIL_MAIN_BLOCK_OFFERS_PROPERTY_CODE']) ? $arParams['DETAIL_MAIN_BLOCK_OFFERS_PROPERTY_CODE'] : ''),
 				'ADD_PICT_PROP' => $arParams['ADD_PICT_PROP'],
 				'LABEL_PROP' => $arParams['LABEL_PROP'],
+				'PROPS_OF_COLOR' => $arParams['PROPS_OF_COLOR'],
 				// 'LABEL_PROP_MOBILE' => $arParams['LABEL_PROP_MOBILE'],
 				// 'LABEL_PROP_POSITION' => $arParams['LABEL_PROP_POSITION'],
 				'OFFER_ADD_PICT_PROP' => $arParams['OFFER_ADD_PICT_PROP'],

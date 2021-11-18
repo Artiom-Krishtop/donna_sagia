@@ -53,6 +53,10 @@ if ($iblockExists)
 		{
 			$arListPropList[$arProp['CODE']] = $strPropName;
 		}
+
+		if ($arProp['PROPERTY_TYPE'] === 'S') {
+			$arStringPropList[$arProp['CODE']] = $strPropName;
+		}
 	}
 
   $arTemplateParameters['LABEL_PROP'] = array(
@@ -74,6 +78,14 @@ if ($iblockExists)
 	'REFRESH' => 'N',
 	'DEFAULT' => '-',
 	'VALUES' => $arFilePropList
+	);
+
+	$arTemplateParameters["PROPS_OF_COLOR"] = array(
+		'PARENT' => 'DETAIL_SETTINGS',
+		'NAME' => GetMessage('CP_BCE_TPL_PROPS_OF_COLOR'),
+		'TYPE' => 'LIST',
+		'ADDITIONAL_VALUES' => 'Y',
+		'VALUES' => $arStringPropList
 	);
 
 	if ($boolSKU) {

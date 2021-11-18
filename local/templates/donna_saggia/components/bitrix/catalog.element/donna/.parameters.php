@@ -108,6 +108,7 @@ if ($iblockExists)
 	);
 	while ($arProp = $rsProps->Fetch())
 	{
+		print_r($arProp);
 		$strPropName = '['.$arProp['ID'].']'.('' != $arProp['CODE'] ? '['.$arProp['CODE'].']' : '').' '.$arProp['NAME'];
 		if ($arProp['CODE'] == '')
 		{
@@ -129,6 +130,10 @@ if ($iblockExists)
 		if ($arProp['PROPERTY_TYPE'] === 'S' && $arProp['USER_TYPE'] === 'directory' && CIBlockPriceTools::checkPropDirectory($arProp))
 		{
 			$arHighloadPropList[$arProp['CODE']] = $strPropName;
+		}
+
+		if ($arProp['PROPERTY_TYPE'] === 'S') {
+			$arStringPropList[$arProp['CODE']] = $strPropName;
 		}
 	}
 
@@ -365,6 +370,14 @@ if ($iblockExists)
 			);
 		}
 	}
+
+	$arTemplateParameters["PROPS_OF_COLOR"] = array(
+		'PARENT' => 'VISUAL',
+		'NAME' => GetMessage('CP_BCE_TPL_PROPS_OF_COLOR'),
+		'TYPE' => 'LIST',
+		'ADDITIONAL_VALUES' => 'Y',
+		'VALUES' => $arStringPropList
+	);
 }
 
 $arTemplateParameters['DISPLAY_NAME'] = array(

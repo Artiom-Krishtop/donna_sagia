@@ -11,11 +11,9 @@ use Bitrix\Main\Loader;
 
 global $APPLICATION;
 
-if (isset($templateData['TEMPLATE_THEME']))
-{
-	$APPLICATION->SetAdditionalCSS($templateFolder.'/themes/'.$templateData['TEMPLATE_THEME'].'/style.css');
-	$APPLICATION->SetAdditionalCSS('/bitrix/css/main/themes/'.$templateData['TEMPLATE_THEME'].'/style.css', true);
-}
+$APPLICATION->SetAdditionalCSS('/local/templates/donna_saggia/css/jquery.fancybox.css', true);
+
+CUtil::InitJSCore(array('jquery', 'slick.min.js', 'jquery.fancybox.js', 'jquery.zoom.min.js'));
 
 if (!empty($templateData['TEMPLATE_LIBRARY']))
 {
@@ -50,54 +48,6 @@ if (isset($templateData['JS_OBJ']))
 	</script>
 
 	<?
-	// check compared state
-	if ($arParams['DISPLAY_COMPARE'])
-	{
-		$compared = false;
-		$comparedIds = array();
-		$item = $templateData['ITEM'];
-
-		if (!empty($_SESSION[$arParams['COMPARE_NAME']][$item['IBLOCK_ID']]))
-		{
-			if (!empty($item['JS_OFFERS']))
-			{
-				foreach ($item['JS_OFFERS'] as $key => $offer)
-				{
-					if (array_key_exists($offer['ID'], $_SESSION[$arParams['COMPARE_NAME']][$item['IBLOCK_ID']]['ITEMS']))
-					{
-						if ($key == $item['OFFERS_SELECTED'])
-						{
-							$compared = true;
-						}
-
-						$comparedIds[] = $offer['ID'];
-					}
-				}
-			}
-			elseif (array_key_exists($item['ID'], $_SESSION[$arParams['COMPARE_NAME']][$item['IBLOCK_ID']]['ITEMS']))
-			{
-				$compared = true;
-			}
-		}
-
-		if ($templateData['JS_OBJ'])
-		{
-			?>
-			<script>
-				BX.ready(BX.defer(function(){
-					if (!!window.<?=$templateData['JS_OBJ']?>)
-					{
-						window.<?=$templateData['JS_OBJ']?>.setCompared('<?=$compared?>');
-
-						<? if (!empty($comparedIds)): ?>
-						window.<?=$templateData['JS_OBJ']?>.setCompareInfo(<?=CUtil::PhpToJSObject($comparedIds, false, true)?>);
-						<? endif ?>
-					}
-				}));
-			</script>
-			<?
-		}
-	}
 
 	// select target offer
 	$request = Bitrix\Main\Application::getInstance()->getContext()->getRequest();

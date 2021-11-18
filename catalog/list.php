@@ -24,6 +24,7 @@ $APPLICATION->SetTitle("Список");
 		"COMMON_ADD_TO_BASKET_ACTION" => "ADD",
 		"COMMON_SHOW_CLOSE_POPUP" => "N",
 		"COMPATIBLE_MODE" => "Y",
+		"COMPONENT_TEMPLATE" => "donna",
 		"CONVERT_CURRENCY" => "Y",
 		"CURRENCY_ID" => "RUB",
 		"DETAIL_ADD_DETAIL_TO_SLIDER" => "N",
@@ -48,9 +49,7 @@ $APPLICATION->SetTitle("Список");
 		"DETAIL_MAIN_BLOCK_OFFERS_PROPERTY_CODE" => array(
 			0 => "ARTNUMBER",
 		),
-		"DETAIL_MAIN_BLOCK_PROPERTY_CODE" => array(
-			0 => "ARTNUMBER",
-		),
+		"DETAIL_MAIN_BLOCK_PROPERTY_CODE" => "",
 		"DETAIL_META_DESCRIPTION" => "META_DESCRIPTION",
 		"DETAIL_META_KEYWORDS" => "KEYWORDS",
 		"DETAIL_OFFERS_FIELD_CODE" => array(
@@ -65,11 +64,12 @@ $APPLICATION->SetTitle("Список");
 		"DETAIL_SET_VIEWED_IN_COMPONENT" => "N",
 		"DETAIL_SHOW_MAX_QUANTITY" => "N",
 		"DETAIL_SHOW_POPULAR" => "Y",
-		"DETAIL_SHOW_SLIDER" => "N",
+		"DETAIL_SHOW_SLIDER" => "Y",
 		"DETAIL_SHOW_VIEWED" => "Y",
 		"DETAIL_STRICT_SECTION_CHECK" => "N",
 		"DETAIL_USE_COMMENTS" => "Y",
 		"DETAIL_USE_VOTE_RATING" => "N",
+		"DETAIL_VK_API_ID" => "API_ID",
 		"DETAIL_VK_USE" => "N",
 		"DISABLE_INIT_JS_IN_COMPONENT" => "N",
 		"DISPLAY_BOTTOM_PAGER" => "Y",
@@ -93,8 +93,8 @@ $APPLICATION->SetTitle("Список");
 			3 => "",
 		),
 		"FILTER_OFFERS_PROPERTY_CODE" => array(
-			0 => "COLOR_REF",
-			1 => "SIZES_CLOTHES",
+			0 => "SIZES_CLOTHES",
+			1 => "COLOR_REF",
 			2 => "",
 		),
 		"FILTER_PRICE_CODE" => array(
@@ -157,9 +157,7 @@ $APPLICATION->SetTitle("Список");
 		"LIST_OFFERS_LIMIT" => "0",
 		"LIST_PRODUCT_BLOCKS_ORDER" => "price,props,sku,quantityLimit,quantity,buttons",
 		"LIST_PRODUCT_ROW_VARIANTS" => "[{'VARIANT':'2','BIG_DATA':false}]",
-		"LIST_PROPERTY_CODE_MOBILE" => array(
-			0 => "ARTNUMBER",
-		),
+		"LIST_PROPERTY_CODE_MOBILE" => "",
 		"LIST_SHOW_SLIDER" => "Y",
 		"LIST_SLIDER_INTERVAL" => "3000",
 		"LIST_SLIDER_PROGRESS" => "Y",
@@ -180,7 +178,7 @@ $APPLICATION->SetTitle("Список");
 		"OFFERS_SORT_FIELD2" => "id",
 		"OFFERS_SORT_ORDER" => "asc",
 		"OFFERS_SORT_ORDER2" => "desc",
-		"OFFER_ADD_PICT_PROP" => "MORE_PHOTO",
+		"OFFER_ADD_PICT_PROP" => "-",
 		"OFFER_TREE_PROPS" => array(
 			0 => "COLOR_REF",
 			1 => "SIZES_CLOTHES",
@@ -276,8 +274,9 @@ $APPLICATION->SetTitle("Список");
 		"USE_REVIEW" => "N",
 		"USE_SALE_BESTSELLERS" => "Y",
 		"USE_STORE" => "N",
-		"COMPONENT_TEMPLATE" => "donna",
-		"DETAIL_VK_API_ID" => "API_ID",
+		"PROPS_OF_COLOR" => "ARTNUMBER",
+		"DETAIL_SLIDER_INTERVAL" => "5000",
+		"DETAIL_SLIDER_PROGRESS" => "N",
 		"SEF_URL_TEMPLATES" => array(
 			"sections" => "",
 			"section" => "#SECTION_CODE#/",

@@ -10,7 +10,54 @@ jQuery(document).ready(function() {
 		}
 		return false;
 	});
+
+	jQuery(".cusrousel-mini a").click(function(){
+		if(!jQuery(this).hasClass("active")){
+			jQuery(".cusrousel-mini a").removeClass("active");
+			jQuery(this).addClass("active");
+			var src = jQuery(this).attr("href");
+			jQuery(".big-image img").fadeOut();
+			setTimeout(function(){
+				jQuery(".big-image img").attr("src",src);
+				jQuery(".big-image a").attr("href",src);
+			},300)
+			jQuery(".big-image img").fadeIn();
+		}
+		return false;
+	});
+
+	$('.cusrousel-mini').slick({
+		dots: false,
+		infinite: false,
+		speed: 500,
+		slidesToShow: 5,
+		slidesToScroll: 5,
+		responsive: [
+			{
+				breakpoint: 1024,
+				settings: {
+					slidesToShow: 3,
+					slidesToScroll: 3,
+					centerPadding: '5px',
+				}
+			}
+		]
+	});
+
+		//fancy
+	jQuery(".fancy").fancybox({
+		openEffect  : 'none',
+		closeEffect : 'none',
+		helpers: {
+			overlay: {
+				locked: false
+			}
+		}
+	});
+
+	$('a.fancy').zoom();
 });
+
 
 (function(window){
 	'use strict';
@@ -246,9 +293,6 @@ jQuery(document).ready(function() {
 			BX.ready(BX.delegate(this.init, this));
 		}
 
-		this.createSlider();
-		this.clickSlider();
-
 		this.params = {};
 
 		BX.addCustomEvent('onSaleProductIsGift', BX.delegate(this.onSaleProductIsGift, this));
@@ -256,47 +300,6 @@ jQuery(document).ready(function() {
 	};
 
 	window.JCCatalogElement.prototype = {
-
-		createSlider: function()
-		{
-			$('.cusrousel-mini').slick({
-				dots: false,
-				infinite: false,
-				speed: 500,
-				slidesToShow: 5,
-				slidesToScroll: 5,
-				responsive: [
-					{
-						breakpoint: 1024,
-						settings: {
-							slidesToShow: 3,
-							slidesToScroll: 3,
-							centerPadding: '5px',
-						}
-					}
-
-
-				]
-			});
-		},
-
-		clickSlider: function()
-		{
-			jQuery(".cusrousel-mini a").click(function(){
-			if(!jQuery(this).hasClass("active")){
-				jQuery(".cusrousel-mini a").removeClass("active");
-				jQuery(this).addClass("active");
-				var src = jQuery(this).attr("href");
-				jQuery(".big-image img").fadeOut();
-				setTimeout(function(){
-					jQuery(".big-image img").attr("src",src);
-					jQuery(".big-image a").attr("href",src);
-				},300)
-				jQuery(".big-image img").fadeIn();
-			}
-			return false;
-		});
-		},
 
 		getEntity: function(parent, entity, additionalFilter)
 		{
@@ -2753,7 +2756,6 @@ jQuery(document).ready(function() {
 					})
 				);
 			}
-			this.clickSlider();
 			this.createSlider();
 		},
 
