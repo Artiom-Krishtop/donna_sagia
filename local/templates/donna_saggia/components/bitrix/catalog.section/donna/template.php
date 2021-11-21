@@ -126,125 +126,121 @@ $generalParams = array(
 $obName = 'ob'.preg_replace('/[^a-zA-Z0-9_]/', 'x', $this->GetEditAreaId($navParams['NavNum']));
 $containerName = 'container-'.$navParams['NavNum'];
 
-	?>
-	<div class="catalog-top">
-		<div class="catalog-top-text">
-			<?php if ($arParams['SET_TITLE']): ?>
-				<h1><?=$arResult['NAME']?></h1>
-			<?php endif; ?>
-			<?if ($arParams['HIDE_SECTION_DESCRIPTION'] !== 'Y')
-			{
-				?>
-					<p><?=$arResult['DESCRIPTION']?></p>
-
-				<?
-			}
-			?>
-		</div>
-
-		<?$APPLICATION->IncludeComponent(
-	"bitrix:main.include",
-	".default",
-	array(
-		"AREA_FILE_SHOW" => "file",
-		"AREA_FILE_RECURSIVE" => "Y",
-		"EDIT_TEMPLATE" => "standard.php",
-		"PATH" => SITE_DIR . "include/optovikam.php",
-		"COMPONENT_TEMPLATE" => ".default"
-	),
-	false
-);?>
+?>
+<?php if ($arParams['HIDE_SECTION_DESCRIPTION'] !== 'Y'): ?>
+<div class="catalog-top">
+	<div class="catalog-top-text">
+		<?php if ($arParams['SET_TITLE']): ?>
+			<h1><?=$arResult['NAME']?></h1>
+		<?php endif; ?>
+			<p><?=$arResult['DESCRIPTION']?></p>
 	</div>
 
-	<div class="sort">
-		<div class="sort-left">
-			Сортировать:<a href="<?=$arResult['SECTION_PAGE_URL']?>?sort=SCALED_PRICE_1">по цене</a>
-									<?php if (isset($_GET['sort']) && !empty($_GET['sort'])): ?>
-									<a class="active s-top" onclick="<?=$obName?>.showOrder(this)" href="<?=$arResult['SECTION_PAGE_URL'] . '?sort=' . $_GET['sort']?>&order=desc"></a>
-									<?php endif; ?>
-									<a href="<?=$arResult['SECTION_PAGE_URL']?>?sort=active_from">по новизне</a>
-		</div>
+	<?$APPLICATION->IncludeComponent(
+		"bitrix:main.include",
+		".default",
+		array(
+			"AREA_FILE_SHOW" => "file",
+			"AREA_FILE_RECURSIVE" => "Y",
+			"EDIT_TEMPLATE" => "standard.php",
+			"PATH" => SITE_DIR . "include/optovikam.php",
+			"COMPONENT_TEMPLATE" => ".default"
+		),
+		false
+	);?>
+</div>
+<?php endif; ?>
 
-			<?if ($showTopPager)
-			{
-				?>
-				<div class="sort-right" data-pagination-num="<?=$navParams['NavNum']?>">
-					<!-- pagination-container -->
-					<?=$arResult['NAV_STRING']?>
-
-					<!-- pagination-container -->
-				</div>
-				<?
-			}?>
-
+<div class="sort">
+	<div class="sort-left">
+		Сортировать:
+		<a href="<?=$arResult['SECTION_PAGE_URL']?>?sort=SCALED_PRICE_1">по цене</a>
+		<?php if (isset($_GET['sort']) && !empty($_GET['sort'])): ?>
+		<a class="active s-top" onclick="<?=$obName?>.showOrder(this)" href="<?=$arResult['SECTION_PAGE_URL'] . '?sort=' . $_GET['sort']?>&order=desc"></a>
+		<?php endif; ?>
+		<a href="<?=$arResult['SECTION_PAGE_URL']?>?sort=active_from">по новизне</a>
 	</div>
 
-	<div class="catalog-list">
-	<?
-	if (!empty($arResult['ITEMS']) && !empty($arResult['ITEM_ROWS']))
-	{
-		$areaIds = array();
-
-		foreach ($arResult['ITEMS'] as $item)
-		{
-			$uniqueId = $item['ID'].'_'.md5($this->randString().$component->getAction());
-			$areaIds[$item['ID']] = $this->GetEditAreaId($uniqueId);
-			$this->AddEditAction($uniqueId, $item['EDIT_LINK'], $elementEdit);
-			$this->AddDeleteAction($uniqueId, $item['DELETE_LINK'], $elementDelete, $elementDeleteParams);
-			?>
-				<?
-				$APPLICATION->IncludeComponent(
-					'bitrix:catalog.item',
-					'donna',
-					array(
-						'RESULT' => array(
-							'ITEM' => $item,
-							'AREA_ID' => $areaIds[$item['ID']],
-							'TYPE' =>'LINE',
-							'BIG_LABEL' => 'N',
-							'BIG_DISCOUNT_PERCENT' => 'N',
-							'BIG_BUTTONS' => 'N',
-							'SCALABLE' => 'N'
-						),
-						'PARAMS' => $generalParams
-							+ array('SKU_PROPS' => $arResult['SKU_PROPS'][$item['IBLOCK_ID']])
-					),
-					$component,
-					array('HIDE_ICONS' => 'Y')
-				);
-				?>
-			<? unset($areaIds);
-		}
-		unset($generalParams, $rowItems);
-	}
-	else
-	{
-		// load css for bigData/deferred load
-		$APPLICATION->IncludeComponent(
-			'bitrix:catalog.item',
-			'',
-			array(),
-			$component,
-			array('HIDE_ICONS' => 'Y')
-		);
-	}
-	?>
-	</div>
-	<div class="sort last">
-	  <div class="sort-left">
-	    <a href="javascript:void(0)" class="down">НАверх</a>
-	  </div>
-		<?if ($showBottomPager)
+		<?if ($showTopPager)
 		{
 			?>
 			<div class="sort-right" data-pagination-num="<?=$navParams['NavNum']?>">
 				<!-- pagination-container -->
 				<?=$arResult['NAV_STRING']?>
+
 				<!-- pagination-container -->
 			</div>
 			<?
 		}?>
-	</div>
+
+</div>
+
+<div class="catalog-list">
+<?
+if (!empty($arResult['ITEMS']) && !empty($arResult['ITEM_ROWS']))
+{
+	$areaIds = array();
+
+	foreach ($arResult['ITEMS'] as $item)
+	{
+		$uniqueId = $item['ID'].'_'.md5($this->randString().$component->getAction());
+		$areaIds[$item['ID']] = $this->GetEditAreaId($uniqueId);
+		$this->AddEditAction($uniqueId, $item['EDIT_LINK'], $elementEdit);
+		$this->AddDeleteAction($uniqueId, $item['DELETE_LINK'], $elementDelete, $elementDeleteParams);
+		?>
+			<?
+			$APPLICATION->IncludeComponent(
+				'bitrix:catalog.item',
+				'donna',
+				array(
+					'RESULT' => array(
+						'ITEM' => $item,
+						'AREA_ID' => $areaIds[$item['ID']],
+						'TYPE' =>'LINE',
+						'BIG_LABEL' => 'N',
+						'BIG_DISCOUNT_PERCENT' => 'N',
+						'BIG_BUTTONS' => 'N',
+						'SCALABLE' => 'N'
+					),
+					'PARAMS' => $generalParams
+						+ array('SKU_PROPS' => $arResult['SKU_PROPS'][$item['IBLOCK_ID']])
+				),
+				$component,
+				array('HIDE_ICONS' => 'Y')
+			);
+			?>
+		<? unset($areaIds);
+	}
+	unset($generalParams, $rowItems);
+}
+else
+{
+	// load css for bigData/deferred load
+	$APPLICATION->IncludeComponent(
+		'bitrix:catalog.item',
+		'',
+		array(),
+		$component,
+		array('HIDE_ICONS' => 'Y')
+	);
+}
+?>
+</div>
+<div class="sort last">
+  <div class="sort-left">
+    <a href="javascript:void(0)" class="down">НАверх</a>
+  </div>
+	<?if ($showBottomPager)
+	{
+		?>
+		<div class="sort-right" data-pagination-num="<?=$navParams['NavNum']?>">
+			<!-- pagination-container -->
+			<?=$arResult['NAV_STRING']?>
+			<!-- pagination-container -->
+		</div>
+		<?
+	}?>
+</div>
 <?
 
 $signer = new \Bitrix\Main\Security\Sign\Signer;

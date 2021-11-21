@@ -3,7 +3,7 @@
 /** @var array $arResult */
 $this->setFrameMode(true);
 ?>
-
+<?//return; ?>
 <section id="container">
   <section class="categories">
     <div class="inner">

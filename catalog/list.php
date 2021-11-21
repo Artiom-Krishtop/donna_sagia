@@ -31,7 +31,8 @@ $APPLICATION->SetTitle("Список");
 		"DETAIL_ADD_TO_BASKET_ACTION" => array(
 			0 => "ADD",
 		),
-		"DETAIL_ADD_TO_BASKET_ACTION_PRIMARY" => "",
+		"DETAIL_ADD_TO_BASKET_ACTION_PRIMARY" => array(
+		),
 		"DETAIL_BACKGROUND_IMAGE" => "BACKGROUND_IMAGE",
 		"DETAIL_BLOG_EMAIL_NOTIFY" => "N",
 		"DETAIL_BLOG_URL" => "catalog_comments",
@@ -49,7 +50,12 @@ $APPLICATION->SetTitle("Список");
 		"DETAIL_MAIN_BLOCK_OFFERS_PROPERTY_CODE" => array(
 			0 => "ARTNUMBER",
 		),
-		"DETAIL_MAIN_BLOCK_PROPERTY_CODE" => "",
+		"DETAIL_MAIN_BLOCK_PROPERTY_CODE" => array(
+			0 => "ARTNUMBER",
+			1 => "MANUFACTURER",
+			2 => "MATERIAL",
+			3 => "MORE_PHOTO",
+		),
 		"DETAIL_META_DESCRIPTION" => "META_DESCRIPTION",
 		"DETAIL_META_KEYWORDS" => "KEYWORDS",
 		"DETAIL_OFFERS_FIELD_CODE" => array(
@@ -93,8 +99,8 @@ $APPLICATION->SetTitle("Список");
 			3 => "",
 		),
 		"FILTER_OFFERS_PROPERTY_CODE" => array(
-			0 => "SIZES_CLOTHES",
-			1 => "COLOR_REF",
+			0 => "COLOR_REF",
+			1 => "SIZES_CLOTHES",
 			2 => "",
 		),
 		"FILTER_PRICE_CODE" => array(
@@ -104,9 +110,10 @@ $APPLICATION->SetTitle("Список");
 			0 => "NEW",
 			1 => "SALE",
 			2 => "HIT",
-			3 => "SIZES_CLOTHES",
-			4 => "COLOR_RF",
-			5 => "",
+			3 => "MATERIAL",
+			4 => "SIZES_CLOTHES",
+			5 => "COLOR_RF",
+			6 => "",
 		),
 		"FILTER_VIEW_MODE" => "VERTICAL",
 		"GIFTS_DETAIL_BLOCK_TITLE" => "Выберите один из подарков",
@@ -136,7 +143,8 @@ $APPLICATION->SetTitle("Список");
 			1 => "SALE",
 			2 => "HIT",
 		),
-		"LABEL_PROP_MOBILE" => "",
+		"LABEL_PROP_MOBILE" => array(
+		),
 		"LABEL_PROP_POSITION" => "top-left",
 		"LAZY_LOAD" => "N",
 		"LINE_ELEMENT_COUNT" => "50",
@@ -157,7 +165,8 @@ $APPLICATION->SetTitle("Список");
 		"LIST_OFFERS_LIMIT" => "0",
 		"LIST_PRODUCT_BLOCKS_ORDER" => "price,props,sku,quantityLimit,quantity,buttons",
 		"LIST_PRODUCT_ROW_VARIANTS" => "[{'VARIANT':'2','BIG_DATA':false}]",
-		"LIST_PROPERTY_CODE_MOBILE" => "",
+		"LIST_PROPERTY_CODE_MOBILE" => array(
+		),
 		"LIST_SHOW_SLIDER" => "Y",
 		"LIST_SLIDER_INTERVAL" => "3000",
 		"LIST_SLIDER_PROGRESS" => "Y",
@@ -208,7 +217,7 @@ $APPLICATION->SetTitle("Список");
 		"SEARCH_RESTART" => "N",
 		"SEARCH_USE_LANGUAGE_GUESS" => "Y",
 		"SEARCH_USE_SEARCH_RESULT_ORDER" => "N",
-		"SECTIONS_SHOW_PARENT_NAME" => "Y",
+		"SECTIONS_SHOW_PARENT_NAME" => "N",
 		"SECTIONS_VIEW_MODE" => "LIST",
 		"SECTION_ADD_TO_BASKET_ACTION" => "BUY",
 		"SECTION_BACKGROUND_IMAGE" => "-",
@@ -224,7 +233,7 @@ $APPLICATION->SetTitle("Список");
 		"SHOW_DEACTIVATED" => "Y",
 		"SHOW_DISCOUNT_PERCENT" => "N",
 		"SHOW_MAX_QUANTITY" => "N",
-		"SHOW_OLD_PRICE" => "N",
+		"SHOW_OLD_PRICE" => "Y",
 		"SHOW_PRICE_COUNT" => "1",
 		"SHOW_SKU_DESCRIPTION" => "Y",
 		"SHOW_TOP_ELEMENTS" => "Y",
@@ -277,6 +286,9 @@ $APPLICATION->SetTitle("Список");
 		"PROPS_OF_COLOR" => "ARTNUMBER",
 		"DETAIL_SLIDER_INTERVAL" => "5000",
 		"DETAIL_SLIDER_PROGRESS" => "N",
+		"ROOT_MENU_TYPE" => "left",
+		"CHILD_MENU_TYPE" => "top",
+		"USE_EXT" => "Y",
 		"SEF_URL_TEMPLATES" => array(
 			"sections" => "",
 			"section" => "#SECTION_CODE#/",

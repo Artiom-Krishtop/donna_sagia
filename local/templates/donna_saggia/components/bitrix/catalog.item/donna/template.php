@@ -82,7 +82,7 @@ if (isset($arResult['ITEM']))
 
     <div class="goods-inner">
 			<div data-entity="image-wrapper">
-    		<div class="goods-slider" <?=($showSlider ? '' : 'style="display: none"') ?> id="<?=$itemIds['PICT_SLIDER']?>">
+    		<div class="goods-slider" <?=($showSlider ? '' : 'style="display: none"') ?>>
 					<ul class="slides" >
               <?
 							if ($showSlider) {
@@ -95,12 +95,6 @@ if (isset($arResult['ITEM']))
 							}
         			?>
 					</ul>
-					<!-- <script type="text/javascript">
-					$('.goods-slider').flexslider({
-						controlNav: false,
-						slideshow: false,
-						});
-					</script> -->
     		</div>
 				<div class="goods-slider" <?=($showSlider ? 'style="display: none"' : '') ?> id="<?=$itemIds['PICT'] ?>">
 					<img src="<?=$item['PREVIEW_PICTURE']['SRC']?>">

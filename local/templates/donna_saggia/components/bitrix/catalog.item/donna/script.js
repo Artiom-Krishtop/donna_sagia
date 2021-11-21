@@ -1,3 +1,9 @@
+jQuery(document).ready(function() {
+	$('.goods-slider').flexslider({
+		controlNav: false,
+		slideshow: false,
+	});
+});
 /*
  * jQuery FlexSlider v2.5.0
  * Copyright 2012 WooThemes
@@ -437,13 +443,13 @@
 				this.obSecondPict = BX(this.visual.SECOND_PICT_ID);
 			}
 
-			this.obPictSlider = BX(this.visual.PICT_SLIDER_ID);
-			this.obPictSliderIndicator = BX(this.visual.PICT_SLIDER_ID + '_indicator');
-			this.obPictSliderProgressBar = BX(this.visual.PICT_SLIDER_ID + '_progress_bar');
-			if (!this.obPictSlider)
-			{
-				this.errorCode = -4;
-			}
+			// this.obPictSlider = BX(this.visual.PICT_SLIDER_ID);
+			// this.obPictSliderIndicator = BX(this.visual.PICT_SLIDER_ID + '_indicator');
+			// this.obPictSliderProgressBar = BX(this.visual.PICT_SLIDER_ID + '_progress_bar');
+			// if (!this.obPictSlider)
+			// {
+			// 	this.errorCode = -4;
+			// }
 
 			this.obPrice = BX(this.visual.PRICE_ID);
 			this.obPriceOld = BX(this.visual.PRICE_OLD_ID);
@@ -1785,92 +1791,92 @@
 			}
 			if (index > -1)
 			{
-				if (parseInt(this.offers[index].MORE_PHOTO_COUNT) > 1 && this.obPictSlider)
-				{
-					// hide pict and second_pict containers
-					if (this.obPict)
-					{
-						this.obPict.style.display = 'none';
-					}
-
-					// clear slider container
-					BX.cleanNode(this.obPictSlider);
-
-					// fill slider container with slides
-					for (i in this.offers[index].MORE_PHOTO)
-					{
-							a[i] = BX.create('LI', {
-								// props: {className:'item' + (i == 0 ? ' active' : '')},
-								children:[BX.create('IMG', {props: {src: this.offers[index].MORE_PHOTO[i].SRC }})]
-							})
-					}
-					console.log(a);
-					if (this.offers[index].MORE_PHOTO.hasOwnProperty(i))
-					{
-						this.obPictSlider.appendChild(BX.create('UL', {
-							props:{className: 'slides'},
-							children:a
-							})
-						);
-					}
-
-					$(this.obPictSlider).flexslider({
-						controlNav: false,
-						slideshow: false,
-						});
-
-					// fill slider indicator if exists
-					// if (this.obPictSliderIndicator)
-					// {
-					// 	BX.cleanNode(this.obPictSliderIndicator);
-					//
-					// 	for (i in this.offers[index].MORE_PHOTO)
-					// 	{
-					// 		if (this.offers[index].MORE_PHOTO.hasOwnProperty(i))
-					// 		{
-					// 			this.obPictSliderIndicator.appendChild(
-					// 				BX.create('DIV', {
-					// 					attrs: {'data-go-to': i},
-					// 					props: {className:'indicator' + (i == 0 ? ' active' : '')}
-					// 				})
-					// 			);
-					// 			this.obPictSliderIndicator.appendChild(document.createTextNode(' '));
-					// 		}
-					// 	}
-					//
-					// 	this.obPictSliderIndicator.style.display = '';
-					// }
-
-					// show slider container
-					this.obPictSlider.style.display = '';
-					// this.initializeSlider();
-				}
-				else
-				{
-					// hide slider container
-					if (this.obPictSlider)
-					{
-						this.obPictSlider.style.display = 'none';
-					}
-
-					BX.cleanNode(this.obPict);
-
-					// show pict and pict_second containers
-					if (this.obPict)
-					{
-
-						if (this.offers[index].PREVIEW_PICTURE)
-						{
-							BX.adjust(this.obPict, {children: [BX.create('IMG', {props: {src: this.offers[index].PREVIEW_PICTURE.SRC }})]});
-						}
-						else
-						{
-							BX.adjust(this.obPict, {children: [BX.create('IMG', {props: {src: this.defaultPict.pict.SRC }})]});
-						}
-
-						this.obPict.style.display = '';
-					}
-				}
+				// if (parseInt(this.offers[index].MORE_PHOTO_COUNT) > 1 && this.obPictSlider)
+				// {
+				// 	// hide pict and second_pict containers
+				// 	if (this.obPict)
+				// 	{
+				// 		this.obPict.style.display = 'none';
+				// 	}
+				//
+				// 	// clear slider container
+				// 	BX.cleanNode(this.obPictSlider);
+				//
+				// 	// fill slider container with slides
+				// 	for (i in this.offers[index].MORE_PHOTO)
+				// 	{
+				// 			a[i] = BX.create('LI', {
+				// 				// props: {className:'item' + (i == 0 ? ' active' : '')},
+				// 				children:[BX.create('IMG', {props: {src: this.offers[index].MORE_PHOTO[i].SRC }})]
+				// 			})
+				// 	}
+				//
+				// 	if (this.offers[index].MORE_PHOTO.hasOwnProperty(i))
+				// 	{
+				// 		this.obPictSlider.appendChild(BX.create('UL', {
+				// 			props:{className: 'slides'},
+				// 			children:a
+				// 			})
+				// 		);
+				// 	}
+				//
+				// 	$(this.obPictSlider).flexslider({
+				// 		controlNav: false,
+				// 		slideshow: false,
+				// 		});
+				//
+				// 	// fill slider indicator if exists
+				// 	// if (this.obPictSliderIndicator)
+				// 	// {
+				// 	// 	BX.cleanNode(this.obPictSliderIndicator);
+				// 	//
+				// 	// 	for (i in this.offers[index].MORE_PHOTO)
+				// 	// 	{
+				// 	// 		if (this.offers[index].MORE_PHOTO.hasOwnProperty(i))
+				// 	// 		{
+				// 	// 			this.obPictSliderIndicator.appendChild(
+				// 	// 				BX.create('DIV', {
+				// 	// 					attrs: {'data-go-to': i},
+				// 	// 					props: {className:'indicator' + (i == 0 ? ' active' : '')}
+				// 	// 				})
+				// 	// 			);
+				// 	// 			this.obPictSliderIndicator.appendChild(document.createTextNode(' '));
+				// 	// 		}
+				// 	// 	}
+				// 	//
+				// 	// 	this.obPictSliderIndicator.style.display = '';
+				// 	// }
+				//
+				// 	// show slider container
+				// 	this.obPictSlider.style.display = '';
+				// 	// this.initializeSlider();
+				// }
+				// else
+				// {
+				// 	// hide slider container
+				// 	if (this.obPictSlider)
+				// 	{
+				// 		this.obPictSlider.style.display = 'none';
+				// 	}
+				//
+				// 	BX.cleanNode(this.obPict);
+				//
+				// 	// show pict and pict_second containers
+				// 	if (this.obPict)
+				// 	{
+				//
+				// 		if (this.offers[index].PREVIEW_PICTURE)
+				// 		{
+				// 			BX.adjust(this.obPict, {children: [BX.create('IMG', {props: {src: this.offers[index].PREVIEW_PICTURE.SRC }})]});
+				// 		}
+				// 		else
+				// 		{
+				// 			BX.adjust(this.obPict, {children: [BX.create('IMG', {props: {src: this.defaultPict.pict.SRC }})]});
+				// 		}
+				//
+				// 		this.obPict.style.display = '';
+				// 	}
+				// }
 
 				if (this.showSkuProps && this.obSkuProps)
 				{

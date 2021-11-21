@@ -29,11 +29,14 @@ $APPLICATION->IncludeComponent(
 		"SECTION_SORT_FIELDS" => "TIMESTAMP_X",
 		"SECTION_SORT_ORDER" => "desc"
 	),
-	false
+	false,
+	array(
+		"ACTIVE_COMPONENT" => "Y"
+	)
 );?> <?$APPLICATION->IncludeComponent(
-	"bitrix:news.list",
-	"donna",
-	Array(
+	"bitrix:news.list", 
+	"donna", 
+	array(
 		"ACTIVE_DATE_FORMAT" => "d.m.Y",
 		"ADD_SECTIONS_CHAIN" => "N",
 		"AJAX_MODE" => "N",
@@ -54,7 +57,10 @@ $APPLICATION->IncludeComponent(
 		"DISPLAY_PICTURE" => "Y",
 		"DISPLAY_PREVIEW_TEXT" => "Y",
 		"DISPLAY_TOP_PAGER" => "Y",
-		"FIELD_CODE" => array(0=>"",1=>"",),
+		"FIELD_CODE" => array(
+			0 => "",
+			1 => "",
+		),
 		"FILTER_NAME" => "",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
 		"IBLOCK_ID" => "1",
@@ -73,7 +79,10 @@ $APPLICATION->IncludeComponent(
 		"PARENT_SECTION" => "",
 		"PARENT_SECTION_CODE" => "",
 		"PREVIEW_TRUNCATE_LEN" => "150",
-		"PROPERTY_CODE" => array(0=>"",1=>"",),
+		"PROPERTY_CODE" => array(
+			0 => "",
+			1 => "",
+		),
 		"SET_BROWSER_TITLE" => "N",
 		"SET_LAST_MODIFIED" => "N",
 		"SET_META_DESCRIPTION" => "N",
@@ -87,7 +96,8 @@ $APPLICATION->IncludeComponent(
 		"SORT_ORDER2" => "ASC",
 		"STRICT_SECTION_CHECK" => "N",
 		"URL_LIST_NEWS" => "#SITE_DIR#/company/news/"
-	)
+	),
+	false
 );?><?$APPLICATION->IncludeComponent(
 	"bitrix:main.include", 
 	"donna", 

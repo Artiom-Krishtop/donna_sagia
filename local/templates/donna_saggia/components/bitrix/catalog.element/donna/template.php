@@ -45,11 +45,6 @@ unset($currencyList, $templateLibrary);
 $mainId = $this->GetEditAreaId($arResult['ID']);
 $itemIds = array(
 	'ID' => $mainId,
-	'DISCOUNT_PERCENT_ID' => $mainId.'_dsc_pict',
-	'STICKER_ID' => $mainId.'_sticker',
-	'BIG_SLIDER_ID' => $mainId.'_big_slider',
-	'BIG_IMG_CONT_ID' => $mainId.'_bigimg_cont',
-	'SLIDER_CONT_ID' => $mainId.'_slider_cont',
 	'OLD_PRICE_ID' => $mainId.'_old_price',
 	'PRICE_ID' => $mainId.'_price',
 	'DESCRIPTION_ID' => $mainId.'_description',
@@ -69,10 +64,6 @@ $itemIds = array(
 	'DISPLAY_PROP_DIV' => $mainId.'_sku_prop',
 	'DISPLAY_MAIN_PROP_DIV' => $mainId.'_main_sku_prop',
 	'BASKET_PROP_DIV' => $mainId.'_basket_prop',
-	'TABS_ID' => $mainId.'_tabs',
-	'TAB_CONTAINERS_ID' => $mainId.'_tab_containers',
-	'SMALL_CARD_PANEL_ID' => $mainId.'_small_card_panel',
-	'TABS_PANEL_ID' => $mainId.'_tabs_panel'
 );
 $obName = $templateData['JS_OBJ'] = 'ob'.preg_replace('/[^a-zA-Z0-9_]/', 'x', $mainId);
 
@@ -266,7 +257,7 @@ else
 		</div>
 
 		<!-- carousel -->
-		<?php// if ($showSlider): ?>
+		<?php if ($showSlider): ?>
 			<?php if (!empty($arResult['MORE_PHOTO'])): ?>
 				<div class="cusrousel-mini">
 		      <?php foreach ($arResult['MORE_PHOTO'] as $key => $photo): ?>
@@ -278,7 +269,7 @@ else
 		      <?php endforeach; ?>
 				</div>
     	<?php endif; ?>
-		<?php //endif; ?>
+		<?php endif; ?>
 		<!-- carousel end -->
 
     <?php if ($showDescription && !empty($arResult['DETAIL_TEXT'])): ?>
