@@ -1,0 +1,83 @@
+#navi {
+  background: url(images/nav.jpg) repeat-x 0 0;
+  background-color: #141411;
+  height: 34px;
+}
+#navi ul {
+  text-align: center;
+}
+#navi li {
+  font-family: 'proxima_nova_rgregular';
+  font-size: 13px;
+  text-transform: uppercase;
+  display: inline-block;
+  line-height: 34px;
+  margin: 0 0.5rem;
+
+}
+#navi li.opt {
+  background: url(images/nav-active.jpg) repeat-x 0 0;
+  background-color: #d31113;
+}
+#navi li a {
+  padding: 0 3rem;
+  color: #fff;
+  display: block;
+  text-decoration: none;
+  -webkit-transition: color 0.3s, background-color 0.3s;
+  transition: color 0.3s, background-color 0.3s;
+}
+#navi li a:hover {
+  background: #f6f6f6;
+  color: #d21112;
+}
+
+@media (max-width: 1200px) {
+  #navi li a {
+    padding: 0 2.5rem;
+  }
+}
+
+@media (max-width: 1023px) {
+  #navi li a {
+    padding: 0 1rem;
+  }
+}
+
+@media (max-width: 900px) {
+  #navi li {
+    font-size: 11px;
+    margin: 0;
+  }
+}
+
+@media (max-width: 767px) {
+  #navi {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: -240px;
+    width: 240px;
+    z-index: 99;
+    -webkit-transition: right 0.5s;
+    transition: right 0.5s;
+    padding-top: 40px;
+    overflow-y: auto;
+    height: auto;
+    text-align: left;
+    background: #141411 ;
+  }
+  .active#navi  {
+    right: 0;
+  }
+  #navi li{
+    display: block;
+    font-size: 14px;
+  }
+  #navi ul {
+    text-align: left;
+  }
+  #navi li a {
+    padding: 0 20px;
+  }
+}

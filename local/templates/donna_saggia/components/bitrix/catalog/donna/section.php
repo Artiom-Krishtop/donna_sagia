@@ -19,17 +19,7 @@ $arParams['USE_FILTER'] = (isset($arParams['USE_FILTER']) && $arParams['USE_FILT
 
 $isFilter = ($arParams['USE_FILTER'] == 'Y');
 
-if ($_GET["sort"] === 'SCALED_PRICE_1' || $_GET['sort'] === 'active_from') {
-	$sortField = $_GET['sort'];
-}else {
-	$sortField = $arParams["ELEMENT_SORT_FIELD"];
-}
-
-if ($_GET['order'] === 'asc' || $_GET['order'] === 'desc') {
-	$order = $_GET['order'];
-}else {
-	$order = $arParams["ELEMENT_SORT_ORDER"];
-}
+include 'sort.php';
 
 if ($isFilter)
 {

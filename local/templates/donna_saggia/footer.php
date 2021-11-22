@@ -27,11 +27,11 @@
       </div>
     </div>
 
-    <div class="info-menu">
+
 
       <?$APPLICATION->IncludeComponent(
-	"bitrix:menu", 
-	"donna", 
+	"bitrix:menu",
+	"donna_footer", 
 	array(
 		"ROOT_MENU_TYPE" => "bottom",
 		"MENU_CACHE_TYPE" => "A",
@@ -51,7 +51,7 @@
 	false
 ); ?>
 
-    </div>
+
 
     <div class="company-menu">
       <h3>Компания</h3>
@@ -76,8 +76,8 @@
       <h3>Социальные сети</h3>
 
       <?$APPLICATION->IncludeComponent(
-	"bitrix:eshop.socnet.links", 
-	"donna", 
+	"bitrix:eshop.socnet.links",
+	"donna",
 	array(
 		"COMPONENT_TEMPLATE" => "donna",
 		"FACEBOOK" => "#",

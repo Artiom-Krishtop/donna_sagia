@@ -14,22 +14,13 @@
 
 $this->setFrameMode(true);
 
-if ($_GET["sort"] === 'SCALED_PRICE_1' || $_GET['sort'] === 'active_from') {
-	$sortField = $_GET['sort'];
-}else {
-	$sortField = $arParams["ELEMENT_SORT_FIELD"];
-}
-
-if ($_GET['order'] === 'asc' || $_GET['order'] === 'desc') {
-	$order = $_GET['order'];
-}else {
-	$order = $arParams["ELEMENT_SORT_ORDER"];
-}
+include 'sort.php';
 
 ?>
 <div class="inner">
 	<div class="catalog">
 	  <div class="sidebar-left">
+			<div class="drop">Развернуть опции</div>
       <div class="drop-wrap">
         <?include 'menu.php';?>
 	    </div>

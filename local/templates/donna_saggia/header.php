@@ -8,19 +8,7 @@ $curPage = $APPLICATION->GetCurPage(true);
 <html>
   <head>
   	<title><?$APPLICATION->ShowTitle()?></title>
-
-  	<!-- <script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
-    <script type="text/javascript" src="scripts/jquery.flexslider.js"></script>
-    <script src="http://code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
-    <script type="text/javascript" src="scripts/slick.min.js"></script>
-    <script type="text/javascript" src="scripts/jquery.fancybox.js"></script>
-    <script type="text/javascript" src="scripts/jquery.zoom.min.js"></script>
-    <script type="text/javascript" src="scripts/jquery.fancybox-media.js"></script>
-  	<script type="text/javascript" src="scripts/scripts.js"></script> -->
-  	<!--[if lt IE 9]>
-  	<script type="text/javascript" src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-
-  	<![endif]-->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
   	<? $APPLICATION->ShowHead(); ?>
   </head>
   <body>
@@ -144,17 +132,16 @@ $curPage = $APPLICATION->GetCurPage(true);
 
   			<!-- end bascket -->
 
-        <div class="mobile-menu"><span></span><div>МЕНЮ</div></div>
       </div>
     </header>
     <!-- end of header -->
 
     <!-- start navigation -->
-  	<nav id="navi">
+
 
   		<?php $APPLICATION->IncludeComponent(
-	"bitrix:menu", 
-	"donna", 
+	"bitrix:menu",
+	"donna",
 	array(
 		"ROOT_MENU_TYPE" => "top",
 		"MENU_CACHE_TYPE" => "N",
@@ -174,7 +161,7 @@ $curPage = $APPLICATION->GetCurPage(true);
 	false
 ); ?>
 
-  </nav>
+
     <!-- end of navigation -->
 
   	<!--region breadcrumb-->

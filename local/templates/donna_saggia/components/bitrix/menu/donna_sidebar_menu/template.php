@@ -1,5 +1,5 @@
 <?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true)die();?>
-
+<?//print_r($arResult) ?>
 <?if (!empty($arResult)):?>
   <div class="side-menu">
     <ul>
@@ -13,7 +13,7 @@
     	<?endif?>
 
     	<?if ($arItem["IS_PARENT"]):?>
-    			<li><a href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a>
+    			<li ><a href="<?=$arItem["LINK"]?>"><?=$arItem["TEXT"]?></a>
             <ul>
     	<?else:?>
 

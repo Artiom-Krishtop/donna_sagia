@@ -8,9 +8,7 @@ use Bitrix\Main\Loader,
 	Bitrix\Main\Localization\Loc,
 	Bitrix\Iblock;
 
-define(MAX_COUNT_SECTIONS, 5);
-
-class CategoriesSectionList extends CBitrixComponent
+class SliderElement extends CBitrixComponent
 {
 
   function onPrepareComponentParams($arParams)
@@ -60,8 +58,7 @@ class CategoriesSectionList extends CBitrixComponent
 	    'ID',
 	    'IBLOCK_ID',
 	    'NAME',
-	    'SECTION_PAGE_URL',
-	    'PICTURE',
+	    'DETAIL_PICTURE',
 	    $this->arParams['PROPERTY_TO_DISPLAY_ELEMENTS']
 	  );
 
@@ -71,23 +68,15 @@ class CategoriesSectionList extends CBitrixComponent
 	    $this->arParams['PROPERTY_TO_DISPLAY_ELEMENTS'] => true,
 	  );
 
-	  $rsSections = CIBlockSection::GetList($arOrder, $arFilter, false, $arSelect);
-
-		$counter = 0;
-
+	  $rsSections = CIBlockElement::GetList($arOrder, $arFilter, false, false, $arSelect);
 	  while ($arSection = $rsSections->GetNext()) {
-	    $result['SECTIONS'][] = $arSection;
-			$counter++;
-
-			if ($counter === MAX_COUNT_SECTIONS) {
-				break;
-			}
+	    $result['ELEMENTS'][] = $arSection;
 	  }
 	  unset($arSection, $arSelect, $arFilter, $arOrder, $order, $sort);
 
-	  foreach ($result['SECTIONS'] as &$arSection) {
-	    if (!empty($arSection['PICTURE'])) {
-	      $arSection['PICTURE'] = CFile::getFileArray($arSection['PICTURE']);
+	  foreach ($result['ELEMENTS'] as &$arSection) {
+	    if (!empty($arSection['DETAIL_PICTURE'])) {
+	      $arSection['DETAIL_PICTURE'] = CFile::getFileArray($arSection['DETAIL_PICTURE']);
 	    }
 	  }
 	  unset($arSection);

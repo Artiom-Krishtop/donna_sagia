@@ -1,0 +1,20 @@
+.breadcrumbs a:hover{
+  text-decoration: underline;
+}
+.breadcrumbs {
+  padding: 25px 0;
+  color: #353535;
+}
+.breadcrumbs a:first-child {
+  margin-left: 0;
+}
+.breadcrumbs a,
+.breadcrumbs span {
+  color: #353535;
+  font-size: 14px;
+  font-family: 'helveticaneuecyrroman', sans-serif;
+  margin: 0 0.7rem;
+}
+.breadcrumbs a {
+  text-decoration: none;
+}

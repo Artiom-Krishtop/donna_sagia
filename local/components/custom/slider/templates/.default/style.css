@@ -1,0 +1,64 @@
+.carousel:hover .flex-direction-nav li a:hover{
+  opacity: 0.7;
+}
+.carousel {
+  width: 70%;
+  float: left;
+  height: 650px;
+}
+.carousel {
+  position: relative;
+}
+.carousel .slides,
+.carousel .slides li {
+  height: 100%;
+}
+.carousel .slides li {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center top;
+}
+.carousel:hover .flex-direction-nav li a {
+  opacity: 1;
+}
+.carousel .flex-direction-nav {
+  list-style-type: none;
+}
+.carousel .flex-direction-nav li a {
+  width: 42px;
+  height: 42px;
+  background: url(images/next.png) no-repeat 0 0;
+  top: 50%;
+  margin-top: -21px;
+  position: absolute;
+  z-index: 10;
+  overflow: hidden;
+  opacity: 0;
+  text-indent: 999px;
+  -webkit-transition: opacity 0.5s;
+  transition: opacity 0.5s;
+}
+.carousel .flex-direction-nav li a.flex-prev {
+  background-position: 0 0;
+  left: 20px;
+}
+.carousel .flex-direction-nav li a.flex-next {
+  background-position: right 0;
+  right: 20px;
+}
+@media (max-width: 1023px) {
+  .carousel{
+    height: 450px;
+  }
+}
+@media (max-width: 767px) {
+  .carousel {
+    width: auto;
+    float: none;
+  }
+}
+@media (max-width: 550px) {
+  .carousel {
+    height: 300px;
+  }
+}

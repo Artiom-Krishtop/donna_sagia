@@ -39,7 +39,7 @@ $aMenuLinks = Array(
 		"Оптовикам", 
 		"/optovikam/", 
 		Array(), 
-		Array(), 
+		Array("RED_COLOR"=>"Y"), 
 		"" 
 	),
 	Array(

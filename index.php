@@ -15,9 +15,9 @@ $APPLICATION->IncludeComponent(
 	),
 	false
 );?><?$APPLICATION->IncludeComponent(
-	"custom:categories.section.list", 
-	".default", 
-	array(
+	"custom:categories.section.list",
+	".default",
+	Array(
 		"CACHE_GROUPS" => "Y",
 		"CACHE_TIME" => "36000000",
 		"CACHE_TYPE" => "A",
@@ -29,14 +29,14 @@ $APPLICATION->IncludeComponent(
 		"SECTION_SORT_FIELDS" => "TIMESTAMP_X",
 		"SECTION_SORT_ORDER" => "desc"
 	),
-	false,
-	array(
-		"ACTIVE_COMPONENT" => "Y"
-	)
-);?> <?$APPLICATION->IncludeComponent(
-	"bitrix:news.list", 
-	"donna", 
-	array(
+false,
+Array(
+	'ACTIVE_COMPONENT' => 'Y'
+)
+);?>&nbsp;<?$APPLICATION->IncludeComponent(
+	"bitrix:news.list",
+	"donna",
+	Array(
 		"ACTIVE_DATE_FORMAT" => "d.m.Y",
 		"ADD_SECTIONS_CHAIN" => "N",
 		"AJAX_MODE" => "N",
@@ -57,10 +57,7 @@ $APPLICATION->IncludeComponent(
 		"DISPLAY_PICTURE" => "Y",
 		"DISPLAY_PREVIEW_TEXT" => "Y",
 		"DISPLAY_TOP_PAGER" => "Y",
-		"FIELD_CODE" => array(
-			0 => "",
-			1 => "",
-		),
+		"FIELD_CODE" => array(0=>"",1=>"",),
 		"FILTER_NAME" => "",
 		"HIDE_LINK_WHEN_NO_DETAIL" => "N",
 		"IBLOCK_ID" => "1",
@@ -79,10 +76,7 @@ $APPLICATION->IncludeComponent(
 		"PARENT_SECTION" => "",
 		"PARENT_SECTION_CODE" => "",
 		"PREVIEW_TRUNCATE_LEN" => "150",
-		"PROPERTY_CODE" => array(
-			0 => "",
-			1 => "",
-		),
+		"PROPERTY_CODE" => array(0=>"",1=>"",),
 		"SET_BROWSER_TITLE" => "N",
 		"SET_LAST_MODIFIED" => "N",
 		"SET_META_DESCRIPTION" => "N",
@@ -96,20 +90,17 @@ $APPLICATION->IncludeComponent(
 		"SORT_ORDER2" => "ASC",
 		"STRICT_SECTION_CHECK" => "N",
 		"URL_LIST_NEWS" => "#SITE_DIR#/company/news/"
-	),
-	false
+	)
 );?><?$APPLICATION->IncludeComponent(
-	"bitrix:main.include", 
-	"donna", 
-	array(
+	"bitrix:main.include",
+	"donna",
+	Array(
 		"AREA_FILE_SHOW" => "page",
 		"AREA_FILE_SUFFIX" => "inc",
-		"EDIT_TEMPLATE" => "",
 		"COMPONENT_TEMPLATE" => "donna",
+		"EDIT_TEMPLATE" => "",
 		"MI_ADD_BUTTON" => "Y",
-		"MI_NAME_BUTTON" => "Галерея",
-		"MI_LINK_BUTTON" => "/galereya/"
-	),
-	false
-);?>
-<?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>
+		"MI_LINK_BUTTON" => "/galereya/",
+		"MI_NAME_BUTTON" => "Галерея"
+	)
+);?><?require($_SERVER["DOCUMENT_ROOT"]."/bitrix/footer.php");?>

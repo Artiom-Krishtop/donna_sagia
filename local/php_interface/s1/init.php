@@ -24,3 +24,10 @@ $arJsConfig = array(
 foreach ($arJsConfig as $ext => $arExt) {
     \CJSCore::RegisterExt($ext, $arExt);
 }
+
+
+function dd($print)
+{
+  echo "<pre>".print_r($print, 1). "<pre/>";
+  die();
+}

@@ -65,6 +65,7 @@ if (isset($arResult['ITEM']))
 	}
 
 	$showSlider = is_array($morePhoto) && count($morePhoto) > 1;
+	// dd($arResult);
 
 	$itemHasDetailUrl = isset($item['DETAIL_PAGE_URL']) && $item['DETAIL_PAGE_URL'] != '';
 	?>
@@ -81,7 +82,7 @@ if (isset($arResult['ITEM']))
 	<? endif ;?>
 
     <div class="goods-inner">
-			<div data-entity="image-wrapper">
+			<!-- <div data-entity="image-wrapper"> -->
     		<div class="goods-slider" <?=($showSlider ? '' : 'style="display: none"') ?>>
 					<ul class="slides" >
               <?
@@ -100,7 +101,7 @@ if (isset($arResult['ITEM']))
 					<img src="<?=$item['PREVIEW_PICTURE']['SRC']?>">
 				</div>
 
-			</div>
+			<!-- </div> -->
 
 				<div class="goods-description">
 
@@ -400,9 +401,7 @@ if (isset($arResult['ITEM']))
 			)
 		);
 		?>
-		<script>
-			var <?=$obName?> = new JCCatalogItem(<?=CUtil::PhpToJSObject($jsParams, false, true)?>);
-		</script>
+
 	<?
 	unset($item, $actualItem, $minOffer, $itemIds, $jsParams);
 }
