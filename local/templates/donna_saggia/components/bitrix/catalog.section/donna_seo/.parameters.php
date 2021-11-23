@@ -105,6 +105,15 @@ $arTemplateParameters['ENLARGE_PRODUCT'] = array(
 	)
 );
 
+$parent = $arCurrentValues['SEF_MODE'] === 'Y' ? 'SEF_MODE' : 'BASE';
+
+$arTemplateParameters['TAG_FILTER'] = array(
+	'PARENT' => $parent,
+	'NAME' => GetMessage('B_CS_TAG_FILTER'),
+	'TYPE' => 'STRING',
+);
+unset($parent);
+
 $arTemplateParameters['PRODUCT_BLOCKS_ORDER'] = array(
 	'PARENT' => 'VISUAL',
 	'NAME' => GetMessage('CP_BCS_TPL_PRODUCT_BLOCKS_ORDER'),

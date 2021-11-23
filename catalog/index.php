@@ -177,6 +177,7 @@ $APPLICATION->SetTitle("Каталог");
 		"PAGE_ELEMENT_COUNT" => "12",
 		"PARTIAL_PRODUCT_PROPERTIES" => "N",
 		"PRICE_CODE" => array(
+			0 => "BASE",
 		),
 		"PRICE_VAT_INCLUDE" => "Y",
 		"PRICE_VAT_SHOW_VALUE" => "N",
@@ -190,7 +191,7 @@ $APPLICATION->SetTitle("Каталог");
 		"SEARCH_CHECK_DATES" => "Y",
 		"SEARCH_NO_WORD_LOGIC" => "Y",
 		"SEARCH_PAGE_RESULT_COUNT" => "50",
-		"SEARCH_RESTART" => "N",
+		"SEARCH_RESTART" => "Y",
 		"SEARCH_USE_LANGUAGE_GUESS" => "Y",
 		"SEARCH_USE_SEARCH_RESULT_ORDER" => "N",
 		"SECTIONS_SHOW_PARENT_NAME" => "Y",
@@ -260,6 +261,8 @@ $APPLICATION->SetTitle("Каталог");
 		"COMPONENT_TEMPLATE" => "donna",
 		"DETAIL_SLIDER_INTERVAL" => "5000",
 		"DETAIL_SLIDER_PROGRESS" => "N",
+		"SIDEBAR_SECTION_POSITION" => "right",
+		"SIDEBAR_DETAIL_POSITION" => "right",
 		"SEF_URL_TEMPLATES" => array(
 			"sections" => "",
 			"section" => "#SECTION_CODE#/",
