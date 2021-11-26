@@ -166,7 +166,7 @@ input, select {
 .add-bag:hover,
 .tab a:hover,
 .color-filter li span:hover,
-.contact-form input[type=submit]:hover {
+.contact-form input[type=button]:hover {
   opacity: 0.7;
 }
 /* go structure */
@@ -1338,7 +1338,7 @@ input.choose{
   font-family: 'helveticaneuecyrroman', sans-serif;
   resize: none;
 }
-.contact-form input[type=submit] {
+.contact-form input[type=button] {
   display: inline-block;
   vertical-align: top;
   height: 43px;

@@ -10,8 +10,10 @@
 /** @var string $templateFolder */
 /** @var string $componentPath */
 /** @var CBitrixComponent $component */
-use Bitrix\Main\Loader;
+
 use Bitrix\Main\ModuleManager;
+use Bitrix\Main\Loader;
+
 
 $this->setFrameMode(true);
 
@@ -112,9 +114,9 @@ if ($isFilter)
 	  						"SMART_FILTER_PATH" => $arResult["VARIABLES"]["SMART_FILTER_PATH"],
 	  						"PAGER_PARAMS_NAME" => $arParams["PAGER_PARAMS_NAME"],
 	  						"INSTANT_RELOAD" => $arParams["INSTANT_RELOAD"],
+								"PREFILTER_NAME" => $arParams['PREFILTER_NAME'],
 	  					),
 	  					$component,
-	  					array('HIDE_ICONS' => 'Y')
 	          );
 	        }?>
 

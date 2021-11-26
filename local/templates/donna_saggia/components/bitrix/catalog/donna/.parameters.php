@@ -152,6 +152,21 @@ $arTemplateParameters['SEARCH_USE_SEARCH_RESULT_ORDER'] = array(
 	"DEFAULT" => "N"
 );
 
+$arTemplateParameters['SEF_URL_TEMPLATES_tag'] = array(
+	'PARENT' => 'SEF_MODE',
+	'NAME' => GetMessage('B_C_TAG_SEARCH'),
+	'DEFAULT' => 'tag/#TAG#'
+);
+
+
+if ($arCurrentValues['USE_FILTER'] == 'Y') {
+	$arTemplateParameters['PREFILTER_NAME'] = array(
+		'NAME' => GetMessage('B_C_PREFILTER_NAME'),
+		'PARENT' => 'FILTER_SETTINGS',
+		'DEFAULT' => 'smartPreFilter',
+	);
+}
+
 $arAllPropList = array();
 $arListPropList = array();
 $arHighloadPropList = array();

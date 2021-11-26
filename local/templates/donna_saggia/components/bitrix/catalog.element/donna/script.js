@@ -1693,7 +1693,6 @@ jQuery(document).ready(function() {
 
 		selectSliderImg: function(target)
 		{
-			console.log('+');
 			var strValue = '',
 				arItem = [];
 
@@ -3272,6 +3271,21 @@ jQuery(document).ready(function() {
 			}
 		},
 
+		addOneClick: function()
+		{
+			let self = this;
+			BX.ajax.runComponentAction('custom:one.click.buy', 'getFormEnterNumber', {
+				mode:'class',
+				}).then(function(response){
+					let form = self.getEntity(self.obProduct, 'form-one-click');
+					console.log(self.getEntity(self.obProduct, 'form-one-click'));
+					form.innerHTML = response.data;
+			});
+
+			// this.obContactForm = BX(this.getEntity(this.obProduct, 'contact-form'));
+			// console.log(this.obContactForm);
+		},
+
 		initBasketUrl: function()
 		{
 			this.basketUrl = (this.basketMode === 'ADD' ? this.basketData.add_url : this.basketData.buy_url);
@@ -3389,6 +3403,7 @@ jQuery(document).ready(function() {
 
 			this.initBasketUrl();
 			this.fillBasketProps();
+
 			BX.ajax({
 				method: 'POST',
 				dataType: 'json',
@@ -3407,7 +3422,7 @@ jQuery(document).ready(function() {
 		buyBasket: function()
 		{
 			this.basketMode = 'BUY';
-			this.basket();
+			this.addOneClick();
 		},
 
 		basket: function()

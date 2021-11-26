@@ -64,6 +64,7 @@ $itemIds = array(
 	'DISPLAY_PROP_DIV' => $mainId.'_sku_prop',
 	'DISPLAY_MAIN_PROP_DIV' => $mainId.'_main_sku_prop',
 	'BASKET_PROP_DIV' => $mainId.'_basket_prop',
+	'CONTACT_FORM' => $mainId.'_contact_form',
 );
 $obName = $templateData['JS_OBJ'] = 'ob'.preg_replace('/[^a-zA-Z0-9_]/', 'x', $mainId);
 
@@ -255,7 +256,16 @@ else
 				<span class="add-click" id="<?=$itemIds['BUY_LINK']?>" href="javascript:void(0);">Купить в один клик</span>
 			</div>
 		</div>
-
+		<div data-entity="form-one-click"></div>
+		<!-- <div class="contact-form" id="<?//=$itemIds['CONTACT_FORM'] ?>" style="display: none">
+			<form action="">
+				<div class="form-line">
+					<label>Контактный телефон</label>
+					<fieldset><div class="row"><input type="tel" name="" ><p>Например, 9171234567</p></div></fieldset>
+				</div>
+				<input type="button" value="Оформить заказ">
+			</form>
+		</div> -->
 		<!-- carousel -->
 		<?php if ($showSlider): ?>
 			<?php if (!empty($arResult['MORE_PHOTO'])): ?>
@@ -281,6 +291,7 @@ else
     <?php endif; ?>
   </div>
 </div>
+
 
 <?
 if ($haveOffers)
