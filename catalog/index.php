@@ -260,11 +260,13 @@ $APPLICATION->SetTitle("Каталог");
 		"USE_GIFTS_SECTION" => "Y",
 		"USE_MAIN_ELEMENT_SECTION" => "N",
 		"USE_PRICE_COUNT" => "N",
-		"USE_PRODUCT_QUANTITY" => "N",
+		"USE_PRODUCT_QUANTITY" => "Y",
 		"USE_REVIEW" => "N",
 		"USE_SALE_BESTSELLERS" => "Y",
 		"USE_STORE" => "N",
 		"COMPONENT_TEMPLATE" => "donna",
+		"DETAIL_MAIN_BLOCK_OFFERS_PROPERTY_CODE" => array(
+		),
 		"SEF_URL_TEMPLATES" => array(
 			"tag" => "tag/#TAG#",
 			"sections" => "",

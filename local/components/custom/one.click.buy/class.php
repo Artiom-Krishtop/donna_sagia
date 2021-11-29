@@ -1,33 +1,34 @@
 <?if (!defined("B_PROLOG_INCLUDED") || B_PROLOG_INCLUDED!==true) die();
 
-use Bitrix\Main\Engine\Contract\Controllerable;
+use Bitrix\Main\Engine\Contract\Controllerable,
+    Bitrix\Main\Engine\Response\Component,
+    Bitrix\Sale\Order,
+    Bitrix\Sale\Basket;
 
 
 class OneClickComponent extends CBitrixComponent implements Controllerable
 {
   function onPrepareComponentParams($arParams)
   {
+    $arParams['ID'] = intval($arParams['ID']);
     return $arParams;
   }
 
   public function configureActions()
   {
-    return [];
+    return [
+      'createOrder' => [
+        'prefilters' => []
+      ]
+    ];
   }
 
   public function getFormEnterNumberAction()
   {
-    $html = '<div class="contact-form" data-entity="contact-form">
-        			<form action="">
-        				<div class="form-line">
-        					<label>Контактный телефон</label>
-        					<fieldset><div class="row"><input type="tel" name="" ><p>Например, 9171234567</p></div></fieldset>
-        				</div>
-        				<input type="button" value="Оформить заказ">
-        			</form>
-        		</div>';
-
-    return $html;
+    ob_start();
+    $this->includeComponentTemplate('form');
+    $content = ob_get_contents();
+    return new \Bitrix\Main\Engine\Response\AjaxJson($content);
   }
 
   function executeComponent()
@@ -35,61 +36,48 @@ class OneClickComponent extends CBitrixComponent implements Controllerable
     $this->includeComponentTemplate();
   }
 
-  protected function createOrder($products, )
+  public function createOrderAction($product)
   {
-    $products = [
-      [
-        'PRODUCT_ID' => 135,
-        'PRODUCT_PROVIDER_CLASS' => '\Bitrix\Catalog\Product\CatalogProvider',
-        'NAME' => 'Товар 1',
-        'PRICE' => 500,
-        'CURRENCY' => 'RUB', 
-        'QUANTITY' => 5,
-      ]
-    ];
+    // dd($product);
+    global $USER;
 
-    $basket = Bitrix\Sale\Basket::create('s1');
+    if(!CModule::IncludeModule('sale'))
+      return;
 
-    foreach ($products as $product)
-    {
-        $item = $basket->createItem("catalog", $product["PRODUCT_ID"]);
-        unset($product["PRODUCT_ID"]);
-        $item->setFields($product);
+    $basket = Basket::create(SITE_ID);
+
+    $item = $basket->createItem('catalog', $product['ID']);
+
+    if (!empty($product['QUANTITY'])) {
+      $item->setField('QUANTITY', $product['QUANTITY']);
+    }else{
+      $item->setField('QUANTITY', 1);
     }
 
-    $siteId = 's1'; // код сайта
-    $userId = 1; // ID пользователя
-    $order = \Bitrix\Sale\Order::create($siteId, $userId);
+    if (!empty($product['CURRENCY'])) {
+      $item->setField('CURRENCY', $product['CURRENCY']);
+    }
 
-    $order->setPersonTypeId(1); // 1 - ID типа плательщика
+    if (!empty($product['PHONE_NUMBER'])) {
+      $item->setField('PHONE', $product['PHONE_NUMBER']);
+    }
 
+    $item->setField('PRODUCT_PROVIDER_CLASS', '\Bitrix\Catalog\Product\CatalogProvider');
+
+    $basket->refresh();
+
+    $userId = $USER->isAuthorized()?$userId = $USER->GetID():null;
+    $currency = isset($product['CURRENCY'])?$product['CURRENCY']:null;
+
+    $order = Order::create(SITE_ID, $userId, $currency);
+    $order->setPersonTypeId(1);
     $order->setBasket($basket);
-
-    $shipmentCollection = $order->getShipmentCollection();
-    $shipment = $shipmentCollection->createItem(
-        Bitrix\Sale\Delivery\Services\Manager::getObjectById(1) // 1 - ID службы доставки
-    );
-
-    $shipmentItemCollection = $shipment->getShipmentItemCollection();
-
-    foreach ($basket as $basketItem)
-    {
-        $item = $shipmentItemCollection->createItem($basketItem);
-        $item->setQuantity($basketItem->getQuantity());
-    }
-
-    $paymentCollection = $order->getPaymentCollection();
-    $payment = $paymentCollection->createItem(
-        Bitrix\Sale\PaySystem\Manager::getObjectById(1) // 1 - ID платежной системы
-    );
-
-    $payment->setField("SUM", $order->getPrice());
-    $payment->setField("CURRENCY", $order->getCurrency());
-
     $r = $order->save();
     if (!$r->isSuccess())
     {
-        var_dump($r->getErrorMessages());
+        return ($r->getErrorMessages());
     }
+
+    return true;
   }
 }

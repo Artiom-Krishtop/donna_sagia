@@ -441,6 +441,7 @@ jQuery(document).ready(function() {
 				{
 					this.obBuyBtn = BX(this.visual.BUY_LINK);
 					this.obAddToBasketBtn = BX(this.visual.ADD_BASKET_LINK);
+					this.obContactForm = BX(this.visual.CONTACT_FORM);
 				}
 			}
 
@@ -677,7 +678,7 @@ jQuery(document).ready(function() {
 						break;
 				}
 
-				this.obBuyBtn && BX.bind(this.obBuyBtn, 'click', BX.proxy(this.buyBasket, this));
+				this.obBuyBtn && BX.bind(this.obBuyBtn, 'click', BX.proxy(this.addOneClick, this));
 				this.smallCardNodes.buyButton && BX.bind(this.smallCardNodes.buyButton, 'click', BX.proxy(this.buyBasket, this));
 
 				this.obAddToBasketBtn && BX.bind(this.obAddToBasketBtn, 'click', BX.proxy(this.add2Basket, this));
@@ -3274,16 +3275,36 @@ jQuery(document).ready(function() {
 		addOneClick: function()
 		{
 			let self = this;
+
+			this.initComponentParams();
+			console.log(this.componentParams);
 			BX.ajax.runComponentAction('custom:one.click.buy', 'getFormEnterNumber', {
 				mode:'class',
+				data:self.componentParams,
 				}).then(function(response){
-					let form = self.getEntity(self.obProduct, 'form-one-click');
-					console.log(self.getEntity(self.obProduct, 'form-one-click'));
-					form.innerHTML = response.data;
+					self.obContactForm.innerHTML = response.data.html;
 			});
+		},
 
-			// this.obContactForm = BX(this.getEntity(this.obProduct, 'contact-form'));
-			// console.log(this.obContactForm);
+		initComponentParams: function()
+		{
+			this.componentParams = {};
+
+			switch (this.productType)
+			{
+				case 1: // product
+				case 2: // set
+					this.componentParams['product'] = this.product.id;
+					break;
+				case 3: // sku
+					this.componentParams['product'] = this.offers[this.offerNum].ID;
+					break;
+			}
+
+			if (this.config.showQuantity)
+			{
+				this.componentParams[this.basketData.quantity] = this.obQuantity.value;
+			}
 		},
 
 		initBasketUrl: function()
@@ -3304,7 +3325,6 @@ jQuery(document).ready(function() {
 			this.basketParams = {
 				'ajax_basket': 'Y'
 			};
-
 			if (this.config.showQuantity)
 			{
 				this.basketParams[this.basketData.quantity] = this.obQuantity.value;
@@ -3419,11 +3439,11 @@ jQuery(document).ready(function() {
 			this.basket();
 		},
 
-		buyBasket: function()
-		{
-			this.basketMode = 'BUY';
-			this.addOneClick();
-		},
+		// buyBasket: function()
+		// {
+		// 	this.basketMode = 'BUY';
+		// 	this.addOneClick();
+		// },
 
 		basket: function()
 		{

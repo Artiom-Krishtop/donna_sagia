@@ -253,19 +253,20 @@ else
 		<div data-entity="main-button-container">
 			<div id="<?=$itemIds['BASKET_ACTIONS_ID']?>" style="display: <?=($actualItem['CAN_BUY'] ? '' : 'none')?>;">
 				<a class="add-bag" id="<?=$itemIds['ADD_BASKET_LINK']?>" href="javascript:void(0);">Добавить в корзину</a>
-				<span class="add-click" id="<?=$itemIds['BUY_LINK']?>" href="javascript:void(0);">Купить в один клик</span>
+				<?
+				$APPLICATION->includeComponent(
+					'custom:one.click.buy',
+					'',
+					array(
+						'ID' => $actualItem['ID'],
+						'CURRENCY' => $actualItem['ITEM_PRICES']['CURRENCY'],
+					),
+					$component
+				);
+				?>
 			</div>
 		</div>
-		<div data-entity="form-one-click"></div>
-		<!-- <div class="contact-form" id="<?//=$itemIds['CONTACT_FORM'] ?>" style="display: none">
-			<form action="">
-				<div class="form-line">
-					<label>Контактный телефон</label>
-					<fieldset><div class="row"><input type="tel" name="" ><p>Например, 9171234567</p></div></fieldset>
-				</div>
-				<input type="button" value="Оформить заказ">
-			</form>
-		</div> -->
+
 		<!-- carousel -->
 		<?php if ($showSlider): ?>
 			<?php if (!empty($arResult['MORE_PHOTO'])): ?>
