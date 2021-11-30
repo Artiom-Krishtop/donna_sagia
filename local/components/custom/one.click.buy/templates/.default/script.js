@@ -29,9 +29,8 @@ class oneClickBuy {
   createOrder()
   {
     let self = this;
-    let number = this.obContactFormArea.querySelector('input');
 
-    this.params['PHONE_NUMBER'] = number.value;
+    this.setParams();
 
     BX.ajax.runComponentAction('custom:one.click.buy', 'createOrder', {
       mode:'class',
@@ -48,5 +47,17 @@ class oneClickBuy {
           self.obContactFormArea.innerHTML = '<div style="color:red;"><h2>Ошибка создания заказа</h2></div>';
         }
     });
+  }
+
+  setParams()
+  {
+    let number = this.obContactFormArea.querySelector('input');
+
+    this.params['PHONE_NUMBER'] = number.value;
+
+    if (typeof this.params.ID !== 'undefined') {
+      let quantity = document.querySelector('input.quantity-value');
+      this.params['QUANTITY'] = quantity.value;
+    }
   }
 }

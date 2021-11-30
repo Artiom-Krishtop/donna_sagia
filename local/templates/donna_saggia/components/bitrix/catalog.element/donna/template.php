@@ -243,7 +243,7 @@ else
         <div class="haracther"><span>Количество:</span></div>
         <div class="quantity">
 					<div class="minus" id="<?=$itemIds['QUANTITY_DOWN_ID']?>" >-</div>
-					<input type="text" id="<?=$itemIds['QUANTITY_ID']?>" value="<?=$price['MIN_QUANTITY']?>" >
+					<input type="text" class='quantity-value' id="<?=$itemIds['QUANTITY_ID']?>" value="<?=$price['MIN_QUANTITY']?>" >
 					<div class="plus" id="<?=$itemIds['QUANTITY_UP_ID']?>">+</div>
 				</div>
       </div>
@@ -259,7 +259,7 @@ else
 					'',
 					array(
 						'ID' => $actualItem['ID'],
-						'CURRENCY' => $actualItem['ITEM_PRICES']['CURRENCY'],
+						'CURRENCY' => $actualItem['ITEM_PRICES'][0]['CURRENCY'],
 					),
 					$component
 				);

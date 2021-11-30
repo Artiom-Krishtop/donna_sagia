@@ -4,7 +4,7 @@
   <form action="" onsubmit="oneClickButton.createOrder();return false;">
     <div class="form-line">
       <label>Контактный телефон</label>
-      <div class="row"><input type="tel" placeholder="Например, 9171234567" value=""></div>
+      <div class="row"><input type="tel" placeholder="Например, 9171234567" ></div>
     </div>
     <input type="submit" id="formalize-order" value="Оформить заказ">
   </form>

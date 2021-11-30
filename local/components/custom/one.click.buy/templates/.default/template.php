@@ -5,10 +5,13 @@
 <?
 
 $jsParams = array(
-  'ID' => $arParams['ID'],
   'CURRENCY' => $arParams['CURRENCY'],
 );
 
+if (!empty($arParams['ID'])) {
+  $jsParams['ID'] = $arParams['ID'];
+  $jsParams['EMPTY_BASKET'] = true;
+}
 ?>
 
 <script>
