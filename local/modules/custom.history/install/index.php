@@ -24,7 +24,7 @@ class custom_history extends CModule
 
     $this->InstallDB();
 
-    $APPLICATION->IncludeAdminFile(GetMessage('CHANGE_ITEM_HISTORY_INSTALL_TITLE'),$_SERVER["DOCUMENT_ROOT"]."/local/modules/change.item.history/install/step.php");
+    // $APPLICATION->IncludeAdminFile(GetMessage('CHANGE_ITEM_HISTORY_INSTALL_TITLE'),$_SERVER["DOCUMENT_ROOT"]."/local/modules/change.item.history/install/step.php");
   }
 
   function DoUninstall()
@@ -33,19 +33,28 @@ class custom_history extends CModule
 
     $this->UnInstallDB();
 
-    $APPLICATION->IncludeAdminFile(GetMessage('CHANGE_ITEM_HISTORY_INSTALL_TITLE'),$_SERVER["DOCUMENT_ROOT"]."/local/modules/change.item.history/install/unstep.php");
+    // $APPLICATION->IncludeAdminFile(GetMessage('CHANGE_ITEM_HISTORY_INSTALL_TITLE'),$_SERVER["DOCUMENT_ROOT"]."/local/modules/change.item.history/install/unstep.php");
   }
 
   public function InstallDB()
   {
 
     RegisterModule('custom.history');
+    RegisterModuleDependences('iblock', 'OnIBlockElementUpdate', 'custom_history', '\\Custom\\History\\EventHandler\\EventHadler', 'onIBlockElementUpdateHandler');
+    // RegisterModuleDependences('iblock', 'OnIBlockElementUpdate', 'custom_history', '\\Custom\\History\\EventHandler\\EventHadler', 'onIBlockElementUpdate');
+    // RegisterModuleDependences('iblock', 'OnIBlockElementUpdate', 'custom_history', '\\Custom\\History\\EventHandler\\EventHadler', 'onIBlockElementUpdate');
+    // RegisterModuleDependences('iblock', 'OnIBlockElementUpdate', 'custom_history', '\\Custom\\History\\EventHandler\\EventHadler', 'onIBlockElementUpdate');
+    
   }
 
   public function UnInstallDB()
   {
 
     UnRegisterModule('custom.history');
+    UnRegisterModuleDependences('iblock', 'OnIBlockElementUpdate', 'custom_history', '\\Custom\\History\\EventHandler\\EventHadler', 'onIBlockElementUpdateHandler');
+    // UnRegisterModuleDependences('iblock', 'OnIBlockElementUpdate', 'custom_history', '\\Custom\\History\\EventHandler\\EventHadler', 'onIBlockElementUpdate');
+    // UnRegisterModuleDependences('iblock', 'OnIBlockElementUpdate', 'custom_history', '\\Custom\\History\\EventHandler\\EventHadler', 'onIBlockElementUpdate');
+    // UnRegisterModuleDependences('iblock', 'OnIBlockElementUpdate', 'custom_history', '\\Custom\\History\\EventHandler\\EventHadler', 'onIBlockElementUpdate');
   }
 
 }
