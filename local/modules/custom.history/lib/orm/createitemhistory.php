@@ -17,7 +17,7 @@ class CreateItemHistoryTable extends Entity\DataManager
         return array(
             new Entity\IntegerField('ID', array(
                 'primary' => true,
-                'autocomplete' => true
+                'autocomplete' => true,
             )),
             new Entity\DateField('DATE_EDIT', array(
                 'required' => true,
@@ -29,10 +29,10 @@ class CreateItemHistoryTable extends Entity\DataManager
             new Entity\IntegerField('ITEM_ID',array(
                 'required' => true,
             )),
-            new Entity\TextField('VALUE_ITEM_BEFORE', array(
+            new Entity\TextField('VALUE_FIELDS_BEFORE', array(
                 'required' => true,
             )),
-            new Entity\TextField('VALUE_ITEM_AFTER', array(
+            new Entity\TextField('VALUE_FIELDS_AFTER', array(
                 'required' => true,
             )),
         );
