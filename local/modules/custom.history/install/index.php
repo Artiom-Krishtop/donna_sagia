@@ -4,9 +4,11 @@ use Bitrix\Main\Loader;
 use Bitrix\Main\ModuleManager;
 use Bitrix\Main\Application;
 use Bitrix\Main\EventManager;
+use Custom\History\Handlers\ChElementHandler;
 use Custom\History\Handlers\ChPriceHandler;
+use Custom\History\Handlers\ChPropertyHandler;
 use Custom\History\ORM\HistoryTable;
-use Bitrix\Catalog\PriceTable;
+
 
 
 class custom_history extends CModule
@@ -78,44 +80,33 @@ class custom_history extends CModule
 
     return true;
   }
-
+  
   public function InstallEvents()
   {
-    $this->eventManager->registerEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'custom.history', '\\Custom\\History\\Handlers\\ChElementHandler', 'onBeforeIBlockElementUpdateHandler');
-    $this->eventManager->registerEventHandler('iblock', 'OnAfterIBlockElementUpdate', 'custom.history', '\\Custom\\History\\Handlers\\ChElementHandler', 'onAfterIBlockElementUpdateHandler');
-    
-    $this->eventManager->registerEventHandler('iblock', 'OnBeforeIBlockPropertyUpdate', 'custom.history', '\\Custom\\History\\Handlers\\ChPropertyHandler', 'onBeforeIBlockPropertyUpdateHandler');
-    $this->eventManager->registerEventHandler('iblock', 'OnAfterIBlockPropertyUpdate', 'custom.history', '\\Custom\\History\\Handlers\\ChPropertyHandler', 'onAfterIBlockPropertyUpdateHandler');
+    $this->eventManager->registerEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'custom.history', ChElementHandler::class, 'onBeforeIBlockElementUpdateHandler');
+    $this->eventManager->registerEventHandler('iblock', 'OnAfterIBlockElementUpdate', 'custom.history', ChElementHandler::class, 'onAfterIBlockElementUpdateHandler');
 
-    $this->eventManager->registerEventHandler('catalog', 'Bitrix\Catalog\Model\Product::onBeforeUpdate', ChPriceHandler::class, 'OnBeforePriceUpdate');
-    $this->eventManager->registerEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onBeforeUpdate', ChPriceHandler::class, 'OnBeforePriceUpdate');
+    // $this->eventManager->registerEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onBeforeUpdate','custom.history', ChPriceHandler::class, 'OnBeforePriceUpdateHandler');
+    // $this->eventManager->registerEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onAfterUpdate','custom.history', ChPriceHandler::class, 'OnAfterPriceUpdateHandler');
 
-    // echo '<pre>' . print_r($this->eventManager, 1) . '</pre>';
-    // die();
-
-    // $this->eventManager->registerEventHandler('catalog', 'OnBeforePriceUpdate', 'custom.history', '\\Custom\\History\\Handlers\\ChPropertyHandler', 'onAfterIBlockPropertyUpdateHandler');
-    
-    // RegisterModuleDependences('iblock', 'OnIBlockElementUpdate', 'custom_history', '\\Custom\\History\\EventHandler\\EventHadler', 'onIBlockElementUpdate');
-    // RegisterModuleDependences('catalog', 'OnBeforePriceUpdate', 'custom.history', '\\Custom\\History\\EventHandler\\EventHandler', 'OnBeforePriceUpdateHandler');
-    // RegisterModuleDependences('iblock', 'OnIBlockElementUpdate', 'custom_history', '\\Custom\\History\\EventHandler\\EventHadler', 'onIBlockElementUpdate');
+    // $this->eventManager->registerEventHandler('iblock', 'OnIBlockElementSetPropertyValues','custom.history', ChPropertyHandler::class, 'onBeforePropertyUpdateHandler');
+    // $this->eventManager->registerEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onAfterUpdate','custom.history', ChPriceHandler::class, 'OnAfterPriceUpdate');
+    // dd($this->eventManager);
 
     return true;
   }
 
   public function UnInstallEvents()
   {    
-    $this->eventManager->unRegisterEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'custom.history', '\\Custom\\History\\Handlers\\ChElementHandler', 'onBeforeIBlockElementUpdateHandler');
-    $this->eventManager->unRegisterEventHandler('iblock', 'OnAfterIBlockElementUpdate', 'custom.history', '\\Custom\\History\\Handlers\\ChElementHandler', 'onAfterIBlockElementUpdateHandler');
+    $this->eventManager->unRegisterEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'custom.history', ChElementHandler::class, 'onBeforeIBlockElementUpdateHandler');
+    $this->eventManager->unRegisterEventHandler('iblock', 'OnAfterIBlockElementUpdate', 'custom.history', ChElementHandler::class, 'onAfterIBlockElementUpdateHandler');
 
-    $this->eventManager->unRegisterEventHandler('iblock', 'OnBeforeIBlockPropertyUpdate', 'custom.history', '\\Custom\\History\\Handlers\\ChPropertyHandler', 'onBeforeIBlockPropertyUpdateHandler');
-    $this->eventManager->unRegisterEventHandler('iblock', 'OnAfterIBlockPropertyUpdate', 'custom.history', '\\Custom\\History\\Handlers\\ChPropertyHandler', 'onAfterIBlockPropertyUpdateHandler');
-    
-    $this->eventManager->unRegisterEventHandler('catalog', 'OnBeforePriceUpdate', 'custom.history', '\\Custom\\History\\Handlers\\ChPropertyHandler', 'onAfterIBlockPropertyUpdateHandler');
-    
-    // UnRegisterModuleDependences('iblock', 'OnIBlockElementUpdate', 'custom_history', '\\Custom\\History\\EventHandler\\EventHadler', 'onIBlockElementUpdate');
-    // UnRegisterModuleDependences('catalog', 'OnBeforePriceUpdate', 'custom.history', '\\Custom\\History\\EventHandler\\EventHandler', 'onBeforePriceUpdateHandler');
-    // UnRegisterModuleDependences('iblock', 'OnIBlockElementUpdate', 'custom_history', '\\Custom\\History\\EventHandler\\EventHadler', 'onIBlockElementUpdate');
+    // $this->eventManager->unRegisterEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onBeforeUpdate','custom.history', ChPriceHandler::class, 'OnBeforePriceUpdateHandler');
+    // $this->eventManager->unRegisterEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onAfterUpdate','custom.history', ChPriceHandler::class, 'OnAfterPriceUpdateHandler');
 
+    // $this->eventManager->unRegisterEventHandler('iblock', 'Bitrix\Iblock\ElementPropertyTable::onBeforeUpdate','custom.history', ChPropertyHandler::class, 'onBeforePropertyUpdateHandler');
+    // $this->eventManager->unRegisterEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onAfterUpdate','custom.history', ChPriceHandler::class, 'OnAfterPriceUpdate');
+  
     return true;
   }
 
