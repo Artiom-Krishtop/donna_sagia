@@ -8,8 +8,7 @@ use Custom\History\Handlers\ChElementHandler;
 use Custom\History\Handlers\ChPriceHandler;
 use Custom\History\Handlers\ChPropertyHandler;
 use Custom\History\ORM\HistoryTable;
-
-
+use Custom\History\Tabs\TabHistory;
 
 class custom_history extends CModule
 {
@@ -45,7 +44,7 @@ class custom_history extends CModule
 
     $this->InstallDB();
     $this->InstallEvents();
-     
+    $this->InstallFiles();
     // $APPLICATION->IncludeAdminFile(GetMessage('CHANGE_ITEM_HISTORY_INSTALL_TITLE'),$_SERVER["DOCUMENT_ROOT"]."/local/modules/change.item.history/install/step.php");
   }
   
@@ -55,6 +54,7 @@ class custom_history extends CModule
     
     $this->UnInstallDB();
     $this->UnInstallEvents();
+    $this->UnInstallFiles();
 
     ModuleManager::unRegisterModule($this->MODULE_ID);
 
@@ -84,13 +84,16 @@ class custom_history extends CModule
   public function InstallEvents()
   {
     $this->eventManager->registerEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'custom.history', ChElementHandler::class, 'onBeforeIBlockElementUpdateHandler');
-    $this->eventManager->registerEventHandler('iblock', 'OnAfterIBlockElementUpdate', 'custom.history', ChElementHandler::class, 'onAfterIBlockElementUpdateHandler');
+    // $this->eventManager->registerEventHandler('iblock', 'OnAfterIBlockElementUpdate', 'custom.history', ChElementHandler::class, 'onAfterIBlockElementUpdateHandler');
 
     // $this->eventManager->registerEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onBeforeUpdate','custom.history', ChPriceHandler::class, 'OnBeforePriceUpdateHandler');
     // $this->eventManager->registerEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onAfterUpdate','custom.history', ChPriceHandler::class, 'OnAfterPriceUpdateHandler');
 
     // $this->eventManager->registerEventHandler('iblock', 'OnIBlockElementSetPropertyValues','custom.history', ChPropertyHandler::class, 'onBeforePropertyUpdateHandler');
     // $this->eventManager->registerEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onAfterUpdate','custom.history', ChPriceHandler::class, 'OnAfterPriceUpdate');
+
+    $this->eventManager->registerEventHandler('main', 'OnAdminIBlockElementEdit', 'custom.history', TabHistory::class, 'init');
+
     // dd($this->eventManager);
 
     return true;
@@ -99,16 +102,27 @@ class custom_history extends CModule
   public function UnInstallEvents()
   {    
     $this->eventManager->unRegisterEventHandler('iblock', 'OnBeforeIBlockElementUpdate', 'custom.history', ChElementHandler::class, 'onBeforeIBlockElementUpdateHandler');
-    $this->eventManager->unRegisterEventHandler('iblock', 'OnAfterIBlockElementUpdate', 'custom.history', ChElementHandler::class, 'onAfterIBlockElementUpdateHandler');
+    // $this->eventManager->unRegisterEventHandler('iblock', 'OnAfterIBlockElementUpdate', 'custom.history', ChElementHandler::class, 'onAfterIBlockElementUpdateHandler');
 
     // $this->eventManager->unRegisterEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onBeforeUpdate','custom.history', ChPriceHandler::class, 'OnBeforePriceUpdateHandler');
     // $this->eventManager->unRegisterEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onAfterUpdate','custom.history', ChPriceHandler::class, 'OnAfterPriceUpdateHandler');
 
     // $this->eventManager->unRegisterEventHandler('iblock', 'Bitrix\Iblock\ElementPropertyTable::onBeforeUpdate','custom.history', ChPropertyHandler::class, 'onBeforePropertyUpdateHandler');
     // $this->eventManager->unRegisterEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onAfterUpdate','custom.history', ChPriceHandler::class, 'OnAfterPriceUpdate');
+
+    $this->eventManager->unRegisterEventHandler('main', 'OnAdminIBlockElementEdit', 'custom.history', TabHistory::class, 'init');
+
   
     return true;
   }
 
+  public function InstallFiles()
+  {
+    CopyDirFiles($_SERVER["DOCUMENT_ROOT"]. '/local/modules/custom.history/install/components', $_SERVER['DOCUMENT_ROOT'] . '/local/components', true, true);
+  } 
 
+  public function UnInstallFiles()
+  {
+    DeleteDirFilesEX($_SERVER['DOCUMENT_ROOT'] . '/local/components/custom/custom.history'); 
+  }
 }
