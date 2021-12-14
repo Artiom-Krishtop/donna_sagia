@@ -42,5 +42,4 @@ function dnd($print)
   echo "<pre>".print_r($print, 1). "<pre/>";
 
 }
-Loader::includeModule('custom.history');
-// EventManager::getInstance()->addEventHandler('main','OnAdminIBlockElementEdit', [new TabHistory(), 'init']);
+

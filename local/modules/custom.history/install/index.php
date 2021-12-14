@@ -92,7 +92,7 @@ class custom_history extends CModule
     // $this->eventManager->registerEventHandler('iblock', 'OnIBlockElementSetPropertyValues','custom.history', ChPropertyHandler::class, 'onBeforePropertyUpdateHandler');
     // $this->eventManager->registerEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onAfterUpdate','custom.history', ChPriceHandler::class, 'OnAfterPriceUpdate');
 
-    $this->eventManager->registerEventHandler('main', 'OnAdminIBlockElementEdit', 'custom.history', TabHistory::class, 'init');
+    $this->eventManager->registerEventHandler('main', 'OnAdminIBlockElementEdit', 'custom.history', TabHistory::class, 'OnInit');
 
     // dd($this->eventManager);
 
@@ -110,7 +110,7 @@ class custom_history extends CModule
     // $this->eventManager->unRegisterEventHandler('iblock', 'Bitrix\Iblock\ElementPropertyTable::onBeforeUpdate','custom.history', ChPropertyHandler::class, 'onBeforePropertyUpdateHandler');
     // $this->eventManager->unRegisterEventHandler('catalog', 'Bitrix\Catalog\Model\Price::onAfterUpdate','custom.history', ChPriceHandler::class, 'OnAfterPriceUpdate');
 
-    $this->eventManager->unRegisterEventHandler('main', 'OnAdminIBlockElementEdit', 'custom.history', TabHistory::class, 'init');
+    $this->eventManager->unRegisterEventHandler('main', 'OnAdminIBlockElementEdit', 'custom.history', TabHistory::class, 'OnInit');
 
   
     return true;
